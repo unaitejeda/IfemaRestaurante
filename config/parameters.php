@@ -1,4 +1,4 @@
 <?php
 
-define("url","https://localhost/mvc");
+define("url","http://localhost");
 define("action_default","index");

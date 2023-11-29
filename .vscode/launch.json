@@ -10,7 +10,7 @@
             "request": "launch",
             "type": "chrome",
             //"url": "http://localhost:80/htdocs/mvc/index.php",
-            "url": "https://localhost/mvc/",
+            "url": "http://localhost/",
             "webRoot": "${workspaceFolder}"
         },
         {

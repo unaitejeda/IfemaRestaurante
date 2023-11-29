@@ -1,0 +1,384 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* FONTS */
+@font-face {
+    font-family: "BlantickScript";
+    src: url(../fonts/BlantickScript.ttf);  
+}
+
+nav{
+    padding-top:-8px;
+    padding-bottom:-8px;
+}
+
+/*Variables CSS*/
+:root {
+    /*FONDOS*/
+    --bg-col1: white;
+    --bg-col2: rgba(242, 242, 245, 1);
+    --bg-col3: rgba(23, 23, 54, 1);
+    --bg-col4: rgba(41, 33, 82, 1);
+    --bg-col5: rgba(47, 47, 75, 1);
+    --bg-col6: rgba(227, 36, 36, 1);
+
+    /*LETRAS*/
+    --cl-Blanca: white;
+    --cl-Negra: black;
+    --cl-LilaClaro: rgba(169, 166, 185, 1);
+
+    /*BOTONES*/
+    --bb-CartaCarousel: rgba(215, 3, 3, 1);
+    --bb-CartaCarouselHover: rgba(213, 34, 34, 1);
+    --bb-Descubrenos:rgba(227, 36, 36, 1);
+
+}
+
+/*SECCIONES*/
+.section1{
+    background-color: var(--bg-col4);
+}
+
+.section2{
+    background-color: var(--bg-col2);
+}
+
+.section4{
+    background-color: var(--bg-col2);
+}
+
+
+/*CONTENEDORES*/
+.container{
+    max-width: 1190px;
+}
+
+.header1{
+    background-color: var(--bg-col3)!important;
+    height: 72px!important;
+}
+
+.collapse{
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 72px!important;
+}
+
+.slidePrincipal{
+    height: 500px;
+    background-repeat: no-repeat;
+}
+.divContenidoCarousel{
+    height: 200px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 90px;
+    padding-top: 250px;
+}
+
+
+.container1{
+    height: 123px;
+    padding-top: 40px; 
+}
+
+.container2{
+    height: 270px;
+    padding-top: 40px;
+    padding-bottom: 28px;
+}
+
+.div-botonesProductos{
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.div-botonesProductos-hover{
+    background-color: var(--bg-col3); 
+    width: 100%;
+    height: 170px;
+    border-radius: 4px;
+}
+
+.div-botonesProductos-hover:hover{
+    background-color: var(--bg-col6);
+}
+
+.divContenidoBotonesProductos1{
+    padding-left: 30px;
+    padding-right: 62px;
+    padding-top: 30px;
+}
+
+.divContenidoBotonesProductos2{
+    padding-left: 27.825px;
+    padding-top: 73px;
+}
+
+
+.dviContenidoSeccion4{
+    background-color: var(--bg-col4);
+    height: 400px;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-bottom: 40px;
+}
+
+/*P TIPO LETRAS*/
+
+.pCartaHeader{
+    font-family: 'Barlow';
+    font-weight:500;
+    color: var(--bg-col4);
+    font-size: 17px;
+    margin-left: 10px;
+    margin-top: 8px;
+}
+
+.botonCarta:hover .pCartaHeader{
+    color: var(--cl-Blanca);
+}
+
+.pCarrousel{
+    font-family: 'Barlow';
+    font-weight:400;
+    color: var(--bg-col1);
+    font-size: 20px;
+}
+
+.pSeccion1{
+    font-family: 'Barlow';
+    font-weight:400;
+    color: var(--bg-col1);
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.pSeccion2{
+    padding-top: 20px;
+    line-height: 23px;
+    font-family: 'Barlow';
+    font-weight:500;
+    color: var(--bg-col1);
+    font-size: 20px;    
+    width: 150px;
+}
+
+.pSeccion4{
+    font-family: 'Barlow';
+    font-weight:400;
+    color: var(--bg-col1);
+    font-size: 17px;
+    margin-top: 25px;
+}
+
+/*TITULOS / SUBTITULOS*/
+h1{
+    font-family:'Work Sans';
+    font-weight: 600;
+    color: var(--bg-col1);
+    font-size: 36px;
+}
+
+h2{
+    font-family:'Work Sans';
+    font-weight: 600;
+    color: var(--bg-col1);
+    font-size: 32px;
+    margin-top: 17px;   
+}
+
+.h2Seccion4{
+    font-family:'Work Sans';
+    font-weight: 600;
+    color: var(--bg-col1);
+    font-size: 32px;
+    margin-top: 0px;   
+}
+
+/*IMAGENES*/
+.imgCarta{
+    background-image:url('../../assets/images/ICONOS/HEADER/menuOF.png');
+    width: 24px;
+    height: 24px;
+    position: relative;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.botonCarta:hover .imgCarta{
+    background-image: url('../../assets/images/ICONOS/HEADER/menuOF2.png');
+    width: 24px;
+    height: 24px;
+    position: relative;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.imgCarrito{
+    background-image: url('../images/ICONOS/HEADER/carrito-de-compras1.png');
+    height: 32px;
+    width: 32px;
+}
+
+.imagenesSeccionesProductos1{
+    background-image:url('../../assets/images/ICONOS/SECCION1/prueba.png');
+    width: 44px;
+    height: 44px;
+}
+
+.div-botonesProductos-hover:hover .imagenesSeccionesProductos1{
+    background-image:url('../../assets/images/ICONOS/SECCION1/prueba2.png');
+}
+.imagenesSeccionesProductos2{
+    background-image:url('../../assets/images/ICONOS/SECCION1/plato.png');
+    width: 44px;
+    height: 44px;
+}
+.div-botonesProductos-hover:hover .imagenesSeccionesProductos2{
+    background-image:url('../../assets/images/ICONOS/SECCION1/plato2.png');
+}
+.imagenesSeccionesProductos3{
+    background-image:url('../../assets/images/ICONOS/SECCION1/zumo.png');
+    width: 44px;
+    height: 44px;
+}
+.div-botonesProductos-hover:hover .imagenesSeccionesProductos3{
+    background-image:url('../../assets/images/ICONOS/SECCION1/zumo2.png');
+}
+.imagenesSeccionesProductos4{
+    background-image:url('../../assets/images/ICONOS/SECCION1/postres.png');
+    width: 44px;
+    height: 44px;
+}
+.div-botonesProductos-hover:hover .imagenesSeccionesProductos4{
+    background-image:url('../../assets/images/ICONOS/SECCION1/postres2.png');
+}
+
+.imagenesSeccionesFlecha{
+    width: 24px;
+    height: 24px;
+}
+
+.logoifema{
+    width: 85.78px;
+    height: 65.27px;
+}
+
+
+.imgSeccion3{
+    background-image: url(../images/cocinero-de-tienda-de-alimentos.jpg);
+    height: 400px;
+    background-position: center;
+    background-size: 102% auto;
+}
+
+
+/*BOTONES*/
+
+.botonCarta{
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: var(--bg-col1);
+    margin-right: 7px;
+}
+
+.botonCarrito{
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.botonCarrito:hover{
+    background-color: var(--bg-col4);
+}
+
+.botonCarta:hover{
+    background-color: var(--bg-col6);
+}
+
+.botonCartaCarousel{
+    width: 156px;
+    height: 47px;
+    border-radius: 4px;
+    border: none;
+    background-color:  var(--bb-CartaCarousel);
+    font-family:'Barlow';
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--cl-Blanca);
+}
+
+.botonCartaCarousel:hover{
+    background-color: var(--bb-CartaCarouselHover);
+}
+
+.botonDescubrenos{
+    width: 243px;
+    height: 47px;
+    border-radius: 4px;
+    border: none;
+    background-color:  var(--bb-Descubrenos);
+    font-family:'Barlow';
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--cl-Blanca);
+    margin-top: 20px;
+}
+
+.botonDescubrenos:hover{
+    background-color:  var(--bb-Descubrenos);
+}
+
+
+
+/*FOOTER*/
+.footer {
+    background-color: var(--bg-col4);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+.social-icons {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.bi{
+    color: white;
+    width: 2em;
+    height: 2em;
+    margin: 10px;
+}
+
+.social-icons a:hover .bi{
+    color: red;
+}
+
+
+/*EXTRAS*/
+.contador{
+    color: var(--cl-Blanca);
+}
+
+
+/*Media query*/
+@media only screen and (max-width: 600px) {
+    /* body {
+      background-color: lightblue;
+    } */
+
+    h1{
+        color: var(--bg-col2);
+        width: 100%;
+    }
+}
