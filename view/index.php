@@ -118,21 +118,28 @@
 
         <!-- SECCION 3 -->
         <section class="section2">
-            <div class="container container2">
-                <div class="row">
-                    <div class="col-sm-6 col-xxl-3 div-botonesProductos ">
-                        <a href="#" style="overflow: hidden;">
-                            <div class="div-botonesProductos-hover">
-                                <div">
-                                    <img src="" alt="productos menus" class="">
+            <div class="seccionCarta">
+                <div class="container container3">
+                    <h2 class="h2ContenidoSeccion3">Lo mas exitoso del día</h2>
+                    <div class="row ">
+                        <?php foreach($allProducts as $product) {?>
+                            <article class="col-12 col-md-6 col-lg-3 producto">
+                                <div class="" style="overflow: hidden;">
+                                    <img class="imgProductos" src=<?=$product->getFoto()?>>
+                                    <div class="contenidoProductos">
+                                        <p class="nombreProducto"><?=$product->getName()?></p>
+                                        <p class="precioProducto"><?=$product->getPrecio()?> €</p>
+                                        <p class="categoriaProducto"><?=$product->getCategoria()?></p>
+                                        <form action=<?=url.'?controller=producto&action=selecciones&pagina=carta'?> method='post'>
+                                            <input type = "hidden" name="id" value=<?=$product->getId()?>>
+                                            <input type = "hidden" name="categoria" value=<?=$product->getCategoria()?>>
+                                            <button class="botonAñadir" type="sumbit" name="add">Añadir al carrito</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div></div>
-                                    <p class="pSeccion2">Menus a la carta</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                            </article>
+                        <?php }?>
+                    </div>   
                 </div>
             </div>
         </section>
@@ -142,10 +149,9 @@
             <div class="container ">
                 <div class="row">
                     <div class="col-sm-12 col-xxl-6 dviContenidoSeccion4">
-                        <img src="" alt="">
-                        <p class="pSeccion4"><i class="bi bi-twitter"></i>En IFEMA Restaurante, nuestra pasión es ofrecer experiencias culinarias excepcionales a nuestros clientes. Nuestra cocina es una mexcla de creatividad y tradición, donde los ingredientes frescos y locales son la base de cada plato que servimos! Gracias por confiar en nosotros y esmepremos ofreceles la mejro experiencia.</p>
+                        <h2 class="h2Seccion4">Descubre quienes somos en IFEMA RESTAURANTE</h2>
+                        <p class="pSeccion4">En IFEMA Restaurante, nuestra pasión es ofrecer experiencias culinarias excepcionales a nuestros clientes. Nuestra cocina es una mexcla de creatividad y tradición, donde los ingredientes frescos y locales son la base de cada plato que servimos! Gracias por confiar en nosotros y esmepremos ofreceles la mejro experiencia.</p>
                         <button class="botonDescubrenos" style="background-image: linear-gradient( rgba(230, 65, 0, 1),rgba(255, 255, 255, 0));">Descubre más de nosotros</button>
-                        
                     </div>
                     <div class="col-sm-12 col-xxl-6 imgSeccion3"></div>
                 </div>

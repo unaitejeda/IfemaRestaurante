@@ -49,4 +49,8 @@ class Pedido{
 
         return $this;
     }
+
+    public function devuelvePrecio(){
+        return $this->producto->getPrecio()*$this->cantidad;
+    }
 }

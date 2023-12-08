@@ -6,6 +6,7 @@ include_once 'model/postres.php';
 include_once 'model/bebidas.php';
 include_once 'model/productoDAO.php';
 include_once 'model/pedido.php';
+include_once 'utils/CalculadoraPrecios.php';
 
 
 class productoController{
@@ -35,7 +36,28 @@ class productoController{
         //footer
         include_once 'view/footer.php';
         // var_dump($_SESSION['selecciones']);
+        if (isset($_COOKIE['UltimoPedido'])){
+            echo 'Tu ultimo pedido fue de '. $_COOKIE['UltimoPedido'];
+            setcookie('UltimoPedido','',time()-3600);
+        }   
        
+
+
+        // $sql = "SELECT * FROM productos LIMIT 4";
+
+        // // Ejecutar la consulta
+        // $result = $conn->query($sql);
+
+        // // Verificar si hay resultados
+        // if ($result->num_rows > 0) {
+        //     // Mostrar los resultados
+        //     while ($row = $result->fetch_assoc()) {
+        //         echo "Nombre: " . $row["nombre"] . "<br>";
+        //         // Puedes mostrar otras columnas según tu estructura de base de datos
+        //     }
+        // } else {
+        //     echo "No se encontraron resultados";
+        // }
     }
 
     public function compra(){
@@ -54,10 +76,13 @@ class productoController{
                 $pedido->setCantidad($pedido->getCantidad()-1);
             }
         }
+        $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
 
         include_once 'view/cabecera.php';
         include_once 'view/panelCompra.php';
         include_once 'view/footer.php';
+
+
     }
 
 
@@ -84,34 +109,36 @@ class productoController{
         include_once 'view/footer.php';
     }
 
-    public function sel(){
+    public function selecciones(){
         //Creamos e iniciamos una session
         session_start();
 
-        if (isset($_POST['ID'])) {
-            $productoId = $_POST['ID'];
-            $encontrado = false;
+        if (isset($_POST['id'])) {
+            // $productoId = $_POST['id'];
+            // $encontrado = false;
 
-            // Recorremos los productos en el carrito para verificar si ya está presente
-            foreach ($_SESSION['selecciones'] as $pedido) {
-                if ($pedido->getProducto()->getID() == $productoId) {
-                    $encontrado = true;
-                    // Si ya está en el carrito, incrementamos la cantidad
-                    $pedido->setCantidad($pedido->getCantidad() + 1);
-                    break;
-                }
-            }
+            // // Recorremos los productos en el carrito para verificar si ya está presente
+            // foreach ($_SESSION['selecciones'] as $pedido) {
+            //     if ($pedido->getProducto()->getID() == $productoId) {
+            //         $encontrado = true;
+            //         // Si ya está en el carrito, incrementamos la cantidad
+            //         $pedido->setCantidad($pedido->getCantidad() + 1);
+            //         break;
+            //     }
+            // }
 
-            // Si no se encontró, agregamos el producto al carrito con cantidad = 1
-            if (!$encontrado) {
-                $pedido = new Pedido(ProductoDAO::getProductById($productoId));
-                $pedido->setCantidad(1);
-                array_push($_SESSION['selecciones'], $pedido);
-            }
-
+            // // Si no se encontró, agregamos el producto al carrito con cantidad = 1
+            // if (!$encontrado) {
+            //     $pedido = new Pedido(ProductoDAO::getAllProduct());
+            //     $pedido->setCantidad(1);
+            //     array_push($_SESSION['selecciones'], $pedido);
+            // }
+            $productoSel = ProductoDAO::getProductoById($_POST['id'], $_POST['categoria']);
+            $pedido = new Pedido($productoSel);
+            array_push($_SESSION['selecciones'],$pedido);
             // Redirección después de manejar la lógica del carrito
-            if (isset($_GET['pg'])) {
-                $redireccion = $_GET['pg'];
+            if (isset($_GET['pagina'])) {
+                $redireccion = $_GET['pagina'];
                 if ($redireccion == "index") {
                     header("Location:".url.'?controller=producto&action=index');
                 } else {
@@ -119,8 +146,6 @@ class productoController{
                 }
             }
         }
-
-
     }
     // public function eliminar(){
     //     echo "Producto a eliminar";
@@ -143,6 +168,19 @@ class productoController{
 
     // }
     
+
+
+    public function confirmar(){
+        // te almacena el pedido en la base de datos PedidoDAO que guarda el pedido
+
+        //borramos sesion de pedido
+        session_start();
+        unset($_SESSION['selecciones']);
+        // guardo la cookie
+        setcookie('UltimoPedido',$_POST['cantidadFinal'],time()+3600);
+        header("Location:".url.'?controller=producto');
+
+    }
 
 }
 

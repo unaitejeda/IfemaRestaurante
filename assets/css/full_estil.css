@@ -35,6 +35,7 @@ nav{
 }
 
 /*SECCIONES*/
+
 .section1{
     background-color: var(--bg-col4);
 }
@@ -47,10 +48,26 @@ nav{
     background-color: var(--bg-col2);
 }
 
+.seccionProducto{
+    background-color: var(--bg-col3);
+}
+
+.seccionCarta{
+    background-color: var(--bg-col2);
+}
+
+.seccionUbicación{
+    background-color: var(--bg-col1);
+}
+
+.SubMenu{
+    background-color: var(--bg-col2);
+}
 
 /*CONTENEDORES*/
 .container{
     max-width: 1190px;
+    padding: 0px;
 }
 
 .header1{
@@ -78,8 +95,8 @@ nav{
 
 
 .container1{
-    height: 123px;
     padding-top: 40px; 
+    padding-bottom: 40px;
 }
 
 .container2{
@@ -88,16 +105,26 @@ nav{
     padding-bottom: 28px;
 }
 
+.container3{
+    padding-top: 20px;
+}
+
+.container4 p{
+    display: inline-flex;
+}
+
 .div-botonesProductos{
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 .div-botonesProductos-hover{
     background-color: var(--bg-col3); 
-    width: 100%;
+    width: 274px;
     height: 170px;
     border-radius: 4px;
+    transition: background-color 0.3s ease-out;
+    
 }
 
 .div-botonesProductos-hover:hover{
@@ -116,12 +143,76 @@ nav{
 }
 
 
+
 .dviContenidoSeccion4{
     background-color: var(--bg-col4);
     height: 400px;
     padding-top: 40px;
     padding-left: 40px;
     padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+
+
+/*PRODUCTOS*/
+.contenidoProductos{
+    background-color: var(--bg-col1);
+    width: 274px;
+    /* height: 173px; */
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 5px;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+}
+
+.imgProductos{
+    width: 274px;
+    height: 173px;
+}
+
+.nombreProducto{
+    font-family: 'Barlow';
+    font-weight:600;
+    color: var(--cl-Negra);
+    font-size: 17px;
+    /* margin-left: 10px;
+    padding-top: 10px; */
+}
+
+.precioProducto{
+    font-family: 'Barlow';
+    font-weight:400;
+    color: var(--cl-Negra);
+    font-size: 15px;
+    /* margin-left: 10px;
+    margin-top: 8px; */
+}
+
+.categoriaProducto{
+    font-family: 'Barlow';
+    font-weight:400;
+    color: var(--cl-Negra);
+    font-size: 14px;
+    /* margin-left: 10px;
+    margin-top: 8px; */
+}
+
+.botonAñadir{
+    width: 247px;
+    height: 49px;
+    border-radius: 4px;
+    background-color: var(--cl-Negra);
+    border: none;
+    font-family: 'Barlow';
+    font-weight:600;
+    color: var(--cl-Blanca);
+    font-size: 16px;
+    transition: background-color 0.3s ease-out;
+}
+
+.botonAñadir:hover{
+    background-color: var(--bg-col4);
 }
 
 /*P TIPO LETRAS*/
@@ -172,6 +263,42 @@ nav{
     margin-top: 25px;
 }
 
+.pContador{
+    font-family:'Work Sans';
+    font-weight: 650;
+    color: var(--cl-Negra);
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+.pProductos{
+    font-family:'Work Sans';
+    font-weight: 600;
+    color: var(--cl-Negra);
+    font-size: 12px;
+    margin-top: 16px;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer 
+}
+
+.pProductos::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px; /* Ajusta esta propiedad para cambiar la posición vertical del subrayado */
+    height: 1.8px; /* Grosor del subrayado */
+    width: 100%;
+    background-color: var(--cl-Negra); /* Color del subrayado */
+    transform: scaleX(0); /* Inicialmente sin longitud */
+    transform-origin: bottom left;
+    transition: transform 0.3s ease-out;
+}
+
+.pProductos:hover::after {
+    transform: scaleX(1); /* Mostrar el subrayado al pasar el ratón */
+}
+
 /*TITULOS / SUBTITULOS*/
 h1{
     font-family:'Work Sans';
@@ -188,17 +315,34 @@ h2{
     margin-top: 17px;   
 }
 
+.h2ContenidoSeccion3{
+    color: var(--cl-Negra);
+    margin-bottom: 40px;
+    font-size: 31px;
+
+}
+
 .h2Seccion4{
-    font-family:'Work Sans';
-    font-weight: 600;
+    
     color: var(--bg-col1);
     font-size: 32px;
     margin-top: 0px;   
 }
 
+.h2SeccionProducto{
+    font-family:'Work Sans';
+    font-weight: 600;
+    color: var(--bg-col1);
+    font-size: 36px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 25px;
+    padding-bottom: 25px;   
+}
+
 /*IMAGENES*/
 .imgCarta{
-    background-image:url('../../assets/images/ICONOS/HEADER/menuOF.png');
+    background-image:url('../images/ICONOS/HEADER/menuOF.png');
     width: 24px;
     height: 24px;
     position: relative;
@@ -207,7 +351,7 @@ h2{
 }
 
 .botonCarta:hover .imgCarta{
-    background-image: url('../../assets/images/ICONOS/HEADER/menuOF2.png');
+    background-image: url('../images/ICONOS/HEADER/menuOF2.png');
     width: 24px;
     height: 24px;
     position: relative;
@@ -282,6 +426,7 @@ h2{
     border-radius: 20px;
     background-color: var(--bg-col1);
     margin-right: 7px;
+    transition: background-color 0.3s ease-out;
 }
 
 .botonCarrito{
@@ -290,6 +435,7 @@ h2{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease-out;
 
 }
 
@@ -311,6 +457,7 @@ h2{
     font-weight: 600;
     font-size: 17px;
     color: var(--cl-Blanca);
+    transition: background-color 0.3s ease-out;
 }
 
 .botonCartaCarousel:hover{
@@ -328,6 +475,7 @@ h2{
     font-size: 17px;
     color: var(--cl-Blanca);
     margin-top: 20px;
+    transition: background-color 0.3s ease-out;
 }
 
 .botonDescubrenos:hover{
@@ -335,14 +483,38 @@ h2{
 }
 
 
+.botonSubMenu {
+    display: inline-block;
+    padding: 5px 13px;
+    margin-right: 10px;
+    font-size: 17px;
+    border: none;
+    color: var(--cl-Negra);
+    border-radius:20px;
+    transition: background-color 0.3s ease-out;
+}
+
+.botonSubMenu:hover {
+    background-color: var(--cl-Negra);
+    color: var(--cl-Blanca);
+}
+
+/* .botonSubMenu.clicado {
+    background-color: #2ecc71;
+} */
+
 
 /*FOOTER*/
-.footer {
+footer{
+    margin-top: auto;
+    min-height: 100%;
+}
+
+.contenidoFooter {
     background-color: var(--bg-col4);
     color: white;
     text-align: center;
     padding: 10px;
-    margin-top: 30px;
 }
 
 .social-icons {
@@ -370,6 +542,12 @@ h2{
     color: var(--cl-Blanca);
 }
 
+.bi-caret-right-fill{
+    color: var(--cl-Negra);
+    width: 11px;
+    height: 10px;
+    margin: 4px;
+}
 
 /*Media query*/
 @media only screen and (max-width: 600px) {

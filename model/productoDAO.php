@@ -23,6 +23,24 @@ class ProductoDAO {
         //return $listaAllProductos ;
     }
 
+    // public static function getProductos4($id,$categoria) {
+    //     //Prepaaremos la consulta
+    //     $con = DataBase::connect();
+
+    //     $stmt = $con->prepare("SELECT * FROM productos WHERE id=? LIMIT 4");
+    //     $stmt->bind_param("i", $id);
+
+    //     //Ejecutamos la consulta
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
+
+    //     $con->close();
+
+    //     $producto = $result->fetch_object($categoria);
+    
+    //     return $producto;
+    // }
+
 
     public static function getAllByTipe($categoria) {
         //Prepaaremos la consulta
