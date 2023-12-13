@@ -31,7 +31,7 @@
     <!-- SUBMENU -->
     <section class="SubMenu">
         <div class="container">
-            <p class="pContador"> <span><?=count($allProducts)?></span> Productos encontrados</p>
+            <p class="pContadorCarta"> <span><?=count($allProducts)?></span> Productos encontrados</p>
             <a href=<?=url.'?controller=producto&action=carta'?>><p class="botonSubMenu">Todos los productos</p></a>
             <a href=<?=url.'?controller=producto&action=carta&categoria=Menus'?>><p class="botonSubMenu">Menús</p></a>
             <a href=<?=url.'?controller=producto&action=carta&categoria=Platos'?>><p class="botonSubMenu">Platos</p></a>
@@ -44,8 +44,8 @@
         <div class="container container3">
             <div class="row ">
                 <?php foreach($allProducts as $product) {?>
-                    <article class="col-12 col-md-6 col-lg-3 producto">
-                        <div class="" style="overflow: hidden;">
+                    <article class="col-12 col-md-6 col-lg-3">
+                        <div style="overflow: hidden;">
                             <!-- <div class="" > -->
                                 <img class="imgProductos" src=<?=$product->getFoto()?>>
                             <!-- </div> -->

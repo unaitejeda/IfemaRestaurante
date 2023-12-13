@@ -31,6 +31,7 @@ nav{
     --bb-CartaCarousel: rgba(215, 3, 3, 1);
     --bb-CartaCarouselHover: rgba(213, 34, 34, 1);
     --bb-Descubrenos:rgba(227, 36, 36, 1);
+    --bb-MasMenos:rgba(62, 55, 99, 1);
 
 }
 
@@ -62,6 +63,11 @@ nav{
 
 .SubMenu{
     background-color: var(--bg-col2);
+}
+
+.carrito{
+    background-color: var(--bg-col2);
+    margin-top: 0px;
 }
 
 /*CONTENEDORES*/
@@ -113,6 +119,12 @@ nav{
     display: inline-flex;
 }
 
+.containerCarrito{
+    margin-top: 0px;
+    /* margin-left: 152.6px; */
+    padding-left: 0px;
+}
+
 .div-botonesProductos{
     padding-left: 12px;
     padding-right: 12px;
@@ -145,11 +157,13 @@ nav{
 
 
 .dviContenidoSeccion4{
+    width: 595px;
     background-color: var(--bg-col4);
     height: 400px;
     padding-top: 40px;
-    padding-left: 40px;
     padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 10px;
     margin-bottom: 40px;
 }
 
@@ -158,12 +172,15 @@ nav{
 .contenidoProductos{
     background-color: var(--bg-col1);
     width: 274px;
-    /* height: 173px; */
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 5px;
     padding-bottom: 12px;
     margin-bottom: 24px;
+}
+
+.producto{
+    
 }
 
 .imgProductos{
@@ -199,7 +216,7 @@ nav{
 }
 
 .botonAñadir{
-    width: 247px;
+    width: 249px;
     height: 49px;
     border-radius: 4px;
     background-color: var(--cl-Negra);
@@ -263,7 +280,7 @@ nav{
     margin-top: 25px;
 }
 
-.pContador{
+.pContadorCarta{
     font-family:'Work Sans';
     font-weight: 650;
     color: var(--cl-Negra);
@@ -342,7 +359,7 @@ h2{
 
 /*IMAGENES*/
 .imgCarta{
-    background-image:url('../images/ICONOS/HEADER/menuOF.png');
+    color: var(--bg-col4);
     width: 24px;
     height: 24px;
     position: relative;
@@ -351,7 +368,7 @@ h2{
 }
 
 .botonCarta:hover .imgCarta{
-    background-image: url('../images/ICONOS/HEADER/menuOF2.png');
+    color: var(--bg-col1);
     width: 24px;
     height: 24px;
     position: relative;
@@ -413,6 +430,7 @@ h2{
 .imgSeccion3{
     background-image: url(../images/cocinero-de-tienda-de-alimentos.jpg);
     height: 400px;
+    width: 595px;
     background-position: center;
     background-size: 102% auto;
 }
@@ -499,10 +517,22 @@ h2{
     color: var(--cl-Blanca);
 }
 
-/* .botonSubMenu.clicado {
-    background-color: #2ecc71;
-} */
+/*COOKIE*/
+.contenidoCookie {
+    background-color: var(--bg-col4);
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
+.pCookie{
+    font-family:'Barlow';
+    font-weight: 400;
+    color: var(--cl-Blanca);
+    font-size: 16px;
+    margin: 0px;
+}
 
 /*FOOTER*/
 footer{
@@ -527,8 +557,8 @@ footer{
 
 .bi{
     color: white;
-    width: 2em;
-    height: 2em;
+    width: 1.7em;
+    height: 1.7em;
     margin: 10px;
 }
 
@@ -536,6 +566,190 @@ footer{
     color: red;
 }
 
+.pFooter{
+    font-family:'Barlow';
+    font-weight: 400;
+    color: var(--cl-Blanca);
+    font-size: 16px;
+    margin: 0px;
+}
+
+/*CARRITO*/
+.productosCarrito{
+    width: 850px;
+    height: 173px;
+    background-color: var(--cl-Blanca);
+    padding: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: -12px;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.pContadorCarrito{
+    font-family:'Work Sans';
+    font-weight: 650;
+    color: var(--cl-Negra);
+    font-size: 20px;
+    padding-top: 20px;
+    margin: 0px;
+}
+
+.contenidoCarrito{
+    /* display: inline-flex; */
+    justify-content: center;
+}
+
+.pMargenCarrito{
+    margin: 20px;
+}
+
+.formCarrito{
+    height: 30px;
+    margin: 30px;
+}
+
+.botonMas{
+    width: 30px;
+    height: 30px;
+    margin: 0px;
+    border: none;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-color: var(--bb-MasMenos);
+    color: var(--cl-Blanca);
+    font-weight: 800;
+}
+.botonMas:hover{
+    background-color: var(--bg-col3);
+}
+
+.botonMenos{
+    width: 30px;
+    height: 30px;
+    margin: 0px;
+    border: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: var(--bb-MasMenos);
+    color: var(--cl-Blanca);
+    font-weight: 800;
+}
+.botonMenos:hover{
+    background-color: var(--bg-col3);
+}
+
+.pCantidad{
+    width: 30px;
+    height: 30px;
+    margin: 0px;
+    background-color: var(--bb-MasMenos);
+    color: var(--cl-Blanca);
+    font-weight: 600;
+}
+
+.finalizarCompra{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background-color: var(--bg-col3);
+    color: var(--cl-Blanca);
+    padding: 10px;
+}
+
+.containerCarrito .row{
+    padding: 0px;
+    margin-left: 0px ;
+}
+
+.pCarrito{
+    font-family:'Barlow';
+}
+
+.p1Carrito{
+    font-weight: 600;
+    color: var(--cl-Negra);
+    font-size: 18px;
+}
+
+.p2Carrito{
+    color: var(--cl-Negra);
+    font-size: 15px;
+}
+
+.p3Carrito{
+    color: var(--cl-Negra);
+    font-size: 14px;
+}
+
+.p4Carrito{
+    font-weight: 600;
+    color: var(--cl-Blanca);
+    font-size: 17px;
+    margin-bottom: 30px;
+}
+
+.p5Carrito{
+    font-weight: 300;
+    color: var(--cl-Blanca);
+    font-size: 17px;
+}
+
+.botonFinalizaCompra{
+    width: 256.5px;
+    height: 47px;
+    border-radius: 4px;
+    border: none;
+    background-color:  var(--bb-CartaCarousel);
+    font-family:'Barlow';
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--cl-Blanca);
+    transition: background-color 0.3s ease-out;
+}
+
+.botonFinalizaCompra:hover{
+    background-color: var(--bb-CartaCarouselHover);
+}
+
+/*LOGIN*/
+
+
+
+.formRegistro {
+    background-color: var(--bg-col3);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.inputRegistro {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: var(--bg-col5);
+    color: var(--cl-Blanca);
+}
+
+.inputRegistro::placeholder{
+    font-family: 'Barlow';
+    color: var(--cl-Blanca);
+}
+
+.separator {
+    width: 2px;
+    background-color: var(--bg-col3);
+    height: 100%;
+    margin: auto;
+}
 
 /*EXTRAS*/
 .contador{
