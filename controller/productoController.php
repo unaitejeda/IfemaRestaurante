@@ -34,9 +34,14 @@ class productoController
         }
         $allProducts = ProductoDAO::getAllByTipe('Menus');
 
+        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
 
+            include_once 'view/cabeceraadmin.php';
+        } else {
+            include_once 'view/cabecera.php';
+
+        }
         //cabecera
-        include_once 'view/cabecera.php';
         
         //coockie
         include_once 'view/coockie.php';
@@ -136,28 +141,49 @@ class productoController
             }
         }
     }
-    // public function eliminar(){
-    //     echo "Producto a eliminar";
-    //     $id_product = $_POST["id"];
-    //     ProductoDAO::deleteProduct($id_product);
-    // }
+    public function eliminar(){
+        // echo "Producto a eliminar";
 
-    // public function edit(){
+        if(isset($_POST["id"])){
+            $id_product = $_POST["id"];
+            ProductoDAO::deleteProduct($id_product);
+        }
 
-    //     $product=ProductoDAO::getProductoById($_POST['id'], $_POST['categoria']);
+        header("Location:" . url . '?controller=producto&action=panelAdmin');
+    }
 
+    public function edit(){
 
-    //     include_once 'view/editarPedido.php';
-    // }
-    // public function editProduct(){
-    //     $id = $_POST["id"];
-    //     $nombre = $_POST["nombre"];
+        if(isset($_POST["id"])){
+            $id_product = $_POST["id"];
+            $categoria_producto = $_POST['categoria'];
+            $product=ProductoDAO::getProductoById($id_product,$categoria_producto);
+            include_once 'view/editarPedido.php';
+        }else{
+            echo 'ERROR DE ID';
+        }
 
-    //     ProductoDAO::editProductById();
+    }
+    public function editProduct(){
 
-    // }
+        if(isset($_POST['id']) && isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['categoria']) && isset($_POST['foto'])){
+            $id = $_POST["id"];
+            $nombre = $_POST["nombre"];
+            $precio = $_POST["precio"];
+            $categoria = $_POST["categoria"];
+            $foto = $_POST["foto"];
+            ProductoDAO::updateProduct($id,$nombre,$precio,$categoria,$foto);
+        }
+        header("Location:" . url . '?controller=producto&action=producto');
+    }
 
-
+    public function panelAdmin(){
+        session_start();
+        $allProducts = ProductoDAO::getAllProduct();
+        include_once 'view/cabecera.php';
+        include_once 'view/panelAdmin.php';
+        include_once 'view/footer.php';
+    }
 
     public function confirmar()
     {
@@ -178,6 +204,7 @@ class productoController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $username = $_POST["username"];
             $password = $_POST["password"];
+            // $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $con = DataBase::connect();
             $stmt = $con->prepare("SELECT * FROM usuarios WHERE username= ? AND password= ?");
             $stmt->bind_param("ss", $username, $password);
@@ -219,8 +246,8 @@ class productoController
             }
         }
 
-        include_once 'views/cabecera.php';
-        include_once 'view/login.php';
-        include_once 'views/footer.php';
+        // include_once 'views/cabecera.php';
+        // include_once 'view/login.php';
+        // include_once 'views/footer.php';
     }
 }
