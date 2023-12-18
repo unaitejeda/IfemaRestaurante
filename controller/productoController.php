@@ -4,6 +4,7 @@ include_once 'model/menus.php';
 include_once 'model/platos.php';
 include_once 'model/postres.php';
 include_once 'model/bebidas.php';
+include_once 'model/producto.php';
 include_once 'model/productoDAO.php';
 include_once 'model/pedido.php';
 include_once 'utils/CalculadoraPrecios.php';
@@ -174,7 +175,7 @@ class productoController
             $foto = $_POST["foto"];
             ProductoDAO::updateProduct($id,$nombre,$precio,$categoria,$foto);
         }
-        header("Location:" . url . '?controller=producto&action=producto');
+        header("Location:" . url . '?controller=producto&action=panelAdmin');
     }
 
     public function panelAdmin(){
@@ -249,5 +250,17 @@ class productoController
         // include_once 'views/cabecera.php';
         // include_once 'view/login.php';
         // include_once 'views/footer.php';
+    }
+
+    public function cerrar(){
+        session_start();
+        if (isset($_SESSION["username"])) {
+            unset($_SESSION["username"]);
+            session_destroy();
+            header("Location:" . url . '?controller=producto');
+        }
+        // include_once 'view/cabecera.php';
+        // include_once 'view/login.php';
+        // include_once 'view/footer.php';
     }
 }

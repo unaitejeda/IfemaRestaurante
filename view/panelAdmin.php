@@ -22,7 +22,7 @@
                                     <p class="nombreProducto"><?= $product->getName() ?></p>
                                     <p class="precioProducto"><?= $product->getPrecio() ?> €</p>
                                     <p class="categoriaProducto"><?= $product->getCategoria() ?></p>
-                                    <form action=<?= url . '?controller=producto&action=selecciones&pagina=carta' ?> method='post' style='margin-bottom: 5px;'>
+                                    <form action=<?= url . '?controller=producto&action=edit' ?> method='post' style='margin-bottom: 5px;'>
                                         <input type="hidden" name="id" value=<?= $product->getId() ?>>
                                         <input type="hidden" name="categoria" value=<?= $product->getCategoria() ?>>
                                         <button class="botonAñadir" type="sumbit" name="add">Editra Producto</button>

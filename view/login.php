@@ -22,6 +22,9 @@
 
                         <button type="submit">Registrarse</button>
                     </form>
+                    <form class="formRegistro" action='?controller=producto&action=cerrar' method='post'>
+                        <button type="submit">Cerrar Sesión</button>
+                    </form>
                 </div>
                 <div class="col-2">
                     <div class="separator"></div>

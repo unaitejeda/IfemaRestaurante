@@ -5,6 +5,7 @@ include_once 'menus.php';
 include_once 'platos.php';
 include_once 'postres.php';
 include_once 'bebidas.php';
+include_once 'producto.php';
 
 class ProductoDAO
 {
@@ -90,8 +91,8 @@ class ProductoDAO
     {
         $con = DataBase::connect();
 
-        $stmt = $con->prepare("UPDATE productos SET id=?, nombre=?, precio=?, categoria=?, foto=?");
-        $stmt->bind_param("issis", $id, $nombre, $precio, $categoria, $foto);
+        $stmt = $con->prepare("UPDATE productos SET nombre=?, precio=?, categoria=?, foto=? WHERE id=?");
+        $stmt->bind_param("sdssi",  $nombre, $precio, $categoria, $foto, $id);
 
         //Ejecutamos la consulta
         $stmt->execute();
