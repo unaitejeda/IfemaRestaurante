@@ -7,6 +7,7 @@
     src: url(../fonts/BlantickScript.ttf);  
 }
 
+
 nav{
     padding-top:-8px;
     padding-bottom:-8px;
@@ -71,6 +72,10 @@ nav{
     min-height: 500px;
 }
 
+.seccionLogin{
+    background-color: var(--bg-col2);
+}
+
 /*CONTENEDORES*/
 .container{
     max-width: 1190px;
@@ -107,9 +112,9 @@ nav{
 }
 
 .container2{
-    height: 270px;
+    /* height: 270px; */
     padding-top: 40px;
-    padding-bottom: 28px;
+    padding-bottom: 20px;
 }
 
 .container3{
@@ -133,7 +138,7 @@ nav{
 
 .div-botonesProductos-hover{
     background-color: var(--bg-col3); 
-    width: 274px;
+    /* width: 274px; */
     height: 170px;
     border-radius: 4px;
     transition: background-color 0.3s ease-out;
@@ -157,22 +162,22 @@ nav{
 
 
 
-.dviContenidoSeccion4{
-    width: 595px;
+.divContenidoSeccion4{
+    /* width: 595px; */
+    width: 100%;
     background-color: var(--bg-col4);
     height: 400px;
     padding-top: 40px;
     padding-bottom: 40px;
     padding-left: 40px;
     padding-right: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 
 /*PRODUCTOS*/
 .contenidoProductos{
     background-color: var(--bg-col1);
-    width: 274px;
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 5px;
@@ -180,12 +185,8 @@ nav{
     margin-bottom: 24px;
 }
 
-.producto{
-    
-}
-
 .imgProductos{
-    width: 274px;
+    width: 100%;
     height: 173px;
 }
 
@@ -212,12 +213,10 @@ nav{
     font-weight:400;
     color: var(--cl-Negra);
     font-size: 14px;
-    /* margin-left: 10px;
-    margin-top: 8px; */
 }
 
 .botonAñadir{
-    width: 249px;
+    width: 100%;
     height: 49px;
     border-radius: 4px;
     background-color: var(--cl-Negra);
@@ -232,6 +231,16 @@ nav{
 .botonAñadir:hover{
     background-color: var(--bg-col4);
 }
+
+.biMayor1{
+    color: red ;
+    margin-left: 10px;
+}
+
+.biMayor8{
+    color: red;
+}
+
 
 /*P TIPO LETRAS*/
 
@@ -341,7 +350,6 @@ h2{
 }
 
 .h2Seccion4{
-    
     color: var(--bg-col1);
     font-size: 32px;
     margin-top: 0px;   
@@ -431,7 +439,8 @@ h2{
 .imgSeccion3{
     background-image: url(../images/cocinero-de-tienda-de-alimentos.jpg);
     height: 400px;
-    width: 595px;
+    /* width: 595px; */
+    width: 100%;
     background-position: center;
     background-size: 102% auto;
 }
@@ -577,7 +586,7 @@ footer{
 
 /*CARRITO*/
 .productosCarrito{
-    width: 850px;
+    width: 100%;
     height: 173px;
     background-color: var(--cl-Blanca);
     padding: 0px;
@@ -586,6 +595,12 @@ footer{
     margin-left: -12px;
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
+}
+
+.imgProductosCarrito{
+    /* width: 300px; */
+    width: 35%;
+    height: 173px;
 }
 
 .pContadorCarrito{
@@ -598,7 +613,6 @@ footer{
 }
 
 .contenidoCarrito{
-    /* display: inline-flex; */
     justify-content: center;
 }
 
@@ -698,7 +712,7 @@ footer{
 }
 
 .botonFinalizaCompra{
-    width: 256.5px;
+    width: 100%;
     height: 47px;
     border-radius: 4px;
     border: none;
@@ -713,6 +727,11 @@ footer{
 .botonFinalizaCompra:hover{
     background-color: var(--bb-CartaCarouselHover);
 }
+
+.botonesCantidad{
+    width: 300px;
+}
+
 
 /*LOGIN*/
 
@@ -745,12 +764,12 @@ footer{
     color: var(--cl-Blanca);
 }
 
-.separator {
+/* .separator {
     width: 2px;
     background-color: var(--bg-col3);
     height: 100%;
     margin: auto;
-}
+} */
 
 /*EXTRAS*/
 .contador{
@@ -764,14 +783,126 @@ footer{
     margin: 4px;
 }
 
+
+
+
+/*PANEL ADMIN*/
+
+.inputCrear {
+    width: 50%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: var(--bg-col5);
+    color: var(--cl-Blanca);
+}
+
+.inputCrear::placeholder{
+    font-family: 'Barlow';
+    color: var(--cl-Blanca);
+}
+
+.botonCrear{
+    width: 50%;
+    height: 49px;
+    border-radius: 4px;
+    background-color: var(--cl-Negra);
+    border: none;
+    font-family: 'Barlow';
+    font-weight:600;
+    color: var(--cl-Blanca);
+    font-size: 16px;
+    transition: background-color 0.3s ease-out;
+    margin-bottom: 20px;
+}
+
+.botonCrear:hover{
+    background-color: var(--bg-col4);
+}
+
+
 /*Media query*/
 @media only screen and (max-width: 600px) {
     /* body {
       background-color: lightblue;
     } */
 
+    /*CARROUSEL*/
     h1{
-        color: var(--bg-col2);
         width: 100%;
+        padding-left: 10px;
+    }
+
+    .pCarrousel{
+        padding-left: 10px;
+    }
+
+    .botonCartaCarousel{
+        margin-left: 10px;
+    }
+
+    /*SECCION 2*/
+    .div-botonesProductos{
+        padding-left: 90px;
+        padding-right: 90px;
+    }
+
+    /*SECCION 3*/
+    .h2ContenidoSeccion3{
+        text-align: center;
+    }
+
+    .imgSeccion3{
+        padding-right: 0px;
+    }
+
+    /*PRODUCTOS*/
+    .h2SeccionProducto{
+        text-align: center;
+    }
+
+    .pContadorCarta{
+        padding-left: 10px;
+    }
+
+    .botonSubMenu{
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    .pProductos{
+        margin-left: 10px;
+    }
+    
+    .mx-16{
+        margin-left: 90px;
+        margin-right: 90px;
+    }
+
+    /*CARRITO*/
+    .botonesCantidad{
+        width: 0px;
+    }
+
+    .imgProductosCarrito{
+        width: 55%;
+    }
+
+    .productosCarrito{
+        margin-left: -6px;
+        margin-right: 10px;
+    }
+
+    .pContadorCarrito{
+        padding-left: 10px;
+    }
+
+    .finalizarCompra{
+        margin-right: 80px;
+        margin-left: 70px;
     }
 }

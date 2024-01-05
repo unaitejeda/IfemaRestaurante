@@ -41,8 +41,25 @@ class ProductoDAO
         $con->close();
         //Almaceno el resultado en un lista
         $listaProductos = [];
-        while ($productoBD = $result->fetch_object($categoria)) {
 
+        
+        while ($row = $result->fetch_assoc()) {
+            $productoBD = $categoria === 'Bebidas' ?
+                new Bebidas(
+                    $row['id'],
+                    $row['nombre'],
+                    $row['precio'],
+                    $row['categoria'],
+                    $row['foto'],
+                    isset($row['mayor']) ? $row['mayor'] : null
+                ) :
+                new Producto(
+                    $row['id'],
+                    $row['nombre'],
+                    $row['precio'],
+                    $row['categoria'],
+                    $row['foto']
+                );
             $listaProductos[] = $productoBD;
         }
 
@@ -64,8 +81,27 @@ class ProductoDAO
 
         $con->close();
 
-        $producto = $result->fetch_object($categoria);
-
+        
+        if($categoria == 'Bebidas'){
+            $row = $result->fetch_assoc();
+            $producto = new Bebidas(
+                $row['id'],
+                $row['nombre'],
+                $row['precio'],
+                $row['categoria'],
+                $row['foto'],
+                isset($row['mayor']) ? $row['mayor'] : null
+            ); 
+        }else{
+            $row = $result->fetch_assoc();  
+            $producto = new Producto(
+                $row['id'],
+                $row['nombre'],
+                $row['precio'],
+                $row['categoria'],
+                $row['foto']
+            );
+        }
         return $producto;
     }
 
@@ -99,6 +135,30 @@ class ProductoDAO
         $result = $stmt->get_result();
 
         // $con->close();
+        return $result;
+    }
+
+    public static function crearProducto($nombre, $precio, $categoria, $foto)
+    {
+        $con = DataBase::connect();
+
+        // Prepare the INSERT statement
+        $stmt = $con->prepare("INSERT INTO productos (nombre, precio, categoria, foto) VALUES (?, ?, ?, ?)");
+
+        // Bind the parameters
+        $stmt->bind_param("sdss", $nombre, $precio, $categoria, $foto);
+
+        // Execute the INSERT statement
+        if (!$stmt->execute()) {
+            return "Producto no añadido en la base de datos";
+        }
+        // Get the result
+        $result = $stmt->get_result();
+
+        // Close the connection
+        $con->close();
+
+        // Return the result
         return $result;
     }
 }

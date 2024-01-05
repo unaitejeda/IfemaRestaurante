@@ -40,13 +40,12 @@ class productoController
             include_once 'view/cabeceraadmin.php';
         } else {
             include_once 'view/cabecera.php';
-
         }
         //cabecera
-        
+
         //coockie
         include_once 'view/coockie.php';
-         
+
         //panel
         include_once 'view/index.php';
 
@@ -109,25 +108,6 @@ class productoController
         session_start();
 
         if (isset($_POST['id'])) {
-            // $productoId = $_POST['id'];
-            // $encontrado = false;
-
-            // // Recorremos los productos en el carrito para verificar si ya está presente
-            // foreach ($_SESSION['selecciones'] as $pedido) {
-            //     if ($pedido->getProducto()->getID() == $productoId) {
-            //         $encontrado = true;
-            //         // Si ya está en el carrito, incrementamos la cantidad
-            //         $pedido->setCantidad($pedido->getCantidad() + 1);
-            //         break;
-            //     }
-            // }
-
-            // // Si no se encontró, agregamos el producto al carrito con cantidad = 1
-            // if (!$encontrado) {
-            //     $pedido = new Pedido(ProductoDAO::getAllProduct());
-            //     $pedido->setCantidad(1);
-            //     array_push($_SESSION['selecciones'], $pedido);
-            // }
             $productoSel = ProductoDAO::getProductoById($_POST['id'], $_POST['categoria']);
             $pedido = new Pedido($productoSel);
             array_push($_SESSION['selecciones'], $pedido);
@@ -142,10 +122,11 @@ class productoController
             }
         }
     }
-    public function eliminar(){
+    public function eliminar()
+    {
         // echo "Producto a eliminar";
 
-        if(isset($_POST["id"])){
+        if (isset($_POST["id"])) {
             $id_product = $_POST["id"];
             ProductoDAO::deleteProduct($id_product);
         }
@@ -153,32 +134,72 @@ class productoController
         header("Location:" . url . '?controller=producto&action=panelAdmin');
     }
 
-    public function edit(){
-
-        if(isset($_POST["id"])){
+    public function edit()
+    {
+        session_start();
+        if (isset($_POST["id"])) {
             $id_product = $_POST["id"];
             $categoria_producto = $_POST['categoria'];
-            $product=ProductoDAO::getProductoById($id_product,$categoria_producto);
+            $product = ProductoDAO::getProductoById($id_product, $categoria_producto);
+            include_once 'view/cabecera.php';
             include_once 'view/editarPedido.php';
-        }else{
+            include_once 'view/footer.php';
+        } else {
             echo 'ERROR DE ID';
         }
-
     }
-    public function editProduct(){
+    public function editProduct()
+    {
 
-        if(isset($_POST['id']) && isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['categoria']) && isset($_POST['foto'])){
+        $uploads_dir = "";
+        $name = "";
+        if (isset($_FILES["foto"])) {
+            $tmp_name = $_FILES["foto"]["tmp_name"];
+
+            $uploads_dir = "assets/images/PPRODUCTOS";
+            $name = "producto_" . $_POST["id"] . ".jpg";
+            move_uploaded_file($tmp_name, "$uploads_dir/$name");
+        }
+
+        if (isset($_POST['id']) && isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['categoria']) && isset($_FILES['foto'])) {
             $id = $_POST["id"];
             $nombre = $_POST["nombre"];
             $precio = $_POST["precio"];
             $categoria = $_POST["categoria"];
-            $foto = $_POST["foto"];
-            ProductoDAO::updateProduct($id,$nombre,$precio,$categoria,$foto);
+            $foto = $uploads_dir . "/" . $name;
+            ProductoDAO::updateProduct($id, $nombre, $precio, $categoria, $foto);
         }
+
+
         header("Location:" . url . '?controller=producto&action=panelAdmin');
     }
 
-    public function panelAdmin(){
+    public function crear()
+    {
+        $uploads_dir = "";
+        $name = "";
+        if (isset($_FILES["foto"])) {
+            $tmp_name = $_FILES["foto"]["tmp_name"];
+
+            $uploads_dir = "assets/images/PPRODUCTOS";
+            $name = "producto_" . $_POST["id"] . ".jpg";
+            move_uploaded_file($tmp_name, "$uploads_dir/$name");
+        }
+        
+        if (isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['categoria']) && isset($_FILES['foto'])) {
+            $nombre = $_POST['nombre'];
+            $precio = $_POST['precio'];
+            $categoria = $_POST['categoria'];
+            $foto = $uploads_dir . "/" . $name;
+            $resultado = ProductoDAO::crearProducto($nombre, $precio, $categoria, $foto);
+
+            header("Location:" . url . '?controller=producto&action=panelAdmin');
+        }
+    }
+
+
+    public function panelAdmin()
+    {
         session_start();
         $allProducts = ProductoDAO::getAllProduct();
         include_once 'view/cabecera.php';
@@ -252,7 +273,8 @@ class productoController
         // include_once 'views/footer.php';
     }
 
-    public function cerrar(){
+    public function cerrar()
+    {
         session_start();
         if (isset($_SESSION["username"])) {
             unset($_SESSION["username"]);

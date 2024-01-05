@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poryecto IfemaRestaurante</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/full_estil.css">
 </head>
 <body>
     <section class="seccionUbicación">
@@ -31,21 +29,20 @@
     <section class="carrito">
         <div class="container containerCarrito">
             <div class="row">
-                <div class="col-9">
+                <div class="col-12 col-md-10 col-lg-9">
                     <?php
                         $pos = 0;
                         foreach($_SESSION['selecciones'] as $pedido){
                     ?>
                     <article class="productosCarrito d-flex">
-                        <img class="imgProductos" src=<?=$pedido->getProducto()->getFoto()?>>
+                        <img class="imgProductosCarrito" alt="productos" src=<?=$pedido->getProducto()->getFoto()?>>
                         <div class="contenidoCarrito"  style="width: 300px">
                             <p class="pMargenCarrito p1Carrito pCarrito"><?=$pedido->getProducto()->getName()?></p>
                             <p class="pMargenCarrito p2Carrito pCarrito"><?=$pedido->getProducto()->getPrecio()?> €</p>
                             <p class="pMargenCarrito p3Carrito pCarrito"><?=$pedido->getProducto()->getCategoria()?></p>
-                            
                         </div>
-                        <div class="d-flex align-items-center justify-content-end" style="width: 300px">
-                            <form class="pCarrito formCarrito " action=<?=url.'?controller=producto&action=compra'?> method='post' style="display: inline-flex;">
+                        <div class="d-flex align-items-center justify-content-end botonesCantidad">
+                            <form class="pCarrito formCarrito " action=<?=url.'?controller=producto&action=compra'?> method='post' style="display: inline-flex; ">
                                 <button class="botonMas" type="submit" name='Add' value=<?=$pos?>> + </button>
                                 <p class="text-center pCantidad"><?=$pedido->getCantidad()?></p>
                                 <button class="botonMenos" type="submit" name='Del' value=<?=$pos?>> - </button>
@@ -56,7 +53,7 @@
                         $pos++;
                     }?>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-md-2 col-lg-3">
                     <article class="finalizarCompra">
                         <p class="pCarrito p4Carrito">PRODUCTOS</p>
                         <?php

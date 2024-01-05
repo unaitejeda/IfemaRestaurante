@@ -6,8 +6,6 @@
     <meta charset="UTF-8">
     <meta name="title" content="Ifema Restaurante">
     <meta name="description" content="Pagina Web del restaurante de IFEMA">
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/full_estil.css" rel="stylesheet" type="text/css" media="screen">
 </head>
 
 <body>
@@ -20,35 +18,35 @@
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="2000">
+                <div class="carousel-item active" data-bs-interval="3000">
                     <div class="slidePrincipal" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(41, 33, 82, 1)) ,url(assets/images/3007283.jpg);">
                         <div class="container divContenidoCarousel">
                             <h1>IFEMA RESTAURANTE</h1>
                             <p class="pCarrousel">¿Qué te apetece comer hoy?</p>
-                            <a href=<?= url . '?controller=producto&action=carta' ?>>
+                            <a href="<?= url . '?controller=producto&action=carta' ?>">
                                 <button class="botonCartaCarousel" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(230, 65, 0, 1));">Carta</button>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item active" data-bs-interval="2000">
+                <div class="carousel-item active" data-bs-interval="3000">
                     <div class="slidePrincipal" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(41, 33, 82, 1)) ,url(assets/images/pasteles.jpg);">
                         <div class="container divContenidoCarousel">
                             <h1>IFEMA RESTAURANTE</h1>
-                            <p class="pCarrousel">¿Qué te apetece comer hoy?</p>
-                            <a href=<?= url . '?controller=producto&action=carta' ?>>
-                                <button class="botonCartaCarousel" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(230, 65, 0, 1));">Carta</button>
+                            <p class="pCarrousel">Te gusta el dulce? Por que a nosotros si</p>
+                            <a href="<?= url . '?controller=producto&action=carta&categoria=Postres' ?>">
+                                <button class="botonCartaCarousel" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(230, 65, 0, 1));">Postres</button>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item active" data-bs-interval="2000">
+                <div class="carousel-item active" data-bs-interval="3000">
                     <div class="slidePrincipal" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(41, 33, 82, 1)) ,url(assets/images/fotografia-gastronomica-1.jpg);">
                         <div class="container divContenidoCarousel">
                             <h1>IFEMA RESTAURANTE</h1>
-                            <p class="pCarrousel">¿Qué te apetece comer hoy?</p>
-                            <a href=<?= url . '?controller=producto&action=carta' ?>>
-                                <button class="botonCartaCarousel" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(230, 65, 0, 1));">Carta</button>
+                            <p class="pCarrousel">Únete a nuestra família</p>
+                            <a href="<?= url . '?controller=producto&action=login' ?>">
+                                <button class="botonCartaCarousel" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(230, 65, 0, 1));">Login</button>
                             </a>
                         </div>
                     </div>
@@ -69,60 +67,56 @@
             <div class="container container2">
                 <div class="row">
                     <div class="col-sm-6 col-xxl-3 div-botonesProductos ">
-                        <a href=<?= url . '?controller=producto&action=carta&categoria=Menus' ?> style="overflow: hidden;">
-                            <div class="div-botonesProductos-hover">
+                        <a href="<?= url . '?controller=producto&action=carta&categoria=Menus' ?>" style="overflow: hidden;">
+                            <div class="mb-4 mb-lg-0  mx-2 mx-lg-0 div-botonesProductos-hover">
                                 <div class="divContenidoBotonesProductos1" style="float: left; width: 70%;">
                                     <div class="imagenesSeccionesProductos1"></div>
-                                    <!-- <img src="assets/images/ICONOS/SECCION 1/menu.png" alt="productos menus" class="imagenesSeccionesProductos1"> -->
                                     <p class="pSeccion2">Menus a la carta</p>
                                 </div>
                                 <div class="divContenidoBotonesProductos2" style="float: right; width: 30%;">
-                                    <img src="assets/images/ICONOS/SECCION1/flecha-correcta.png" alt="productos menus" class="imagenesSeccionesFlecha">
+                                    <img src="assets/images/ICONOS/SECCION1/flecha-correcta.png" alt="productosMenus" class="imagenesSeccionesFlecha">
                                 </div>
                             </div>
                         </a>
                     </div>
 
                     <div class="col-sm-6 col-xxl-3 div-botonesProductos">
-                        <a href=<?= url . '?controller=producto&action=carta&categoria=Platos' ?> style="overflow: hidden;">
-                            <div class="div-botonesProductos-hover">
+                        <a href="<?= url . '?controller=producto&action=carta&categoria=Platos' ?>" style="overflow: hidden;">
+                            <div class="mb-4 mb-lg-0  mx-2 mx-lg-0 div-botonesProductos-hover">
                                 <div class="divContenidoBotonesProductos1" style="float: left; width: 70%;">
                                     <div class="imagenesSeccionesProductos2"></div>
-                                    <!-- <img src="assets/images/ICONOS/SECCION 1/feijoada.png" alt="productos menus" class="imagenesSeccionesProductos2"> -->
                                     <p class="pSeccion2">Platos únicos a escoger</p>
                                 </div>
                                 <div class="divContenidoBotonesProductos2" style="float: right; width: 30%;">
-                                    <img src="assets/images/ICONOS/SECCION1/flecha-correcta.png" alt="productos menus" class="imagenesSeccionesFlecha">
+                                    <img src="assets/images/ICONOS/SECCION1/flecha-correcta.png" alt="productosPlatos" class="imagenesSeccionesFlecha">
                                 </div>
                             </div>
                         </a>
                     </div>
 
                     <div class="col-sm-6 col-xxl-3 div-botonesProductos">
-                        <a href=<?= url . '?controller=producto&action=carta&categoria=Bebidas' ?> style="overflow: hidden;">
-                            <div class="div-botonesProductos-hover">
+                        <a href="<?= url . '?controller=producto&action=carta&categoria=Bebidas' ?>" style="overflow: hidden;">
+                            <div class="mb-4 mb-lg-0  mx-2 mx-lg-0 div-botonesProductos-hover">
                                 <div class="divContenidoBotonesProductos1" style="float: left; width: 70%;">
                                     <div class="imagenesSeccionesProductos3"></div>
-                                    <!-- <img src="assets/images/ICONOS/SECCION 1/jugo.png" alt="productos menus" class="imagenesSeccionesProductos3"> -->
                                     <p class="pSeccion2">Bebidas de todo tipo</p>
                                 </div>
                                 <div class="divContenidoBotonesProductos2" style="float: right; width: 30%;">
-                                    <img src="assets/images/ICONOS/SECCION1/flecha-correcta.png" alt="productos menus" class="imagenesSeccionesFlecha">
+                                    <img src="assets/images/ICONOS/SECCION1/flecha-correcta.png" alt="productosBebidas" class="imagenesSeccionesFlecha">
                                 </div>
                             </div>
                         </a>
                     </div>
 
                     <div class="col-sm-6 col-xxl-3 div-botonesProductos">
-                        <a href=<?= url . '?controller=producto&action=carta&categoria=Postres' ?> style="overflow: hidden;">
-                            <div class="div-botonesProductos-hover">
+                        <a href="<?= url . '?controller=producto&action=carta&categoria=Postres' ?>" style="overflow: hidden;">
+                            <div class="mb-4 mb-lg-0  mx-2 mx-lg-0 div-botonesProductos-hover">
                                 <div class="divContenidoBotonesProductos1" style="float: left; width: 70%;">
                                     <div class="imagenesSeccionesProductos4"></div>
-                                    <!-- <img src="assets/images/ICONOS/SECCION 1/pastel.png" alt="productos menus" class="imagenesSeccionesProductos4"> -->
                                     <p class="pSeccion2">Postres a tu gusto</p>
                                 </div>
                                 <div class="divContenidoBotonesProductos2" style="float: right; width: 30%;">
-                                    <img src="assets/images/ICONOS/SECCION1/flecha-correcta.png" alt="productos menus" class="imagenesSeccionesFlecha">
+                                    <img src="assets/images/ICONOS/SECCION1/flecha-correcta.png" alt="productosPostres" class="imagenesSeccionesFlecha">
                                 </div>
                             </div>
                         </a>
@@ -139,8 +133,8 @@
                     <div class="row ">
                         <?php foreach ($allProducts as $product) { ?>
                             <article class="col-12 col-md-6 col-lg-3 ">
-                                <div class="producto" style="overflow: hidden;">
-                                    <img class="imgProductos" src=<?= $product->getFoto() ?>>
+                                <div class="mx-16 mb-12 mb-lg-0 mx-6 mx-lg-0" style="overflow: hidden;">
+                                    <img class="imgProductos" src=<?= $product->getFoto() ?> alt="Producto">
                                     <div class="contenidoProductos">
                                         <p class="nombreProducto"><?= $product->getName() ?></p>
                                         <p class="precioProducto"><?= $product->getPrecio() ?> €</p>
@@ -161,16 +155,16 @@
 
         <!-- SECCION 4 -->
         <section class="section4">
-            <div class="container ">
+            <div class="container">
                 <div class="row">
-                    <div class="col-sm-12 col-xxl-6">
-                        <div class="dviContenidoSeccion4">
+                    <div class=" col-xxl-6" style="padding-right:0px;  ">
+                        <div class="divContenidoSeccion4" >
                             <h2 class="h2Seccion4">Descubre quienes somos en IFEMA RESTAURANTE</h2>
                             <p class="pSeccion4">En IFEMA Restaurante, nuestra pasión es ofrecer experiencias culinarias excepcionales a nuestros clientes. Nuestra cocina es una mexcla de creatividad y tradición, donde los ingredientes frescos y locales son la base de cada plato que servimos! Gracias por confiar en nosotros y esmepremos ofreceles la mejro experiencia.</p>
                             <button class="botonDescubrenos" style="background-image: linear-gradient( rgba(230, 65, 0, 1),rgba(255, 255, 255, 0));">Descubre más de nosotros</button>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-xxl-6" style="padding-left: 0px;">
+                    <div class="col-sm-12 col-xxl-6" style="padding-left: 0px; ">
                         <div class="imgSeccion3"></div>
                     </div>
                 </div>
