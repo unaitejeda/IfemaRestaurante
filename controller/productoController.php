@@ -72,7 +72,12 @@ class productoController
         }
         $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
 
-        include_once 'view/cabecera.php';
+        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+
+            include_once 'view/cabeceraadmin.php';
+        } else {
+            include_once 'view/cabecera.php';
+        }
         include_once 'view/panelCompra.php';
         include_once 'view/footer.php';
     }
@@ -97,7 +102,12 @@ class productoController
             }
         }
 
-        include_once 'view/cabecera.php';
+        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+
+            include_once 'view/cabeceraadmin.php';
+        } else {
+            include_once 'view/cabecera.php';
+        }
         include_once 'view/panelPedido.php';
         include_once 'view/footer.php';
     }
@@ -141,7 +151,12 @@ class productoController
             $id_product = $_POST["id"];
             $categoria_producto = $_POST['categoria'];
             $product = ProductoDAO::getProductoById($id_product, $categoria_producto);
-            include_once 'view/cabecera.php';
+            if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+
+                include_once 'view/cabeceraadmin.php';
+            } else {
+                include_once 'view/cabecera.php';
+            }
             include_once 'view/editarPedido.php';
             include_once 'view/footer.php';
         } else {
@@ -202,16 +217,18 @@ class productoController
     {
         session_start();
         $allProducts = ProductoDAO::getAllProduct();
-        include_once 'view/cabecera.php';
+        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+
+            include_once 'view/cabeceraadmin.php';
+        } else {
+            include_once 'view/cabecera.php';
+        }
         include_once 'view/panelAdmin.php';
         include_once 'view/footer.php';
     }
 
     public function confirmar()
     {
-        // te almacena el pedido en la base de datos PedidoDAO que guarda el pedido
-
-        //borramos sesion de pedido
         session_start();
         unset($_SESSION['selecciones']);
         // guardo la cookie
@@ -242,7 +259,12 @@ class productoController
                 return false;
             }
         }
-        include_once 'view/cabecera.php';
+        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+
+            include_once 'view/cabeceraadmin.php';
+        } else {
+            include_once 'view/cabecera.php';
+        }
         include_once 'view/login.php';
         include_once 'view/footer.php';
     }
@@ -267,10 +289,6 @@ class productoController
                 echo "Por favor, completa todos los campos requeridos.";
             }
         }
-
-        // include_once 'views/cabecera.php';
-        // include_once 'view/login.php';
-        // include_once 'views/footer.php';
     }
 
     public function cerrar()
@@ -281,8 +299,5 @@ class productoController
             session_destroy();
             header("Location:" . url . '?controller=producto');
         }
-        // include_once 'view/cabecera.php';
-        // include_once 'view/login.php';
-        // include_once 'view/footer.php';
     }
 }

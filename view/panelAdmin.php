@@ -26,7 +26,7 @@
     <section class="section2">
         <div class="seccionCarta">
             <div class="container container3">
-                <h2 class="h2ContenidoSeccion3">Panel Administrador</h2>
+                <h2 class="h2PanelAdmin">Panel Administrador</h2>
                 <div class="row ">
                     <?php foreach ($allProducts as $product) { ?>
                         <article class="col-12 col-md-6 col-lg-3">
@@ -51,6 +51,7 @@
                         </article>
                     <?php } ?>
                 </div>
+                <h2 class="h2PanelAdmin text-center">Crear Nuevo Producto</h2>
                 <div class="row">
                     <article class="col-12">
                         <div class="text-center">

@@ -31,7 +31,7 @@
     <section class="section2">
         <div class="seccionCarta">
             <div class="container container3">
-                <h2 class="h2ContenidoSeccion3">Panel Administrador</h2>
+                <h2 class="h2PanelAdmin text-center">Editar Producto</h2>
                 <div class="row">
                     <article class="col-12">
                         <div class="text-center">

@@ -48,6 +48,7 @@ nav{
 
 .section4{
     background-color: var(--bg-col2);
+    padding-bottom: 20px;
 }
 
 .seccionProducto{
@@ -56,6 +57,7 @@ nav{
 
 .seccionCarta{
     background-color: var(--bg-col2);
+    min-height: 550px;
 }
 
 .seccionUbicación{
@@ -163,15 +165,13 @@ nav{
 
 
 .divContenidoSeccion4{
-    /* width: 595px; */
-    width: 100%;
+    /* width: 100%; */
     background-color: var(--bg-col4);
     height: 400px;
     padding-top: 40px;
     padding-bottom: 40px;
     padding-left: 40px;
     padding-right: 10px;
-    margin-bottom: 30px;
 }
 
 
@@ -440,7 +440,7 @@ h2{
     background-image: url(../images/cocinero-de-tienda-de-alimentos.jpg);
     height: 400px;
     /* width: 595px; */
-    width: 100%;
+    /* width: 100%; */
     background-position: center;
     background-size: 102% auto;
 }
@@ -822,6 +822,12 @@ footer{
     background-color: var(--bg-col4);
 }
 
+.h2PanelAdmin{
+    color: var(--cl-Negra);
+    margin-bottom: 40px;
+    font-size: 31px;
+
+}
 
 /*Media query*/
 @media only screen and (max-width: 600px) {
