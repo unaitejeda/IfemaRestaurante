@@ -1,5 +1,5 @@
 <?php
-//Creamos el controlador de pedidos
+//Creamos el controlador de la web
 include_once 'model/menus.php';
 include_once 'model/platos.php';
 include_once 'model/postres.php';
@@ -9,13 +9,14 @@ include_once 'model/productoDAO.php';
 include_once 'model/pedido.php';
 include_once 'utils/CalculadoraPrecios.php';
 
-
+// Definimos el controlador del producto
 class productoController
 {
 
+    // Función principal para la página de inicio
     public function index()
     {
-        // inicializamos el array de sesiones
+        // Inicializamos el array de sesiones
         session_start();
 
         if (!isset($_SESSION['selecciones'])) {
@@ -26,8 +27,9 @@ class productoController
                 array_push($_SESSION['selecciones'], $productoSel);
             }
         }
-        //Llamo al modelo para obtener los datos
+        // Obtenemos todos los productos seleccionados
 
+        //Llamo al modelo para obtener los datos
         if (isset($_COOKIE['UltimoPedido'])) {
             $msg_cookie = 'Tu ultimo pedido fue de ' . $_COOKIE['UltimoPedido'] . '€';
         } else {
@@ -35,13 +37,14 @@ class productoController
         }
         $allProducts = ProductoDAO::getAllByTipe('Menus');
 
+        // Ponemos la cabecera según el tipo de usuario
+        //cabecera
         if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
 
             include_once 'view/cabeceraadmin.php';
         } else {
             include_once 'view/cabecera.php';
         }
-        //cabecera
 
         //coockie
         include_once 'view/coockie.php';
@@ -53,10 +56,14 @@ class productoController
         include_once 'view/footer.php';
     }
 
+    // Función para gestionar la compra (añadir o quitar productos)
     public function compra()
     {
         session_start();
-
+        // Actualizamos la cantidad de productos en la selección
+        // Calculamos el precio total de la selección
+        // Incluimos la cabecera según el tipo de usuario
+        // Incluimos la vista del panel de compra y el footer
         if (isset($_POST['Add'])) {
             $pedido = $_SESSION['selecciones'][$_POST['Add']];
             $pedido->setCantidad($pedido->getCantidad() + 1);
@@ -82,10 +89,13 @@ class productoController
         include_once 'view/footer.php';
     }
 
-
+    // Función para mostrar la carta de productos
     public function carta()
     {
-
+        // Obtenemos la categoría de productos o todos los productos
+        // Obtenemos los productos según la categoría
+        // Ponemos la cabecera según el tipo de usuario
+        // Ponemos la vista del panel de pedido y el footer
         session_start();
 
         if (!isset($_GET['categoria'])) {
@@ -112,11 +122,12 @@ class productoController
         include_once 'view/footer.php';
     }
 
+    // Función para agregar productos a la selección
     public function selecciones()
     {
         //Creamos e iniciamos una session
         session_start();
-
+        // Añadimos un producto a la selección y redirecciona a la página adecuada
         if (isset($_POST['id'])) {
             $productoSel = ProductoDAO::getProductoById($_POST['id'], $_POST['categoria']);
             $pedido = new Pedido($productoSel);
@@ -132,10 +143,11 @@ class productoController
             }
         }
     }
+
+    // Función para eliminar un producto (solo para el admin)
     public function eliminar()
     {
-        // echo "Producto a eliminar";
-
+        // Elimina un producto según su ID y redirecciona al panel de admin
         if (isset($_POST["id"])) {
             $id_product = $_POST["id"];
             ProductoDAO::deleteProduct($id_product);
@@ -144,9 +156,12 @@ class productoController
         header("Location:" . url . '?controller=producto&action=panelAdmin');
     }
 
+    // Función para editar un producto (solo para admin)
     public function edit()
     {
         session_start();
+
+        // Obtenemos y mostramos la vista de edición de un producto
         if (isset($_POST["id"])) {
             $id_product = $_POST["id"];
             $categoria_producto = $_POST['categoria'];
@@ -163,9 +178,11 @@ class productoController
             echo 'ERROR DE ID';
         }
     }
+
+    // Función para aplicar cambios en la edición de un producto (solo para admin)
     public function editProduct()
     {
-
+        // Actualiza la información del producto editado y redirecciona al panel de admin
         $uploads_dir = "";
         $name = "";
         if (isset($_FILES["foto"])) {
@@ -189,8 +206,10 @@ class productoController
         header("Location:" . url . '?controller=producto&action=panelAdmin');
     }
 
+    // Función para crear un nuevo producto (solo para admin)
     public function crear()
     {
+        // Creamos un nuevo producto y redirecciona al panel de admin
         $uploads_dir = "";
         $name = "";
         if (isset($_FILES["foto"])) {
@@ -200,7 +219,7 @@ class productoController
             $name = "producto_" . $_POST["id"] . ".jpg";
             move_uploaded_file($tmp_name, "$uploads_dir/$name");
         }
-        
+
         if (isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['categoria']) && isset($_FILES['foto'])) {
             $nombre = $_POST['nombre'];
             $precio = $_POST['precio'];
@@ -212,10 +231,12 @@ class productoController
         }
     }
 
-
+    // Función para mostrar el panel de administración (solo para admin)
     public function panelAdmin()
     {
         session_start();
+
+        // Obtenemos todos los productos y mostramos el panel de admin
         $allProducts = ProductoDAO::getAllProduct();
         if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
 
@@ -227,8 +248,11 @@ class productoController
         include_once 'view/footer.php';
     }
 
+    // Función para confirmar y finalizar la compra
     public function confirmar()
     {
+        // Limpia la selección de productos y guarda el último pedido en una cookie
+        // Redireccionamos a la página principal
         session_start();
         unset($_SESSION['selecciones']);
         // guardo la cookie
@@ -236,10 +260,13 @@ class productoController
         header("Location:" . url . '?controller=producto');
     }
 
-
+    // Función para manejar el inicio de sesión
     public function login()
     {
         session_start();
+
+        // Verificamos las credenciales de inicio de sesión
+        // Mostramos la vista de inicio de sesión
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $username = $_POST["username"];
             $password = $_POST["password"];
@@ -269,6 +296,7 @@ class productoController
         include_once 'view/footer.php';
     }
 
+    // Función para registrar un nuevo usuario
     public function register()
     {
         session_start();
@@ -281,7 +309,7 @@ class productoController
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $telefono = $_POST["telefono"];
             $con = DataBase::connect();
-
+        // Registra un nuevo usuario y redirecciona al inicio de sesión
             if (!empty($_POST["nombre"]) && !empty($_POST["apellido"]) && !empty($_POST["username"]) && !empty($_POST["mail"]) && !empty($_POST["password"]) && !empty($_POST["telefono"])) {
                 $con->query("INSERT INTO usuarios ( nombre, apellido, username, mail, password, telefono) VALUES ('$nombre', '$apellido', '$username', '$mail', '$password', '$telefono')");
                 header("Location:" . url . '?controller=producto&action=login');
@@ -291,9 +319,12 @@ class productoController
         }
     }
 
+    // Función para cerrar sesión
     public function cerrar()
     {
         session_start();
+
+        // Cerramos la sesión y redirecciona a la página principal
         if (isset($_SESSION["username"])) {
             unset($_SESSION["username"]);
             session_destroy();

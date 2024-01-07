@@ -1,5 +1,5 @@
 <?php
-
+// Incluimos archivos necesarios
 include_once 'config/db.php';
 include_once 'menus.php';
 include_once 'platos.php';
@@ -7,16 +7,16 @@ include_once 'postres.php';
 include_once 'bebidas.php';
 include_once 'producto.php';
 
+// Clase que maneja la interacción con la base de datos para los productos
 class ProductoDAO
 {
+    // Obtenemos todos los productos de todas las categorías
     public static function getAllProduct()
     {
-        //Prepaaremos la consulta
-
 
         $listaAllProductos = [];
-        //Obtengo la lista de mis dos clases
 
+        // Obtenemos productos de cada categoría y los combinamos en una lista única
         $listaAllProductos[] = ProductoDAO::getAllByTipe('Menus');
         $listaAllProductos[] = ProductoDAO::getAllByTipe('Platos');
         $listaAllProductos[] = ProductoDAO::getAllByTipe('Postres');
@@ -25,10 +25,9 @@ class ProductoDAO
         return $listaProductos;
     }
 
-
+    // Obtenemos todos los productos de una categoría específica
     public static function getAllByTipe($categoria)
     {
-        //Prepaaremos la consulta
         $con = DataBase::connect();
 
         $stmt = $con->prepare("SELECT * FROM productos WHERE categoria=?");
@@ -39,10 +38,9 @@ class ProductoDAO
         $result = $stmt->get_result();
 
         $con->close();
-        //Almaceno el resultado en un lista
         $listaProductos = [];
 
-        
+        // Recorremos los resultados y creamos objetos de producto según la categoría
         while ($row = $result->fetch_assoc()) {
             $productoBD = $categoria === 'Bebidas' ?
                 new Bebidas(
@@ -67,9 +65,9 @@ class ProductoDAO
         return $listaProductos;
     }
 
+    // Obtenemos un producto por su ID y categoría
     public static function getProductoById($id, $categoria)
     {
-        //Prepaaremos la consulta
         $con = DataBase::connect();
 
         $stmt = $con->prepare("SELECT * FROM productos WHERE id=?");
@@ -81,7 +79,7 @@ class ProductoDAO
 
         $con->close();
 
-        
+        // Creamos un objeto de producto según la categoría
         if($categoria == 'Bebidas'){
             $row = $result->fetch_assoc();
             $producto = new Bebidas(
@@ -105,9 +103,7 @@ class ProductoDAO
         return $producto;
     }
 
-
-
-
+    // Eliminamos un producto por su ID
     public static function deleteProduct($id)
     {
         $con = DataBase::connect();
@@ -119,10 +115,10 @@ class ProductoDAO
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // $con->close();
         return $result;
     }
 
+    // Actualizamos la información de un producto
     public static function updateProduct($id, $nombre, $precio, $categoria, $foto)
     {
         $con = DataBase::connect();
@@ -134,31 +130,26 @@ class ProductoDAO
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // $con->close();
         return $result;
     }
 
+    // Creamos un nuevo producto en la base de datos
     public static function crearProducto($nombre, $precio, $categoria, $foto)
     {
         $con = DataBase::connect();
 
-        // Prepare the INSERT statement
         $stmt = $con->prepare("INSERT INTO productos (nombre, precio, categoria, foto) VALUES (?, ?, ?, ?)");
 
-        // Bind the parameters
         $stmt->bind_param("sdss", $nombre, $precio, $categoria, $foto);
 
-        // Execute the INSERT statement
         if (!$stmt->execute()) {
             return "Producto no añadido en la base de datos";
         }
-        // Get the result
+        //Ejecutamos la consulta
         $result = $stmt->get_result();
 
-        // Close the connection
         $con->close();
 
-        // Return the result
         return $result;
     }
 }

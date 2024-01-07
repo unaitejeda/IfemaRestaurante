@@ -1,11 +1,14 @@
 <?php
+// Clase que representa un producto
     class Producto{
+        // Atributos protegidos para el encapsulamiento
         protected   $id;
         protected $nombre;
         protected $precio;
         protected $categoria;
         protected $foto;
 
+        // Constructor que inicializa los atributos del producto
         public function __construct($id, $nombre, $precio,$categoria, $foto){
             $this->id = $id;
             $this->nombre = $nombre;

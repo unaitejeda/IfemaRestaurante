@@ -45,9 +45,6 @@
                         <button class="botonFinalizaCompra" style="background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(230, 65, 0, 1));" type="submit">Cerrar Sesión</button>
                     </form>
                 </div>
-                <!-- <div class="col-2">
-                    <div class="separator"></div>
-                </div> -->
                 <div class="col-sm-12 col-xxl-6">
                     <!-- REGISTRAR -->
                     <p class="pContadorCarta text-center">Crea tu propia cuenta</p>

@@ -1,11 +1,13 @@
 <?php
-
+// Incluimos el DAO de productos
 include_once 'productoDAO.php';
 
+// Clase que representa un pedido
 class Pedido{
     private $producto;
     private $cantidad = 1;
 
+    // Constructor que recibe un producto para el pedido
     public function __construct($producto){
         $this->producto=$producto;
     }
@@ -50,6 +52,7 @@ class Pedido{
         return $this;
     }
 
+    //Calcula y devuelve el precio total del pedido
     public function devuelvePrecio(){
         return $this->producto->getPrecio()*$this->cantidad;
     }
