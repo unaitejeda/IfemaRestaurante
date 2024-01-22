@@ -152,4 +152,23 @@ class ProductoDAO
 
         return $result;
     }
+
+    public static function crearPedido($id, $fecha, $total, $session)
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total) VALUES (?, ?, ?)");
+        $stmt->bind_param("isd", $id, $fecha, $total);
+        $stmt->execute();
+
+        $añadirID = $con->insert_id;
+
+        foreach($session as $articulos){
+            $cantidad = $articulos->getCantidad();
+            $idProducto = $articulos->getProducto()->getId();
+            $productos_Pedido = $con->prepare("INSERT INTO productos_pedido (id_producto, cantidad, id_pedido) VALUES (?, ?, ?)");
+            $productos_Pedido->bind_param("iii", $idProducto, $cantidad, $añadirID);
+            $productos_Pedido->execute();
+        }
+        return $añadirID;
+    }
 }

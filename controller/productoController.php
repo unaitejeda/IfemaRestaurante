@@ -254,10 +254,16 @@ class productoController
         // Limpia la selección de productos y guarda el último pedido en una cookie
         // Redireccionamos a la página principal
         session_start();
-        unset($_SESSION['selecciones']);
+        $id = $_SESSION['id'];
         // guardo la cookie
+        
+        $fechaBD = date('Y-m-d');
+        $pedido = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+        $prueba = productoDAO::crearPedido($id, $fechaBD, $pedido, $_SESSION['selecciones']);
+
         setcookie('UltimoPedido', $_POST['cantidadFinal'], time() + 3600, "/");
         header("Location:" . url . '?controller=producto');
+        unset($_SESSION['selecciones']);
     }
 
     // Función para manejar el inicio de sesión
@@ -280,6 +286,9 @@ class productoController
             if ($result->num_rows > 0) {
                 header("Location:" . url . '?controller=producto');
                 $_SESSION["username"] = $username;
+                $row =  $result->fetch_assoc();
+                $id = $row ['id'];
+                $_SESSION["id"] = $id;
                 return true;
             } else {
                 header("Location:" . url . '?controller=producto&action=login');
