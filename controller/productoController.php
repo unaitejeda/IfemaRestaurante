@@ -340,4 +340,5 @@ class productoController
             header("Location:" . url . '?controller=producto');
         }
     }
+
 }

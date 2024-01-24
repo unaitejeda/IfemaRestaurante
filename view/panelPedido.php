@@ -53,8 +53,10 @@
     <div class="seccionCarta">
         <div class="container container3">
             <div class="row ">
-                <?php foreach ($allProducts as $product) { ?>
-                    <article class="col-12 col-md-6 col-lg-3">
+                <?php foreach ($allProducts as $product) { 
+                    $clase = $product->getCategoria();
+                    ?>
+                    <article class="col-12 col-md-6 col-lg-3 <?php echo $clase ?>">
                         <div class="mx-16 mb-12 mb-lg-0 mx-6 mx-lg-0">
                             <img class="imgProductos" src=<?= $product->getFoto() ?>  alt="Producto">
                             <div class="contenidoProductos">
