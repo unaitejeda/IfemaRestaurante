@@ -172,5 +172,4 @@ class ProductoDAO
         return $añadirID;
     }
 
-    
 }
