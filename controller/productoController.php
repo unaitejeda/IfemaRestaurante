@@ -266,6 +266,43 @@ class productoController
         unset($_SESSION['selecciones']);
     }
 
+
+
+// En el archivo productoController.php
+
+// Función para confirmar y finalizar la compra
+public function confirmar()
+{
+    // Limpia la selección de productos y guarda el último pedido en una cookie
+    // Redireccionamos a la página principal
+    session_start();
+    $id_usuario = $_SESSION['id']; // Obtenemos el ID del usuario de la sesión
+
+    // Guardamos el último pedido en una cookie
+    if (isset($_POST['cantidadFinal'])) {
+        setcookie('UltimoPedido', $_POST['cantidadFinal'], time() + 3600, "/");
+    }
+
+    // Creamos el pedido y actualizamos los puntos de fidelidad del usuario
+    $fechaBD = date('Y-m-d');
+    $pedido = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+    $prueba = ProductoDAO::crearPedido($id_usuario, $fechaBD, $pedido, $_SESSION['selecciones']);
+
+    // Limpiamos la selección de productos
+    unset($_SESSION['selecciones']);
+
+    // Redireccionamos a la página principal
+    header("Location:" . url . '?controller=producto');
+}
+
+
+
+
+
+
+
+
+
     // Función para manejar el inicio de sesión
     public function login()
     {
