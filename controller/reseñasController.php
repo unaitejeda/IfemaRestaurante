@@ -9,42 +9,50 @@ class reseñasController
 
     public function reseñas()
     {
-        session_start();    
-        //  //cabecera
-         if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
-
-            include_once 'view/cabeceraadmin.php';
-        } else {
-            include_once 'view/cabecera.php';
-        }
-        //reseñas
-        include_once 'view/reseñas.php';
-
-        //footer
-        include_once 'view/footer.php';
-    }
-
-    public function crearReseña(){
-        session_start();    
-        //  //cabecera
-         if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
-
-            include_once 'view/cabeceraadmin.php';
-        } else {
-            include_once 'view/cabecera.php';
-        }
-        //reseñas
-        include_once 'view/crearReseña.php';
-
-        //footer
-        include_once 'view/footer.php';
-    }
-
-    public function mostrarPedidos(){
         session_start();
-        if (isset($_SESSION['id'])){
+        //  //cabecera
+        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+
+            include_once 'view/cabeceraadmin.php';
+        } else {
+            include_once 'view/cabecera.php';
+        }
+        //reseñas
+        include_once 'view/resenyas.php';
+
+        //footer
+        include_once 'view/footer.php';
+    }
+
+    public function crearReseña()
+    {
+        session_start();
+
+        if (isset($_POST['pedido_id'])) {
+
+            $id_pedido = $_POST['pedido_id'];
+            //  //cabecera
+            if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+
+                include_once 'view/cabeceraadmin.php';
+            } else {
+                include_once 'view/cabecera.php';
+            }
+            //reseñas
+            include_once 'view/crearReseña.php';
+
+            //footer
+            include_once 'view/footer.php';
+        }
+    }
+
+    public function mostrarPedidos()
+    {
+        session_start();
+
+        if (isset($_SESSION['id'])) {
             $resultado = comentariosDAO::getAllPedidos($_SESSION['id']);
-        } else{
+        } else {
             return "Debe iniciar sesión para ver pedidos";
         }
 

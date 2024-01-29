@@ -24,27 +24,40 @@ class ComentariosDAO
         return $comentario;
     }
 
-    public static function crearComentarios($id_usuario, $resenya, $valoracion)
+    public static function crearComentarios($id_usuario, $resenya, $valoracion, $id_pedido)
     {
         // Conexión a la base de datos
         $con = DataBase::connect();
 
         // Preparar la consulta
-        $stmt = $con->prepare("INSERT INTO comentarios (id_usuario, resenya, valoracion) VALUES (?, ?, ?)");
+        $stmt = $con->prepare("INSERT INTO comentarios (id_usuario, resenya, valoracion, id_pedido) VALUES (?, ?, ?, ?)");
+
+
 
         // Vincular los parámetros
-        $stmt->bind_param('isi', $id_usuario, $resenya, $valoracion);
+        $stmt->bind_param('isii', $id_usuario, $resenya, $valoracion, $id_pedido);
 
         // Ejecutar la consulta
         $stmt->execute();
+
+        $id_resenya = $con->insert_id;
+
+
+        $stmtPedidos = $con->prepare("UPDATE PEDIDOS SET id_resenya = $id_resenya WHERE id = $id_pedido");
+
+        // Ejecutar la consulta
+        $stmtPedidos->execute();
+
+        return $stmt;
     }
 
-    public static function getAllPedidos($id_usuario){
+    public static function getAllPedidos($id_usuario)
+    {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM pedidos WHERE id_usuario=?");
         $stmt->bind_param("i", $id_usuario);
-        
-        if (!$stmt->execute()){
+
+        if (!$stmt->execute()) {
             $con->close();
             return "No se muestran los pedidos";
         }
@@ -55,13 +68,16 @@ class ComentariosDAO
         $con->close();
         return $pedidos;
     }
-
-    public static function selecPedidos($id_pedido){
+    public static function selecPedidos($id_pedido)
+    {
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM pedidos WHERE id=?");
+        $stmt = $con->prepare("SELECT p.*, c.id AS id_resenya 
+                           FROM pedidos p 
+                           LEFT JOIN comentarios c ON p.id_resenya = c.id 
+                           WHERE p.id=?");
         $stmt->bind_param("i", $id_pedido);
-        
-        if (!$stmt->execute()){
+
+        if (!$stmt->execute()) {
             $con->close();
             return "No se muestran los pedidos";
         }
@@ -71,5 +87,16 @@ class ComentariosDAO
 
         $con->close();
         return $pedido;
+    }
+
+    public static function tieneResenya($id_pedido) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT COUNT(*) AS count FROM comentarios WHERE id_pedido = ?");
+        $stmt->bind_param("i", $id_pedido);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $con->close();
+        return $count > 0; // Devuelve true si hay una reseña, false si no la hay
     }
 }
