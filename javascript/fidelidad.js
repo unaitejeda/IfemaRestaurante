@@ -1,13 +1,20 @@
-// En el archivo panelCompra.js
-
 document.addEventListener('DOMContentLoaded', function() {
     // Calcula los puntos acumulados y muestra la cantidad en la interfaz
-    function calcularPuntosAcumulados(precioTotal) {
-        // Suponiendo que 100 puntos equivalen a 1 euro
-        let puntosAcumulados = Math.floor(precioTotal / 100);
-        document.getElementById('puntosAcumulados').textContent = puntosAcumulados;
-        return puntosAcumulados;
+    function calcularPuntosAcumulados() {
+        fetch('http://localhost/?controller=api&action=obtenerPuntosUsuario', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('puntosAcumulados').textContent = data.puntos;
+        })
+        .catch(error => console.error(error));
     }
+
+    calcularPuntosAcumulados();
 
     // Maneja el evento de confirmación de la compra
     document.getElementById('compraForm').addEventListener('submit', function(event) {

@@ -57,6 +57,8 @@
                 </div>
                 <div class="col-12 col-md-2 col-lg-3">
                     <article class="finalizarCompra">
+                        <p>Puntos acumulados: <?= isset($_SESSION['puntos']) ? $_SESSION['puntos'] : 0 ?></p>
+
                         <p class="pCarrito p4Carrito">PRODUCTOS</p>
                         <?php
                         $pos = 0;
@@ -68,6 +70,7 @@
                         } ?>
                         <p class="pCarrito p4Carrito">SUBTOTAL: <?= $precioTotal ?> €</p>
                         <form action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
+                            <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos">
                             <label for="usarPuntos">Utilizar puntos</label><br>
                             <label for="cantidadPuntos">Cantidad de puntos a utilizar:</label>
@@ -75,10 +78,14 @@
                             <p>Puntos acumulados con esta compra: <span id="puntosAcumulados">0</span></p>
                             <input type="submit" value="Confirmar">
                         </form>
-
+                        <p class="pCarrito p4Carrito">SUBTOTAL: <?= $precioTotal ?> €</p>
+                        <p class="pCarrito p4Carrito">Descuento: <?= $descuento ?> €</p>
+                        <p class="pCarrito p4Carrito">TOTAL: <?= $precioTotal - $descuento ?> €</p>
                     </article>
                 </div>
             </div>
         </div>
     </section>
+
+    <script src="javascript/fidelidad.js"></script>
 </body>

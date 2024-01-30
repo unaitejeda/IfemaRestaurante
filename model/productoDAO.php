@@ -6,6 +6,7 @@ include_once 'platos.php';
 include_once 'postres.php';
 include_once 'bebidas.php';
 include_once 'producto.php';
+include_once 'pedido.php';
 
 // Clase que maneja la interacción con la base de datos para los productos
 class ProductoDAO
@@ -153,26 +154,24 @@ class ProductoDAO
         return $result;
     }
 
-    public static function crearPedido($id, $fecha, $total, $session)
-    {
-        $con = DataBase::connect();
-        $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total) VALUES (?, ?, ?)");
-        $stmt->bind_param("isd", $id, $fecha, $total);
-        $stmt->execute();
+    // public static function crearPedido($id, $fecha, $total, $session)
+    // {
+    //     $con = DataBase::connect();
+    //     $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total) VALUES (?, ?, ?)");
+    //     $stmt->bind_param("isd", $id, $fecha, $total);
+    //     $stmt->execute();
 
-        $añadirID = $con->insert_id;
+    //     $añadirID = $con->insert_id;
 
-        foreach($session as $articulos){
-            $cantidad = $articulos->getCantidad();
-            $idProducto = $articulos->getProducto()->getId();
-            $productos_Pedido = $con->prepare("INSERT INTO productos_pedido (id_producto, cantidad, id_pedido) VALUES (?, ?, ?)");
-            $productos_Pedido->bind_param("iii", $idProducto, $cantidad, $añadirID);
-            $productos_Pedido->execute();
-        }
-        return $añadirID;
-    }
-
-    // En el archivo productoDAO.php
+    //     foreach($session as $articulos){
+    //         $cantidad = $articulos->getCantidad();
+    //         $idProducto = $articulos->getProducto()->getId();
+    //         $productos_Pedido = $con->prepare("INSERT INTO productos_pedido (id_producto, cantidad, id_pedido) VALUES (?, ?, ?)");
+    //         $productos_Pedido->bind_param("iii", $idProducto, $cantidad, $añadirID);
+    //         $productos_Pedido->execute();
+    //     }
+    //     return $añadirID;
+    // }
 
 // Creamos un nuevo pedido en la base de datos y actualizamos los puntos de fidelidad del usuario
 // public static function crearPedido($id_usuario, $fecha, $total, $session)
@@ -200,5 +199,30 @@ class ProductoDAO
 //     return $añadirID;
 // }
 
+public static function crearPedido($id_usuario, $fecha, $total, $selecciones)
+    {
+        $con = DataBase::connect();
 
+        // Insertar el pedido en la tabla de pedidos
+        $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total) VALUES (?, ?, ?)");
+        $stmt->bind_param("isd", $id_usuario, $fecha, $total);
+        $stmt->execute();
+
+        // Obtener el ID del pedido recién insertado
+        $pedido_id = $con->insert_id;
+
+        // Insertar los productos seleccionados en la tabla de productos_pedido
+        foreach ($selecciones as $seleccion) {
+            $producto_id = $seleccion->getProducto()->getId();
+            $cantidad = $seleccion->getCantidad();
+
+            $stmt = $con->prepare("INSERT INTO productos_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $pedido_id, $producto_id, $cantidad);
+            $stmt->execute();
+        }
+
+        $con->close();
+
+        return $pedido_id; // Devolvemos el ID del pedido creado
+    }
 }
