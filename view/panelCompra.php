@@ -78,9 +78,6 @@
                             <p>Puntos acumulados con esta compra: <span id="puntosAcumulados">0</span></p>
                             <input type="submit" value="Confirmar">
                         </form>
-                        <p class="pCarrito p4Carrito">SUBTOTAL: <?= $precioTotal ?> €</p>
-                        <p class="pCarrito p4Carrito">Descuento: <?= $descuento ?> €</p>
-                        <p class="pCarrito p4Carrito">TOTAL: <?= $precioTotal - $descuento ?> €</p>
                     </article>
                 </div>
             </div>

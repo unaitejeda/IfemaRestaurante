@@ -1,10 +1,13 @@
 <?php
 include_once 'model/comentarios.php';
 include_once 'model/comentariosDAO.php';
+include_once 'model/usuarioDAO.php';
 
-class ApiController{
-    public function apiComentarios(){
-        if($_GET["accion"] == 'buscar_review'){
+class ApiController
+{
+    public function apiComentarios()
+    {
+        if ($_GET["accion"] == 'buscar_review') {
             $comentarios = ComentariosDAO::getComentarios();
             $comenArray = [];
             foreach ($comentarios as $comentario) {
@@ -17,8 +20,8 @@ class ApiController{
             }
             header("Content-Type: application/json");
             echo json_encode($comenArray, JSON_UNESCAPED_UNICODE);
-            return;    
-        }elseif($_GET["accion"] == 'insertar') {
+            return;
+        } elseif ($_GET["accion"] == 'insertar') {
             // Leer los datos JSON del flujo de entrada
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
@@ -36,15 +39,24 @@ class ApiController{
                 echo json_encode(['success' => false, 'error' => 'Faltan datos']);
             }
             return;
-        }elseif($_GET["accion"] == 'reviewId') {
-            if(isset($_GET["pedido_id"])) {
+        } elseif ($_GET["accion"] == 'reviewId') {
+            if (isset($_GET["pedido_id"])) {
                 $pedidoId = $_GET["pedido_id"];
-                $tieneResenya = ComentariosDAO::tieneResenya($pedidoId); 
+                $tieneResenya = ComentariosDAO::tieneResenya($pedidoId);
                 header("Content-Type: application/json");
                 echo json_encode(['tiene_resenya' => $tieneResenya]);
             } else {
                 echo json_encode(['error' => 'No se proporcionó un ID de pedido']);
             }
+        } elseif ($_GET["accion"] == 'puntosUser') {
+            if (isset($_SESSION['id'])) {
+                $id_usuario = $_SESSION['id'];
+                $puntos = UsuarioDAO::actualizarPuntosFidelidad($id_usuario);
+                echo json_encode(['puntos' => $puntos]);
+            } else {
+                echo json_encode(['error' => 'No hay sesión iniciada']);
+            }
+            return;
         }
     }
 }

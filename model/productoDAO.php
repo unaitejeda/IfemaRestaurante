@@ -81,7 +81,7 @@ class ProductoDAO
         $con->close();
 
         // Creamos un objeto de producto según la categoría
-        if($categoria == 'Bebidas'){
+        if ($categoria == 'Bebidas') {
             $row = $result->fetch_assoc();
             $producto = new Bebidas(
                 $row['id'],
@@ -90,9 +90,9 @@ class ProductoDAO
                 $row['categoria'],
                 $row['foto'],
                 isset($row['mayor']) ? $row['mayor'] : null
-            ); 
-        }else{
-            $row = $result->fetch_assoc();  
+            );
+        } else {
+            $row = $result->fetch_assoc();
             $producto = new Producto(
                 $row['id'],
                 $row['nombre'],
@@ -154,75 +154,29 @@ class ProductoDAO
         return $result;
     }
 
-    // public static function crearPedido($id, $fecha, $total, $session)
-    // {
-    //     $con = DataBase::connect();
-    //     $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total) VALUES (?, ?, ?)");
-    //     $stmt->bind_param("isd", $id, $fecha, $total);
-    //     $stmt->execute();
-
-    //     $añadirID = $con->insert_id;
-
-    //     foreach($session as $articulos){
-    //         $cantidad = $articulos->getCantidad();
-    //         $idProducto = $articulos->getProducto()->getId();
-    //         $productos_Pedido = $con->prepare("INSERT INTO productos_pedido (id_producto, cantidad, id_pedido) VALUES (?, ?, ?)");
-    //         $productos_Pedido->bind_param("iii", $idProducto, $cantidad, $añadirID);
-    //         $productos_Pedido->execute();
-    //     }
-    //     return $añadirID;
-    // }
-
-// Creamos un nuevo pedido en la base de datos y actualizamos los puntos de fidelidad del usuario
-// public static function crearPedido($id_usuario, $fecha, $total, $session)
-// {
-//     $con = DataBase::connect();
-//     $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total) VALUES (?, ?, ?)");
-//     $stmt->bind_param("isd", $id_usuario, $fecha, $total);
-//     $stmt->execute();
-
-//     $añadirID = $con->insert_id;
-
-//     // Actualizamos los puntos de fidelidad del usuario
-//     $puntosAcumulados = $total * 10; // Suponiendo que acumula 10 puntos por euro gastado
-//     $stmt_puntos = $con->prepare("UPDATE usuarios SET puntos = puntos + ? WHERE id = ?");
-//     $stmt_puntos->bind_param("ii", $puntosAcumulados, $id_usuario);
-//     $stmt_puntos->execute();
-
-//     foreach($session as $articulos){
-//         $cantidad = $articulos->getCantidad();
-//         $idProducto = $articulos->getProducto()->getId();
-//         $productos_Pedido = $con->prepare("INSERT INTO productos_pedido (id_producto, cantidad, id_pedido) VALUES (?, ?, ?)");
-//         $productos_Pedido->bind_param("iii", $idProducto, $cantidad, $añadirID);
-//         $productos_Pedido->execute();
-//     }
-//     return $añadirID;
-// }
-
-public static function crearPedido($id_usuario, $fecha, $total, $selecciones)
+    // Creamos un nuevo pedido en la base de datos y actualizamos los puntos de fidelidad del usuario
+    public static function crearPedido($id_usuario, $fecha, $total, $session)
     {
         $con = DataBase::connect();
-
-        // Insertar el pedido en la tabla de pedidos
         $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total) VALUES (?, ?, ?)");
         $stmt->bind_param("isd", $id_usuario, $fecha, $total);
         $stmt->execute();
 
-        // Obtener el ID del pedido recién insertado
-        $pedido_id = $con->insert_id;
+        $añadirID = $con->insert_id;
 
-        // Insertar los productos seleccionados en la tabla de productos_pedido
-        foreach ($selecciones as $seleccion) {
-            $producto_id = $seleccion->getProducto()->getId();
-            $cantidad = $seleccion->getCantidad();
+        // Actualizamos los puntos de fidelidad del usuario
+        $puntosAcumulados = $total * 10; // Suponiendo que acumula 10 puntos por euro gastado
+        $stmt_puntos = $con->prepare("UPDATE usuarios SET puntos = puntos + ? WHERE id = ?");
+        $stmt_puntos->bind_param("ii", $puntosAcumulados, $id_usuario);
+        $stmt_puntos->execute();
 
-            $stmt = $con->prepare("INSERT INTO productos_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)");
-            $stmt->bind_param("iii", $pedido_id, $producto_id, $cantidad);
-            $stmt->execute();
+        foreach ($session as $articulos) {
+            $cantidad = $articulos->getCantidad();
+            $idProducto = $articulos->getProducto()->getId();
+            $productos_Pedido = $con->prepare("INSERT INTO productos_pedido (id_producto, cantidad, id_pedido) VALUES (?, ?, ?)");
+            $productos_Pedido->bind_param("iii", $idProducto, $cantidad, $añadirID);
+            $productos_Pedido->execute();
         }
-
-        $con->close();
-
-        return $pedido_id; // Devolvemos el ID del pedido creado
+        return $añadirID;
     }
 }
