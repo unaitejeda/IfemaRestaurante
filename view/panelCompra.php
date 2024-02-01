@@ -76,6 +76,7 @@
                             <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos">
+                            <input type="button" value="Aplicar puntos" id="aplicarPuntosBtn">
                             <label for="usarPuntos">Utilizar puntos</label><br>
                             <label for="cantidadPuntos">Cantidad de puntos a utilizar:</label>
                             <input type="number" id="cantidadPuntos" name="cantidadPuntos" min="0"><br>

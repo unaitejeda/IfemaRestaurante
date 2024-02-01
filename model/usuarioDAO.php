@@ -22,4 +22,6 @@ class UsuarioDAO
         // Devolvemos los puntos de fidelidad
         return $puntosActuales;
     }
+
+    
 }
