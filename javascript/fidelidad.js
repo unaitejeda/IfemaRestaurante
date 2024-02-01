@@ -1,44 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Calcula los puntos acumulados y muestra la cantidad en la interfaz
-    function calcularPuntosAcumulados() {
-        fetch('http://localhost/?controller=api&action=obtenerPuntosUsuario', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('puntosAcumulados').textContent = data.puntos;
-        })
-        .catch(error => console.error(error));
+    let id_usuario = document.getElementById('id_usuario').value;
+    let data = {
+        id_usuario: id_usuario
     }
-
-    calcularPuntosAcumulados();
-
-    // Maneja el evento de confirmación de la compra
-    document.getElementById('compraForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        let usarPuntos = document.getElementById('usarPuntos').checked;
-        let cantidadPuntos = document.getElementById('cantidadPuntos').value;
-
-        // Envía la información al servidor
-        fetch('http://localhost/?controller=producto&action=confirmar', {
+    // Calcula los puntos acumulados y muestra la cantidad en la interfaz
+   
+        fetch('http://localhost/?controller=api&action=apiComentarios&accion=puntosUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                usarPuntos: usarPuntos,
-                cantidadPuntos: cantidadPuntos
-            }),
+            body: JSON.stringify(data),
+            
         })
-        .then(response => response.json())
+        .then(response => {return response.json();})
         .then(data => {
-            // Maneja la respuesta del servidor, como redireccionar o mostrar un mensaje de éxito
-            console.log(data);
+            mostrarPuntos(data);
         })
-        .catch(error => console.error(error));
-    });
+        // .catch(error => console.error(error));
 });
+
+function mostrarPuntos(data){
+    let puntos = document.getElementById("mostrarPuntos");
+    puntos.innerHTML= '';
+    let mostrar = document.createElement('span');
+    mostrar.textContent = `Puntos acumulados: ${data}`;
+
+    puntos.appendChild(mostrar);
+}

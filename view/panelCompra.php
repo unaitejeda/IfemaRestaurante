@@ -57,7 +57,10 @@
                 </div>
                 <div class="col-12 col-md-2 col-lg-3">
                     <article class="finalizarCompra">
-                        <p>Puntos acumulados: <?= isset($_SESSION['puntos']) ? $_SESSION['puntos'] : 0 ?></p>
+                        <div id= "mostrarPuntos">
+                            
+                    
+                        </div>
 
                         <p class="pCarrito p4Carrito">PRODUCTOS</p>
                         <?php
@@ -70,6 +73,7 @@
                         } ?>
                         <p class="pCarrito p4Carrito">SUBTOTAL: <?= $precioTotal ?> €</p>
                         <form action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
+                            <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos">
                             <label for="usarPuntos">Utilizar puntos</label><br>

@@ -49,10 +49,15 @@ class ApiController
                 echo json_encode(['error' => 'No se proporcionó un ID de pedido']);
             }
         } elseif ($_GET["accion"] == 'puntosUser') {
-            if (isset($_SESSION['id'])) {
-                $id_usuario = $_SESSION['id'];
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+
+            $id_usuario = $data['id_usuario'];
+            if (isset($id_usuario)) {
+                // $id_usuario = $_SESSION['id'];
                 $puntos = UsuarioDAO::actualizarPuntosFidelidad($id_usuario);
-                echo json_encode(['puntos' => $puntos]);
+                echo json_encode($puntos, JSON_UNESCAPED_UNICODE);
+                return;
             } else {
                 echo json_encode(['error' => 'No hay sesión iniciada']);
             }

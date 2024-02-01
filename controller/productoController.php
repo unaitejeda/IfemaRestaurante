@@ -328,7 +328,7 @@ public function confirmar()
     $puntosUtilizados = isset($_POST['cantidadPuntos']) ? intval($_POST['cantidadPuntos']) : 0;
 
     // Actualizamos los puntos de fidelidad del usuario
-    UsuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosUtilizados);
+    UsuarioDAO::actualizarPuntosFidelidad($id_usuario);
 
     // Limpiamos la selección de productos
     unset($_SESSION['selecciones']);
