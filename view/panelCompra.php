@@ -78,9 +78,8 @@
                             <input type="checkbox" id="usarPuntos" name="usarPuntos">
                             <input type="button" value="Aplicar puntos" id="aplicarPuntosBtn">
                             <label for="usarPuntos">Utilizar puntos</label><br>
-                            <label for="cantidadPuntos">Cantidad de puntos a utilizar:</label>
-                            <input type="number" id="cantidadPuntos" name="cantidadPuntos" min="0"><br>
-                            <p>Puntos acumulados con esta compra: <span id="puntosAcumulados">0</span></p>
+                           
+                            <p>Puntos acumulados con esta compra:</p> <?= isset($_GET['puntos']) ? $_GET['puntos'] : 0 ?>
                             <input type="submit" value="Confirmar">
                         </form>
                     </article>
