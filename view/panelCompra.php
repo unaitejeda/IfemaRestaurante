@@ -73,7 +73,9 @@
                         <?php
                             $pos++;
                         } ?>
-                        <p class="pCarrito p4Carrito">SUBTOTAL: <?= $precioTotal ?> €</p>
+                        <p class="pCarrito p4Carrito" id="precioSinActualizar">SUBTOTAL: <?= $precioTotal ?> €</p>
+
+                        
                         <form action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
                             <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
