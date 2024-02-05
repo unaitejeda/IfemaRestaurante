@@ -55,7 +55,7 @@ class ApiController
             $id_usuario = $data['id_usuario'];
             if (isset($id_usuario)) {
                 // $id_usuario = $_SESSION['id'];
-                $puntos = UsuarioDAO::actualizarPuntosFidelidad($id_usuario);
+                $puntos = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
                 echo json_encode($puntos, JSON_UNESCAPED_UNICODE);
                 return;
             } else {

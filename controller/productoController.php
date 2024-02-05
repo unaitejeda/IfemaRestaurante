@@ -257,7 +257,7 @@ class productoController
     //     session_start();
     //     $id = $_SESSION['id'];
     //     // guardo la cookie
-
+        
     //     $fechaBD = date('Y-m-d');
     //     $pedido = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
     //     $prueba = productoDAO::crearPedido($id, $fechaBD, $pedido, $_SESSION['selecciones']);
@@ -269,86 +269,73 @@ class productoController
 
 
 
-    // En el archivo productoController.php
+// En el archivo productoController.php
 
-    // Función para confirmar y finalizar la compra
-    // public function confirmar()
-    // {
-    //     // Limpia la selección de productos y guarda el último pedido en una cookie
-    //     // Redireccionamos a la página principal
-    //     session_start();
-    //     $id_usuario = $_SESSION['id']; // Obtenemos el ID del usuario de la sesión
+// Función para confirmar y finalizar la compra
+// public function confirmar()
+// {
+//     // Limpia la selección de productos y guarda el último pedido en una cookie
+//     // Redireccionamos a la página principal
+//     session_start();
+//     $id_usuario = $_SESSION['id']; // Obtenemos el ID del usuario de la sesión
 
-    //     // Guardamos el último pedido en una cookie
-    //     if (isset($_POST['cantidadFinal'])) {
-    //         setcookie('UltimoPedido', $_POST['cantidadFinal'], time() + 3600, "/");
-    //     }
+//     // Guardamos el último pedido en una cookie
+//     if (isset($_POST['cantidadFinal'])) {
+//         setcookie('UltimoPedido', $_POST['cantidadFinal'], time() + 3600, "/");
+//     }
 
-    //     // Creamos el pedido y actualizamos los puntos de fidelidad del usuario
-    //     $fechaBD = date('Y-m-d');
-    //     $pedido = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
-    //     $prueba = ProductoDAO::crearPedido($id_usuario, $fechaBD, $pedido, $_SESSION['selecciones']);
+//     // Creamos el pedido y actualizamos los puntos de fidelidad del usuario
+//     $fechaBD = date('Y-m-d');
+//     $pedido = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+//     $prueba = ProductoDAO::crearPedido($id_usuario, $fechaBD, $pedido, $_SESSION['selecciones']);
 
-    //     // Limpiamos la selección de productos
-    //     unset($_SESSION['selecciones']);
+//     // Limpiamos la selección de productos
+//     unset($_SESSION['selecciones']);
 
-    //     // Redireccionamos a la página principal
-    //     header("Location:" . url . '?controller=producto');
-    // }
+//     // Redireccionamos a la página principal
+//     header("Location:" . url . '?controller=producto');
+// }
 
-    // Función para confirmar y finalizar la compra
-    public function confirmar()
-    {
-        // Limpia la selección de productos y guarda el último pedido en una cookie
-        // Redireccionamos a la página principal
-        session_start();
-        $id_usuario = $_SESSION['id']; // Obtenemos el ID del usuario de la sesión
+// Función para confirmar y finalizar la compra
+public function confirmar()
+{
+    // Limpia la selección de productos y guarda el último pedido en una cookie
+    // Redireccionamos a la página principal
+    session_start();
+    $id_usuario = $_SESSION['id']; // Obtenemos el ID del usuario de la sesión
 
-        // Guardamos el último pedido en una cookie
-        if (isset($_POST['cantidadFinal'])) {
-            setcookie('UltimoPedido', $_POST['cantidadFinal'], time() + 3600, "/");
-        }
-
-        // Calculamos el precio total del pedido
-        $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
-
-        // Obtenemos la cantidad de puntos ingresada por el usuario
-        $puntosUtilizados = isset($_POST['puntos']) ? intval($_POST['puntos']) : 0;
-
-        // Calculamos el descuento a aplicar según los puntos utilizados
-        $descuento = $puntosUtilizados * 0.01; // Suponiendo que 100 puntos equivalen a 1 euro de descuento
-
-        // Aplicamos el descuento al precio total del pedido
-        $precioFinal = $precioTotal - $descuento;
-
-        // Creamos el pedido
-        $fechaBD = date('Y-m-d');
-        $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioFinal, $_SESSION['selecciones']);
-
-        $puntosUtilizados = isset($_POST['cantidadPuntos']) ? intval($_POST['cantidadPuntos']) : 0;
-
-        // Actualizamos los puntos de fidelidad del usuario
-        UsuarioDAO::actualizarPuntosFidelidad($id_usuario);
-
-
-
-        $puntosGanados = $precioTotal * 10; // Suponiendo que acumula 10 puntos por euro gastado
-
-        // Redireccionamos a la página de confirmación de compra
-        header("Location:" . url . '?controller=producto&action=mostrarCompra&puntos=' . $puntosGanados);
-
-
-        
-
-        // Limpiamos la selección de productos
-        unset($_SESSION['selecciones']);
-
-        // Redireccionamos a la página principal
-        header("Location:" . url . '?controller=producto');
-        
-
-        
+    // Guardamos el último pedido en una cookie
+    if (isset($_POST['cantidadFinal'])) {
+        setcookie('UltimoPedido', $_POST['cantidadFinal'], time() + 3600, "/");
     }
+
+    // Calculamos el precio total del pedido
+    $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+
+    // Obtenemos la cantidad de puntos ingresada por el usuario
+    $puntosUtilizados = isset($_POST['puntos']) ? intval($_POST['puntos']) : 0;
+
+    // Calculamos el descuento a aplicar según los puntos utilizados
+    $descuento = $puntosUtilizados * 0.01; // Suponiendo que 100 puntos equivalen a 1 euro de descuento
+
+    // Aplicamos el descuento al precio total del pedido
+    $precioFinal = $precioTotal - $descuento;
+
+    // Creamos el pedido
+    $fechaBD = date('Y-m-d');
+    $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioFinal, $_SESSION['selecciones']);  
+
+    $puntosUtilizados = isset($_POST['cantidadPuntos']) ? intval($_POST['cantidadPuntos']) : 0;
+
+    // Actualizamos los puntos de fidelidad del usuario
+    UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
+
+    // Limpiamos la selección de productos
+    unset($_SESSION['selecciones']);
+
+    // Redireccionamos a la página principal
+    header("Location:" . url . '?controller=producto');
+}
 
 
 
@@ -378,7 +365,7 @@ class productoController
                 header("Location:" . url . '?controller=producto');
                 $_SESSION["username"] = $username;
                 $row =  $result->fetch_assoc();
-                $id = $row['id'];
+                $id = $row ['id'];
                 $_SESSION["id"] = $id;
                 return true;
             } else {
@@ -409,7 +396,7 @@ class productoController
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $telefono = $_POST["telefono"];
             $con = DataBase::connect();
-            // Registra un nuevo usuario y redirecciona al inicio de sesión
+        // Registra un nuevo usuario y redirecciona al inicio de sesión
             if (!empty($_POST["nombre"]) && !empty($_POST["apellido"]) && !empty($_POST["username"]) && !empty($_POST["mail"]) && !empty($_POST["password"]) && !empty($_POST["telefono"])) {
                 $con->query("INSERT INTO usuarios ( nombre, apellido, username, mail, password, telefono) VALUES ('$nombre', '$apellido', '$username', '$mail', '$password', '$telefono')");
                 header("Location:" . url . '?controller=producto&action=login');
@@ -431,4 +418,5 @@ class productoController
             header("Location:" . url . '?controller=producto');
         }
     }
+
 }

@@ -5,7 +5,7 @@ include_once 'config/db.php';
 class UsuarioDAO
 {
     // Función para actualizar los puntos de fidelidad del usuario
-    public static function actualizarPuntosFidelidad($id_usuario)
+    public static function mostrarPuntosFidelidad($id_usuario)
     {
         $con = DataBase::connect();
 
@@ -23,5 +23,31 @@ class UsuarioDAO
         return $puntosActuales;
     }
 
+    public static function actualizarPuntosFidelidad($id_usuario, $nuevosPuntos)
+    {
+        $con = DataBase::connect();
+
+        $stmt = $con->prepare("UPDATE usuarios SET puntos = ? WHERE id_usuario = ?");
+        $stmt->bind_param("ii", $nuevosPuntos, $id_usuario);
+
+        if (!$stmt->execute()) {
+            $con->close();
+            return "No se pudo actualizar los puntos del cliente en la base de datos.";
+        }
+
+        $con->close();
+        return "Puntos actualizados correctamente en la base de datos.";
+    }
+
+    public static function calcularPuntosAcumulados($total, $id_usuario)
+    {
+        // Establece la tasa de conversión de puntos basada en el gasto (por ejemplo, 1 euro = 1 punto)
+        $tasaConversion = 1;
+    
+        // Calcula la cantidad de puntos a acumular
+        $puntosAcumulados = round($total * $tasaConversion);
+    
+        return $puntosAcumulados;
+    }
     
 }

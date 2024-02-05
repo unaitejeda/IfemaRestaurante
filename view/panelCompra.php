@@ -57,10 +57,12 @@
                 </div>
                 <div class="col-12 col-md-2 col-lg-3">
                     <article class="finalizarCompra">
-                        <div id= "mostrarPuntos">
-                            
-                    
+                        <div id="mostrarPuntos">
+
+
                         </div>
+
+                        
 
                         <p class="pCarrito p4Carrito">PRODUCTOS</p>
                         <?php
@@ -75,12 +77,22 @@
                         <form action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
                             <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
-                            <input type="checkbox" id="usarPuntos" name="usarPuntos">
-                            <input type="button" value="Aplicar puntos" id="aplicarPuntosBtn">
-                            <label for="usarPuntos">Utilizar puntos</label><br>
-                           
-                            <p>Puntos acumulados con esta compra:</p> <?= isset($_GET['puntos']) ? $_GET['puntos'] : 0 ?>
+
+
+                            <label for="usarPuntos">Utilizar puntos</label>
+                            <input type="checkbox" id="usarPuntos" name="usarPuntos"><br>
+
+                            
+
                             <input type="submit" value="Confirmar">
+
+                        <div>
+                        <?php
+                        $puntosGanados = UsuarioDAO::calcularPuntosAcumulados($precioTotal,$_SESSION['id'] );
+                        ?>
+                        <p>Acumulados: <?= $puntosGanados ?></p>
+                        </div>
+                            
                         </form>
                     </article>
                 </div>
