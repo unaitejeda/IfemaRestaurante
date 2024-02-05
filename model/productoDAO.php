@@ -164,11 +164,11 @@ class ProductoDAO
 
         $añadirID = $con->insert_id;
 
-        // Actualizamos los puntos de fidelidad del usuario
-        $puntosAcumulados = $total * 1; // Suponiendo que acumula 10 puntos por euro gastado
-        $stmt_puntos = $con->prepare("UPDATE usuarios SET puntos = puntos + ? WHERE id = ?");
-        $stmt_puntos->bind_param("ii", $puntosAcumulados, $id_usuario);
-        $stmt_puntos->execute();
+        // // Actualizamos los puntos de fidelidad del usuario
+        // $puntosAcumulados = $total * 1; // Suponiendo que acumula 10 puntos por euro gastado
+        // $stmt_puntos = $con->prepare("UPDATE usuarios SET puntos = puntos + ? WHERE id = ?");
+        // $stmt_puntos->bind_param("ii", $puntosAcumulados, $id_usuario);
+        // $stmt_puntos->execute();
 
         foreach ($session as $articulos) {
             $cantidad = $articulos->getCantidad();

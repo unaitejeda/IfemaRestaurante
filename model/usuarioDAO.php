@@ -27,7 +27,7 @@ class UsuarioDAO
     {
         $con = DataBase::connect();
 
-        $stmt = $con->prepare("UPDATE usuarios SET puntos = ? WHERE id_usuario = ?");
+        $stmt = $con->prepare("UPDATE usuarios SET puntos = ? WHERE id = ?");
         $stmt->bind_param("ii", $nuevosPuntos, $id_usuario);
 
         if (!$stmt->execute()) {
@@ -39,10 +39,28 @@ class UsuarioDAO
         return "Puntos actualizados correctamente en la base de datos.";
     }
 
+    public static function acumularPuntosPorCompra($id_usuario, $total)
+    {
+    // Establece la tasa de conversión de puntos basada en el gasto 
+    $tasaConversion = 0.5;
+
+    // Calcula la cantidad de puntos a acumular
+    $puntosAcumulados = round($total * $tasaConversion);
+
+    // Obtén los puntos actuales del cliente
+    $puntosActuales = self::mostrarPuntosFidelidad($id_usuario);
+
+    // Actualiza los puntos del cliente sumando los puntos acumulados
+    $nuevosPuntos = $puntosActuales + $puntosAcumulados;
+    self::actualizarPuntosFidelidad($id_usuario, $nuevosPuntos);
+
+    return $puntosAcumulados;
+    }
+
     public static function calcularPuntosAcumulados($total, $id_usuario)
     {
         // Establece la tasa de conversión de puntos basada en el gasto (por ejemplo, 1 euro = 1 punto)
-        $tasaConversion = 1;
+        $tasaConversion = 0.5;
     
         // Calcula la cantidad de puntos a acumular
         $puntosAcumulados = round($total * $tasaConversion);

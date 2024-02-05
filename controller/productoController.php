@@ -305,42 +305,44 @@ public function confirmar()
     $id_usuario = $_SESSION['id']; // Obtenemos el ID del usuario de la sesión
 
     // Guardamos el último pedido en una cookie
-    if (isset($_POST['cantidadFinal'])) {
-        setcookie('UltimoPedido', $_POST['cantidadFinal'], time() + 3600, "/");
-    }
+    
 
     // Calculamos el precio total del pedido
+    $fechaBD = date('Y-m-d');
     $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+    $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
 
-    // Obtenemos la cantidad de puntos ingresada por el usuario
-    $puntosUtilizados = isset($_POST['puntos']) ? intval($_POST['puntos']) : 0;
 
-    // Calculamos el descuento a aplicar según los puntos utilizados
-    $descuento = $puntosUtilizados * 0.01; // Suponiendo que 100 puntos equivalen a 1 euro de descuento
+    if ($usarPuntos) {
+        // Obtén los puntos disponibles del cliente
+        $puntosDisponibles = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
 
-    // Aplicamos el descuento al precio total del pedido
-    $precioFinal = $precioTotal - $descuento;
+        // Calcula el descuento en función de los puntos disponibles
+        $descuento = $puntosDisponibles;
+
+        // Resta el descuento al total del pedido
+        $precioTotal -= $descuento  * 0.1;
+
+        // Actualiza los puntos del cliente restando los puntos utilizados
+        usuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - $descuento);
+    }
 
     // Creamos el pedido
-    $fechaBD = date('Y-m-d');
-    $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioFinal, $_SESSION['selecciones']);  
+    
+    $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotal, $_SESSION['selecciones']);  
 
-    $puntosUtilizados = isset($_POST['cantidadPuntos']) ? intval($_POST['cantidadPuntos']) : 0;
+    $puntosAcumulados = usuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
 
-    // Actualizamos los puntos de fidelidad del usuario
-    UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
 
+    if (isset($_POST['cantidadFinal'])) {
+        setcookie('UltimoPedido', $precioTotal, time() + 3600, "/");
+    }
     // Limpiamos la selección de productos
     unset($_SESSION['selecciones']);
 
     // Redireccionamos a la página principal
     header("Location:" . url . '?controller=producto');
 }
-
-
-
-
-
 
 
 
