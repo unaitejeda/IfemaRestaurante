@@ -49,16 +49,28 @@
             </a>
         </div>
     </section>
+
+
+    <section class="category-filter">
+        <label><input type="checkbox" class="category-checkbox" value="Menus"> Menus</label>
+        <label><input type="checkbox" class="category-checkbox" value="Platos"> Platos</label>
+        <label><input type="checkbox" class="category-checkbox" value="Bebidas"> Bebidas</label>
+        <label><input type="checkbox" class="category-checkbox" value="Postres"> Postres</label>
+        <button onclick="resetFilters()">Resetear Filtros</button>
+    </section>
+
+
+
     <!-- PRODUCTOS -->
     <div class="seccionCarta">
         <div class="container container3">
             <div class="row ">
-                <?php foreach ($allProducts as $product) { 
+                <?php foreach ($allProducts as $product) {
                     $clase = $product->getCategoria();
-                    ?>
-                    <article class="col-12 col-md-6 col-lg-3 <?php echo $clase ?>">
+                ?>
+                    <article class="col-12 col-md-6 col-lg-3 <?php echo $clase ?>" selCategoria="<?= $product->getCategoria() ?>">
                         <div class="mx-16 mb-12 mb-lg-0 mx-6 mx-lg-0">
-                            <img class="imgProductos" src=<?= $product->getFoto() ?>  alt="Producto">
+                            <img class="imgProductos" src=<?= $product->getFoto() ?> alt="Producto">
                             <div class="contenidoProductos">
                                 <p class="nombreProducto"><?= $product->getName() ?></p>
                                 <p class="precioProducto"><?= $product->getPrecio() ?> €</p>
@@ -86,6 +98,8 @@
             </div>
         </div>
     </div>
+
+    <script src="javascript/filtroProductos.js"></script>
 </body>
 
 </html>
