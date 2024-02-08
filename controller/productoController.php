@@ -260,50 +260,35 @@ class productoController
 
     // Función para confirmar y finalizar la compra
     public function confirmar()
-    {
-        // Limpia la selección de productos y guarda el último pedido en una cookie
-        // Redireccionamos a la página principal
-        session_start();
-        $id_usuario = $_SESSION['id']; // Obtenemos el ID del usuario de la sesión
+{
+    session_start();
+    $id_usuario = $_SESSION['id'];
+    $fechaBD = date('Y-m-d');
+    $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+    $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
 
-        // Guardamos el último pedido en una cookie
+    // Obtener el valor de la propina del formulario
+    $propina = isset($_POST['cantidadPropina']) ? $_POST['cantidadPropina'] : 0;
 
-        // Calculamos el precio total del pedido
-        $fechaBD = date('Y-m-d');
-        $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
-        $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
-
-        // Obtén el porcentaje de propina del formulario
-        $propina = isset($_POST['cantidadPuntos']) ? $_POST['cantidadPuntos'] : 0; // El valor predeterminado es 0 si no se especifica propina
-
-        if ($usarPuntos) {
-            // Obtén los puntos disponibles del cliente
-            $puntosDisponibles = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
-
-            // Calcula el descuento en función de los puntos disponibles
-            $descuento = $puntosDisponibles;
-
-            // Resta el descuento al total del pedido
-            $precioTotal -= $descuento  * 0.1;
-
-            // Actualiza los puntos del cliente restando los puntos utilizados
-            usuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - $descuento);
-        }
-
-        // Creamos el pedido y guardamos el porcentaje de propina en la base de datos
-        $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotal, $_SESSION['selecciones'], $propina);
-
-        $puntosAcumulados = usuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
-
-        if (isset($_POST['cantidadFinal'])) {
-            setcookie('UltimoPedido', $precioTotal, time() + 3600, "/");
-        }
-        // Limpiamos la selección de productos
-        unset($_SESSION['selecciones']);
-
-        // Redireccionamos a la página principal
-        header("Location:" . url . '?controller=producto');
+    if ($usarPuntos) {
+        $puntosDisponibles = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
+        $descuento = $puntosDisponibles;
+        $precioTotal -= $descuento * 0.1;
+        UsuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - $descuento);
     }
+
+    $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotal, $_SESSION['selecciones'], $propina);
+    $puntosAcumulados = UsuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
+
+    if (isset($_POST['cantidadFinal'])) {
+        setcookie('UltimoPedido', $precioTotal, time() + 3600, "/");
+    }
+
+    unset($_SESSION['selecciones']);
+
+    header("Location:" . url . '?controller=producto');
+}
+
 
 
 

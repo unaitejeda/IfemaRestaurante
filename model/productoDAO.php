@@ -155,11 +155,11 @@ class ProductoDAO
     }
 
     // Creamos un nuevo pedido en la base de datos y actualizamos los puntos de fidelidad del usuario
-    public static function crearPedido($id_usuario, $fecha, $total, $session)
+    public static function crearPedido($id_usuario, $fecha, $total, $session, $propina)
 {
     $con = DataBase::connect();
-    $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("isdi", $id_usuario, $fecha, $total);
+    $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total, propina) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("isdi", $id_usuario, $fecha, $total, $propina); // Cambiado el tipo de dato de la propina a "double"
     $stmt->execute();
 
     $añadirID = $con->insert_id;
