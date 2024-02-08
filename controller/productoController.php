@@ -268,12 +268,13 @@ class productoController
 
         // Guardamos el último pedido en una cookie
 
-
         // Calculamos el precio total del pedido
         $fechaBD = date('Y-m-d');
         $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
         $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
 
+        // Obtén el porcentaje de propina del formulario
+        $propina = isset($_POST['cantidadPuntos']) ? $_POST['cantidadPuntos'] : 0; // El valor predeterminado es 0 si no se especifica propina
 
         if ($usarPuntos) {
             // Obtén los puntos disponibles del cliente
@@ -289,12 +290,10 @@ class productoController
             usuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - $descuento);
         }
 
-        // Creamos el pedido
-
-        $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotal, $_SESSION['selecciones']);
+        // Creamos el pedido y guardamos el porcentaje de propina en la base de datos
+        $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotal, $_SESSION['selecciones'], $propina);
 
         $puntosAcumulados = usuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
-
 
         if (isset($_POST['cantidadFinal'])) {
             setcookie('UltimoPedido', $precioTotal, time() + 3600, "/");
@@ -305,6 +304,7 @@ class productoController
         // Redireccionamos a la página principal
         header("Location:" . url . '?controller=producto');
     }
+
 
 
 

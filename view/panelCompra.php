@@ -62,7 +62,7 @@
 
                         </div>
 
-                        
+
 
                         <p class="pCarrito p4Carrito">PRODUCTOS</p>
                         <?php
@@ -75,7 +75,19 @@
                         } ?>
                         <p class="pCarrito p4Carrito" id="precioSinActualizar">SUBTOTAL: <?= $precioTotal ?> €</p>
 
-                        
+
+
+                        <div id="descuentoSection">
+                            <label for="cantidadPropina">Porcentaje de propina:</label>
+                            <input type="number" id="cantidadPropina" name="cantidadPropina" min="0" max="100">
+                        </div>
+
+
+
+
+
+
+
                         <form action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
                             <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
@@ -84,17 +96,17 @@
                             <label for="usarPuntos">Utilizar puntos</label>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos"><br>
 
-                            
+
 
                             <input type="submit" value="Confirmar">
 
-                        <div>
-                        <?php
-                        $puntosGanados = UsuarioDAO::calcularPuntosAcumulados($precioTotal,$_SESSION['id'] );
-                        ?>
-                        <p>Acumulados: <?= $puntosGanados ?></p>
-                        </div>
-                            
+                            <div>
+                                <?php
+                                $puntosGanados = UsuarioDAO::calcularPuntosAcumulados($precioTotal, $_SESSION['id']);
+                                ?>
+                                <p>Acumulados: <?= $puntosGanados ?></p>
+                            </div>
+
                         </form>
                     </article>
                 </div>
@@ -103,4 +115,5 @@
     </section>
 
     <script src="javascript/fidelidad.js"></script>
+    <script src="javascript/propinas.js"></script>
 </body>
