@@ -69,15 +69,17 @@
                         } ?>
                         <p class="pCarrito p4Carrito" id="precioSinActualizar">SUBTOTAL: <?= $precioTotal ?> €</p>
 
-                        <div id="descuentoSection">
-                            <label for="cantidadPropina">Porcentaje de propina:</label>
-                            <input type="number" id="cantidadPropina" name="cantidadPropina" min="0" max="100" value="0">
-                        </div>
+
 
 
                         <form action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
                             <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
+
+                            <div id="descuentoSection">
+                                <label for="cantidadPropina">Porcentaje de propina:</label>
+                                <input type="number" id="cantidadPropina" name="cantidadPropina" min="0" max="100" value="0">
+                            </div>
 
                             <label for="usarPuntos">Utilizar puntos</label>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos"><br>

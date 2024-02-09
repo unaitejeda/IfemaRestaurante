@@ -290,7 +290,7 @@ class productoController
         $puntosAcumulados = UsuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
     
         if (isset($_POST['cantidadFinal'])) {
-            setcookie('UltimoPedido', $precioTotal, time() + 3600, "/");
+            setcookie('UltimoPedido', $precioTotalConPropina, time() + 3600, "/");
         }
     
         unset($_SESSION['selecciones']);
