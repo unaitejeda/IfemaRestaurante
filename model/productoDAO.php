@@ -156,23 +156,24 @@ class ProductoDAO
 
     // Creamos un nuevo pedido en la base de datos y actualizamos los puntos de fidelidad del usuario
     public static function crearPedido($id_usuario, $fecha, $total, $session, $propina)
-{
-    $con = DataBase::connect();
-    $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total, propina) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("isdi", $id_usuario, $fecha, $total, $propina); // Cambiado el tipo de dato de la propina a "double"
-    $stmt->execute();
-
-    $añadirID = $con->insert_id;
-
-    foreach ($session as $articulos) {
-        $cantidad = $articulos->getCantidad();
-        $idProducto = $articulos->getProducto()->getId();
-        $productos_Pedido = $con->prepare("INSERT INTO productos_pedido (id_producto, cantidad, id_pedido) VALUES (?, ?, ?)");
-        $productos_Pedido->bind_param("iii", $idProducto, $cantidad, $añadirID);
-        $productos_Pedido->execute();
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("INSERT INTO pedidos (id_usuario, hora, total, propina) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("isdi", $id_usuario, $fecha, $total, $propina); // Cambiado el tipo de dato de la propina a "double"
+        $stmt->execute();
+    
+        $añadirID = $con->insert_id;
+    
+        foreach ($session as $articulos) {
+            $cantidad = $articulos->getCantidad();
+            $idProducto = $articulos->getProducto()->getId();
+            $productos_Pedido = $con->prepare("INSERT INTO productos_pedido (id_producto, cantidad, id_pedido) VALUES (?, ?, ?)");
+            $productos_Pedido->bind_param("iii", $idProducto, $cantidad, $añadirID);
+            $productos_Pedido->execute();
+        }
+        return $añadirID;
     }
-    return $añadirID;
-}
+    
 
 
     

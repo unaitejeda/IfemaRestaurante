@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poryecto IfemaRestaurante</title>
+    <title>Proyecto IfemaRestaurante</title>
 </head>
 
 <body>
@@ -57,13 +57,7 @@
                 </div>
                 <div class="col-12 col-md-2 col-lg-3">
                     <article class="finalizarCompra">
-                        <div id="mostrarPuntos">
-
-
-                        </div>
-
-
-
+                        <div id="mostrarPuntos"></div>
                         <p class="pCarrito p4Carrito">PRODUCTOS</p>
                         <?php
                         $pos = 0;
@@ -75,28 +69,18 @@
                         } ?>
                         <p class="pCarrito p4Carrito" id="precioSinActualizar">SUBTOTAL: <?= $precioTotal ?> €</p>
 
-
-
                         <div id="descuentoSection">
                             <label for="cantidadPropina">Porcentaje de propina:</label>
-                            <input type="number" id="cantidadPropina" name="cantidadPropina" min="0" max="100">
+                            <input type="number" id="cantidadPropina" name="cantidadPropina" min="0" max="100" value="0">
                         </div>
-
-
-
-
-
 
 
                         <form action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
                             <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
 
-
                             <label for="usarPuntos">Utilizar puntos</label>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos"><br>
-
-
 
                             <input type="submit" value="Confirmar">
 
@@ -114,6 +98,7 @@
         </div>
     </section>
 
-    <script src="javascript/fidelidad.js"></script>
-    <script src="javascript/propinas.js"></script>
+    <script src="javascript/pedido.js"></script>
 </body>
+
+</html>
