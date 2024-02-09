@@ -266,10 +266,10 @@ class productoController
         $fechaBD = date('Y-m-d');
         $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
         $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
-    
+
         // Obtener el valor de la propina del formulario
         $propina = isset($_POST['cantidadPropina']) ? $_POST['cantidadPropina'] : 0;
-    
+
         // Calcular descuento por puntos si se van a utilizar
         if ($usarPuntos) {
             $puntosDisponibles = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
@@ -277,28 +277,28 @@ class productoController
             $precioTotal -= $descuento;
             UsuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - ($descuento * 10)); // Restar puntos equivalentes al descuento aplicado
         }
-    
+
         // Calcular el precio total con el descuento aplicado antes de sumar la propina
         $precioTotalConDescuento = $precioTotal;
-    
+
         // Aplicar propina al precio total con descuento
         $precioTotalConPropina = $precioTotalConDescuento + ($precioTotalConDescuento * $propina / 100);
-    
+
         // Crear el pedido con el precio total considerando la propina
         $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotalConPropina, $_SESSION['selecciones'], $propina);
-    
+
         $puntosAcumulados = UsuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
-    
+
         if (isset($_POST['cantidadFinal'])) {
             setcookie('UltimoPedido', $precioTotalConPropina, time() + 3600, "/");
         }
-    
+
         unset($_SESSION['selecciones']);
-    
+
         header("Location:" . url . '?controller=producto');
     }
-    
-    
+
+
 
 
 
@@ -377,5 +377,28 @@ class productoController
             session_destroy();
             header("Location:" . url . '?controller=producto');
         }
+    }
+
+
+
+
+    public function qr()
+    {
+        session_start();
+
+        $resultado = array(); // Inicializa $resultado como un array vacío
+
+        if (isset($_SESSION['ultimoPedidoId'])) {
+            $resultado = usuarioDAO::qrLastPedido($_SESSION['ultimoPedidoId']);
+        }
+
+        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+
+            include_once 'view/cabeceraadmin.php';
+        } else {
+            include_once 'view/cabecera.php';
+        }
+        include_once 'view/qrPedido.php';
+        include_once 'view/footer.php';
     }
 }

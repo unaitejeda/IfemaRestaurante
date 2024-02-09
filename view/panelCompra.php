@@ -72,7 +72,7 @@
 
 
 
-                        <form action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
+                        <form id="qr" action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
                             <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
 
@@ -101,6 +101,8 @@
     </section>
 
     <script src="javascript/pedido.js"></script>
+    <script src="javascript/qr.js"></script>
+    <script src="javascript/qrcode.min.js"></script>
 </body>
 
 </html>
