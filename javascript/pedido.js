@@ -12,18 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Guardar el precio original al cargar la página
     precioOriginal = parseFloat(precioFinal.textContent.split(': ')[1]);
 
-    // Agregar un evento de cambio al checkbox
-    checkbox.addEventListener('change', function () {
-        // Verificar si el checkbox está marcado
-        if (this.checked) {
-            // Si está marcado, calcular y mostrar el precio con descuento
-            calcularPrecioConDescuento(id_usuario);
-        } else {
-            // Si no está marcado, mostrar el precio original
-            mostrarPrecioOriginal();
-        }
-    });
-
     // Función para calcular el precio con el descuento de puntos y la propina
     function calcularPrecioConDescuento(id_usuario) {
         let data = {
@@ -81,10 +69,25 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error(error));
     }
 
-    // Función para mostrar el precio original en la página
-    function mostrarPrecioOriginal() {
-        mostrarPrecioConDescuento(precioOriginal);
-    }
+    // Agregar un evento de cambio al checkbox
+    checkbox.addEventListener('change', function () {
+        // Verificar si el checkbox está marcado
+        if (this.checked) {
+            // Si está marcado, calcular y mostrar el precio con descuento
+            calcularPrecioConDescuento(id_usuario);
+        } else {
+            // Si no está marcado, restaurar el precio original con la propina si está definida
+            let propina = parseFloat(propinaInput.value);
+            if (!isNaN(propina) && propina >= 0) {
+                let precioConPropina = precioInicial * (1 + propina / 100); 
+                // Mostrar el precio con la propina
+                precioFinal.textContent = 'SUBTOTAL: ' + precioConPropina.toFixed(2) + ' €';
+            } else {
+                // Si la propina no está definida, restaurar el precio original sin propina
+                precioFinal.textContent = 'SUBTOTAL: ' + precioInicial.toFixed(2) + ' €';
+            }
+        }
+    });
 
     // Agregar evento de cambio al input de propina
     propinaInput.addEventListener('input', function () {
