@@ -1,6 +1,12 @@
 <?php
 
 include_once 'config/db.php';
+include_once 'menus.php';
+include_once 'platos.php';
+include_once 'postres.php';
+include_once 'bebidas.php';
+include_once 'producto.php';
+include_once 'pedido.php';
 
 class UsuarioDAO
 {
