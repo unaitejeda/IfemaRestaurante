@@ -64,6 +64,10 @@ nav{
     background-color: var(--bg-col1);
 }
 
+.seccionFiltros{
+    background-color: var(--bg-col2);
+}
+
 .SubMenu{
     background-color: var(--bg-col2);
 }
@@ -387,6 +391,12 @@ h2{
 
 .imgCarrito{
     background-image: url('../images/ICONOS/HEADER/carrito-de-compras1.png');
+    height: 32px;
+    width: 32px;
+}
+
+.imgPedidos{
+    background-image: url('../images/ICONOS/HEADER/ordenar-comida1.png');
     height: 32px;
     width: 32px;
 }
@@ -935,15 +945,16 @@ footer{
 .pedido-container {
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 6px 9px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
+    margin-top: 20px;
     width: 100%;
     max-width: 600px;
 }
 
 .pedido-container h3 {
-    color: #dc3545;
+    color:  var(--bg-col3);
 }
 
 .pedido-container p {
@@ -951,7 +962,7 @@ footer{
 }
 
 .pedido-container .boton-resenya {
-    background-color: #007bff;
+    background-color:  var(--bb-MasMenos);
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -971,6 +982,57 @@ footer{
 }
 
 
+
+
+
+
+/*BOTON ASCENDENTE/DESCENDENTE */
+
+/* Estilo para el contenedor select */
+#orden {
+    width: AUTO;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  /* Estilo para las opciones */
+  #orden option {
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  /* Estilo para la opción seleccionada */
+  #orden option:checked {
+    background-color: #0074d9;
+    color: #fff;
+  }
+  
+
+
+  /*BOTON RESETEAR*/
+
+  .buttonReset {
+    padding: 5px 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--bb-MasMenos);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Estilo para cuando el cursor está encima del botón */
+  .buttonReset:hover {
+    background-color:   var(--bg-col4);
+  }
 
 
 /*Media query*/

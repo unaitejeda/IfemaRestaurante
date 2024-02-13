@@ -25,20 +25,26 @@
     </section>
 
     <!-- FILTRO -->
-    <div id="categories-filter">
-        <label><input type="checkbox" value="1" class="category-checkbox"> Categoria 1</label>
-        <label><input type="checkbox" value="2" class="category-checkbox"> Categoria 2</label>
-        <label><input type="checkbox" value="3" class="category-checkbox"> Categoria 3</label>
-        <label><input type="checkbox" value="4" class="category-checkbox"> Categoria 4</label>
-        <label><input type="checkbox" value="5" class="category-checkbox"> Categoria 5</label>
-    </div>
-    <div id="orden-selector">
-        <label for="orden">Orden:</label>
-        <select id="orden">
-            <option value="ascendente">Ascendente</option>
-            <option value="descendente">Descendente</option>
-        </select>
-    </div>
+    <section class="seccionUbicación">
+        <div class="container container4">
+            <div id="categories-filter">
+                <label><input type="checkbox" value="1" class="category-checkbox"> 1 ★</label>
+                <label><input type="checkbox" value="2" class="category-checkbox"> 2 ★</label>
+                <label><input type="checkbox" value="3" class="category-checkbox"> 3 ★</label>
+                <label><input type="checkbox" value="4" class="category-checkbox"> 4 ★</label>
+                <label><input type="checkbox" value="5" class="category-checkbox"> 5 ★</label>
+            </div>
+            <div id="orden-selector">
+                <label for="orden">Orden:</label>
+                <select id="orden">
+                    <option value="ascendente">Ascendente</option>
+                    <option value="descendente">Descendente</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+
 
 
     <!-- RESEÑAS -->

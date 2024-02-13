@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Obtén el contenido que deseas en el código QR (en este caso, la URL)
         const url = 'http://localhost/?controller=producto&action=qr';
-
+z
         // Genera el código QR en una nueva instancia de QRCode
         const qr = new QRCode(document.createElement('div'), {
             text: url,

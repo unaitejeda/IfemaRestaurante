@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <!-- TITULO PAGINA -->
+  <!--  SECCION GRACIAS -->
   <section class="seccionProducto">
         <div class="container">
             <h3 class="h2SeccionQR">GRACIAS POR SU COMPRA ! :)</h3>

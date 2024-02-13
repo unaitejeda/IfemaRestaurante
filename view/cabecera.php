@@ -40,6 +40,9 @@
               </a>
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             </form>
+            <a class="botonCarrito" href="<?= url . '?controller=reseñas&action=mostrarPedidos' ?>" style="text-decoration:none">
+              <div class="imgPedidos" type="submit"> </div>
+            </a>
             <a class="botonCarrito" href="<?= url . '?controller=producto&action=compra' ?>" style="text-decoration:none">
               <span class="contador"><?= count($_SESSION['selecciones']) ?></span>
               <div class="imgCarrito" type="submit"> </div>

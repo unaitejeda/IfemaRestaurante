@@ -9,7 +9,12 @@
 </head>
 
 <body>
-
+ <!-- TITULO PAGINA -->
+ <section class="seccionProducto">
+        <div class="container">
+            <h3 class="h2SeccionQR">MIS PEDIDOS</h3>
+        </div>
+    </section>
     <div id="pedidos-container">
         <?php
         // Supongo que $resultado contiene los pedidos obtenidos

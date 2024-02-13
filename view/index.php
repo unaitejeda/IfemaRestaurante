@@ -109,7 +109,7 @@
                     </div>
 
                     <div class="col-sm-6 col-xxl-3 div-botonesProductos">
-                        <a href="<?= url . '?controller=reseñas&action=mostrarPedidos' ?>" style="overflow: hidden;">
+                        <a href="<?= url . '?controller=producto&action=carta&categoria=Postres' ?>" style="overflow: hidden;">
                             <div class="mb-4 mb-lg-0  mx-2 mx-lg-0 div-botonesProductos-hover">
                                 <div class="divContenidoBotonesProductos1" style="float: left; width: 70%;">
                                     <div class="imagenesSeccionesProductos4"></div>

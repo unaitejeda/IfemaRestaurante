@@ -50,14 +50,18 @@
         </div>
     </section>
 
-
-    <section class="category-filter">
-        <label><input type="checkbox" class="category-checkbox" value="Menus"> Menus</label>
-        <label><input type="checkbox" class="category-checkbox" value="Platos"> Platos</label>
-        <label><input type="checkbox" class="category-checkbox" value="Bebidas"> Bebidas</label>
-        <label><input type="checkbox" class="category-checkbox" value="Postres"> Postres</label>
-        <button onclick="resetFilters()">Resetear Filtros</button>
+    <section class="seccionFiltros">
+        <div class="container container4">
+            <section class="category-filter">
+                <label><input type="checkbox" class="category-checkbox" value="Menus"> Menus</label>
+                <label><input type="checkbox" class="category-checkbox" value="Platos"> Platos</label>
+                <label><input type="checkbox" class="category-checkbox" value="Bebidas"> Bebidas</label>
+                <label><input type="checkbox" class="category-checkbox" value="Postres"> Postres</label>
+                <button class="buttonReset" onclick="resetFilters()">Resetear Filtros</button>
+            </section>
+        </div>
     </section>
+
 
 
 
@@ -86,7 +90,7 @@
                                 <?php endif; ?>
                                 </p>
 
-                                <form action=<?= url . '?controller=producto&action=selecciones&pagina=carta' ?> method='post'>
+                                <form action="<?= url . '?controller=producto&action=selecciones&pagina=carta' ?>" method='post'>
                                     <input type="hidden" name="id" value=<?= $product->getId() ?>>
                                     <input type="hidden" name="categoria" value=<?= $product->getCategoria() ?>>
                                     <button class="botonAñadir" type="sumbit" name="add">Añadir al carrito</button>
