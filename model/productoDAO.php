@@ -175,6 +175,35 @@ class ProductoDAO
     }
     
 
+    public static function getProductByIdOnly($id)
+    {
+        $con = DataBase::connect();
 
+        $query = "SELECT categorias.categoria FROM productos JOIN categoria ON productos.categoria = categorias.categoria WHERE productos.id = ?;";
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $tipo = $stmt->get_result()->fetch_object()->nombreCategoria;
+
+
+
+        $stmt = $con->prepare("SELECT productos.id, productos.nombre, productos.precio, productos.foto
+        FROM productos 
+        JOIN categorias ON productos.categoria = categorias.categoria WHERE productos.ID = ?;");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        //Comprobamos si el objeto sera una bebida u otro producto 
+        if ($tipo == 'Bebidas') {
+            $row = $result->fetch_assoc();
+            $producto = new Bebidas($row['ID'], $row['Nombre'], $row['precio'], $row['descripcion'], $tipo, $row['foto']);
+        } else {
+            $producto = $result->fetch_object($tipo);
+        }
+
+        $con->close();
+        return $producto;
+    }
     
 }

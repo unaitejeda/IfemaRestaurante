@@ -103,7 +103,7 @@
     <script src="javascript/pedido.js"></script>
     <script src="javascript/qr.js"></script>
     <script src="javascript/qrcode.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 </body>
 
 </html>

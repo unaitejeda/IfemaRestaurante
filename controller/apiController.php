@@ -64,4 +64,25 @@ class ApiController
             return;
         }
     }
+
+    // public static function obtenerPedido(){
+    //     $idUltimoPedido = usuarioDAO::obtenerIdUltimoPedido();
+
+    //     if($idUltimoPedido){
+    //         $pedido = usuarioDAO::getPedidoById($idUltimoPedido);
+
+    //         $datosPedido = array(
+    //             'id' => $pedido->getId(),
+    //             'id_usuario' => $pedido->getId_usuario(),
+    //             'hora' => $pedido->getHora(),
+    //             'total' => $pedido->getTotal(),
+    //             'propina' => $pedido->getPropina()
+    //         );
+
+    //         echo json_encode($datosPedido);
+
+    //     }else{
+    //         echo json_encode(['error' => 'ID del último pedido no encontrado']);
+    //     }
+    // }
 }
