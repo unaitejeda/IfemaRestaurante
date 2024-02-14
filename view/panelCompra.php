@@ -73,7 +73,7 @@
 
 
                         <form id="qr" action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
-                            <input type="text" id="id_usuario" name="id_usuario" value="<?= $_SESSION['id'] ?>" hidden><br>
+                            <input type="text" id="id_usuario" name="id_usuario" value="<?= $id_usuario ?>" hidden><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
 
                             <div id="descuentoSection">

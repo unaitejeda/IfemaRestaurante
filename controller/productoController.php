@@ -410,12 +410,14 @@ class productoController
 
     public function PaginaDetallesPedidoQR()
     {
+        
+        $id_usuario = $_SESSION['id'];
         $nombre = "Informacion del Pedido";
-        $ID_user = $_GET['ID'];
+        $id_user = $_GET['ID'];
 
-        $pedidos = ProductoDAO::getUltimoPedidoByUser($ID_user);
+        $pedidos = usuarioDAO::getUltimoPedidoByUser($id_user);
 
-        $productos = ProductoDAO::getProductoByPedido($pedidos);
+        $productos = usuarioDAO::getProductoByPedido($pedidos);
 
         // Obtener solo el primer elemento del array
         $primerPedido = reset($productos);
@@ -423,7 +425,7 @@ class productoController
         // Verificar si hay algún pedido
         if ($primerPedido) {
             $primerPedidoID = $primerPedido->getID();
-            $primerPedidoFecha = $primerPedido->getFecha();
+            $primerPedidoFecha = $primerPedido->getHora();
 
             // Ahora puedes utilizar $primerPedidoID y $primerPedidoFecha en tu código PHP
         }

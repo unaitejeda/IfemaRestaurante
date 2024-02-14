@@ -225,7 +225,7 @@ class UsuarioDAO
             $producto_pedido = ProductoDAO::getProductByIdOnly($id_producto);
 
             //creamos el objeto pedido con el producto y la cantidad
-            $pedido = new Pedidos($producto_pedido);
+            $pedido = new Pedido($producto_pedido);
             $pedido->setCantidad($cantidad);
             $pedido->setId($ID);
             $pedido->setHora($fecha);
