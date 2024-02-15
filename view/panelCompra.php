@@ -73,7 +73,7 @@
 
 
                         <form id="qr" action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
-                            <input type="text" id="id_usuario" name="id_usuario" value="<?= $id_usuario ?>" hidden><br>
+                            <input type="hidden" id="id_usuario" name="id_usuario" value="<?= $id_usuario ?>"><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
 
                             <div id="descuentoSection">
@@ -84,7 +84,7 @@
                             <label for="usarPuntos">Utilizar puntos</label>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos"><br>
 
-                            <input type="submit" value="Confirmar">
+                            <input id="botonConfirmar" type="submit" value="Confirmar">
 
                             <div>
                                 <?php

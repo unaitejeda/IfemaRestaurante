@@ -179,11 +179,11 @@ class ProductoDAO
     {
         $con = DataBase::connect();
 
-        $query = "SELECT categorias.categoria FROM productos JOIN categoria ON productos.categoria = categorias.categoria WHERE productos.id = ?;";
+        $query = "SELECT categorias.categoria FROM productos JOIN categorias ON productos.categoria = categorias.categoria WHERE productos.id = ?;";
         $stmt = $con->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $tipo = $stmt->get_result()->fetch_object()->nombreCategoria;
+        $tipo = $stmt->get_result()->fetch_object()->categoria;
 
 
 
@@ -197,7 +197,8 @@ class ProductoDAO
         //Comprobamos si el objeto sera una bebida u otro producto 
         if ($tipo == 'Bebidas') {
             $row = $result->fetch_assoc();
-            $producto = new Bebidas($row['ID'], $row['Nombre'], $row['precio'], $row['descripcion'], $tipo, $row['foto']);
+            $producto = new Bebidas($row['id'], $row['nombre'], $row['precio'], $row['descripcion'], $tipo, $row['foto']);
+            var_dump($producto);
         } else {
             $producto = $result->fetch_object($tipo);
         }

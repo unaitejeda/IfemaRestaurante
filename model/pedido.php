@@ -7,10 +7,11 @@ class Pedido{
     private $producto;
     private $cantidad = 1;
     protected $id;
-    protected $id_usuario;
+    protected $nombreUsuario;
     protected $hora;
     protected $total;
     protected $propina;
+    protected $puntos;
 
     // Constructor que recibe un producto para el pedido
     public function __construct($producto){
@@ -85,19 +86,19 @@ class Pedido{
     /**
      * Get the value of id_usuario
      */
-    public function getId_usuario()
+    public function getnombreUsuario()
     {
-        return $this->id_usuario;
+        return $this->nombreUsuario;
     }
 
     /**
-     * Set the value of id_usuario
+     * Set the value of nombreUsuario
      *
      * @return  self
      */
-    public function setId_usuario($id_usuario)
+    public function setnombreUsuario($nombreUsuario)
     {
-        $this->id_usuario = $id_usuario;
+        $this->nombreUsuario = $nombreUsuario;
 
         return $this;
     }
@@ -158,6 +159,26 @@ class Pedido{
     public function setPropina($propina)
     {
         $this->propina = $propina;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of puntos
+     */ 
+    public function getPuntos()
+    {
+        return $this->puntos;
+    }
+
+    /**
+     * Set the value of puntos
+     *
+     * @return  self
+     */ 
+    public function setPuntos($puntos)
+    {
+        $this->puntos = $puntos;
 
         return $this;
     }

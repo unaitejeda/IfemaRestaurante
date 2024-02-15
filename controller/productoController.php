@@ -61,6 +61,8 @@ class productoController
     public function compra()
     {
         session_start();
+        
+        $id_usuario = $_SESSION['id'];
         // Actualizamos la cantidad de productos en la selección
         // Calculamos el precio total de la selección
         // Incluimos la cabecera según el tipo de usuario
@@ -411,7 +413,8 @@ class productoController
     public function PaginaDetallesPedidoQR()
     {
         
-        $id_usuario = $_SESSION['id'];
+        session_start();
+
         $nombre = "Informacion del Pedido";
         $id_user = $_GET['ID'];
 
@@ -426,17 +429,18 @@ class productoController
         if ($primerPedido) {
             $primerPedidoID = $primerPedido->getID();
             $primerPedidoFecha = $primerPedido->getHora();
+            $nombreUsuario = $primerPedido->getnombreUsuario();
 
             // Ahora puedes utilizar $primerPedidoID y $primerPedidoFecha en tu código PHP
         }
 
-        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+        // if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
 
-            include_once 'view/cabeceraadmin.php';
-        } else {
-            include_once 'view/cabecera.php';
-        }
-        include_once 'views/qrPedido.php';
-        include_once 'views/footer.php';
+        //     include_once 'view/cabeceraadmin.php';
+        // } else {
+        //     include_once 'view/cabecera.php';
+        // }
+        include_once 'view/qrPedido.php';
+        include_once 'view/footer.php';
     }
 }

@@ -192,19 +192,21 @@ class UsuarioDAO
     public static function getProductoByPedido($id_pedido)
     {
         $con = DataBase::connect();
-
-        $query = "SELECT productos_pedido.id_producto, 
+        $query = "SELECT 
+        productos_pedido.id_producto, 
         productos_pedido.cantidad, 
         productos_pedido.id_pedido, 
         pedidos.id,
-        pedidos.id_usuario
+        pedidos.id_usuario,
         pedidos.hora,
         pedidos.total,
-        pedidos.propina
+        pedidos.propina,
+        usuarios.puntos,
+        usuarios.nombre
         FROM productos_pedido
         JOIN pedidos ON productos_pedido.id_pedido = pedidos.id
-        WHERE productos_pedido.id_pedido = ?;
-        ";
+        JOIN usuarios ON pedidos.id_usuario = usuarios.id
+        WHERE productos_pedido.id_pedido = ?;";
 
         $stmt = $con->prepare($query);
         $stmt->bind_param("i", $id_pedido);
@@ -215,10 +217,12 @@ class UsuarioDAO
             //Por cada fila obtenemos los detalles del producto
             $id_producto = $row['id_producto'];
             $cantidad = $row['cantidad'];
+            $nombre = $row['nombre'];
             $ID = $row['id'];
             $fecha = $row['hora'];
             $precioTotal = $row['total'];
             $propina = $row['propina'];
+            $puntos = $row['puntos'];
 
 
             //Consulta para obtener los datos del producto y ademas el objeto Producto
@@ -227,15 +231,16 @@ class UsuarioDAO
             //creamos el objeto pedido con el producto y la cantidad
             $pedido = new Pedido($producto_pedido);
             $pedido->setCantidad($cantidad);
+            $pedido->setNombreUsuario($nombre);
             $pedido->setId($ID);
             $pedido->setHora($fecha);
             $pedido->setTotal($precioTotal);
             $pedido->setPropina($propina);
+            $pedido->setPuntos($puntos);
 
             //Agregamos el objeto Pedido al array de detalles
             $detalles_pedido[] = $pedido;
         }
-
         return $detalles_pedido;
     }
 }
