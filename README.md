@@ -85,7 +85,41 @@ Este bloque de código PHP define la clase ComentariosDAO, que maneja la interac
 
 ## Programa de fidelidad
 ### Código
+#### Puntos de fidelidad
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/e2432543-a734-45fa-8376-a6f5ff4f3908)
+#### Mostrar puntos de fidelidad y el descuento
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/3186aa40-c87d-489d-a386-bac5ec7aff29)
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/38efb70a-92c4-4b64-bc01-d744c8a37029)
+#### Api para los puntos del usuario
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/c9e41430-04d0-48f5-8d6a-f2ce6c751cc7)
+#### Funciones del DAO para la fidelidad
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/8475d51b-d1e3-4e2d-9274-515086dde698)
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/8dc7fe71-0f0f-4dfa-8638-4bd84f9c078f)
+
+
 ### Explicación
+#### Puntos de fidelidad
+Los puntos de fidelidad del usuario se calculan y muestran al calcular el total acumulado de puntos que ganará con la compra. Este cálculo se realiza utilizando un método proporcionado por UsuarioDAO. Además, se incluye un campo para ingresar un porcentaje de propina y un checkbox para indicar si se desean utilizar los puntos de fidelidad en la compra.Los puntos de fidelidad del usuario se actualizan según el precio total de la compra y se muestran en la respuesta del servidor.
+
+#### Mostrar puntos de fidelidad y el descuento
+Este código JavaScript se encarga de calcular y mostrar el precio final considerando los puntos de fidelidad del usuario y la propina seleccionada. Al cargar la página, se muestra la cantidad de puntos de fidelidad acumulados por el usuario. Cuando se marca o desmarca el checkbox para usar los puntos de fidelidad, se calcula y muestra el precio final con el descuento correspondiente. Si se ingresa una propina, se actualiza el precio final teniendo en cuenta la propina. Si no se ingresa propina, se muestra el precio final original sin modificar.
+
+#### Api para los puntos del usuario
+Este bloque de código PHP maneja una solicitud para obtener los puntos de fidelidad de un usuario. Primero, verifica si se proporciona un ID de usuario válido. Luego, utiliza el método mostrarPuntosFidelidad de la clase UsuarioDAO para obtener los puntos de fidelidad asociados a ese usuario. Finalmente, devuelve la cantidad de puntos en formato JSON si se proporciona un ID de usuario válido, o un mensaje de error si no hay sesión iniciada o el ID de usuario es nulo.
+
+#### Funciones del DAO para la fidelidad
+Este PHP define la clase UsuarioDAO, que proporciona funcionalidades relacionadas con los puntos de fidelidad del usuario.
+
+- mostrarPuntosFidelidad($id_usuario): Esta función recupera los puntos de fidelidad actuales de un usuario específico de la base de datos y los devuelve.
+
+- actualizarPuntosFidelidad($id_usuario, $nuevosPuntos): Actualiza los puntos de fidelidad de un usuario en la base de datos con el valor proporcionado.
+
+- acumularPuntosPorCompra($id_usuario, $total): Calcula y acumula los puntos de fidelidad que un usuario ganará por una compra específica. Calcula la cantidad de puntos a acumular multiplicando el total gastado por una tasa de conversión fija. Luego, actualiza los puntos de fidelidad del usuario en la base de datos y devuelve la cantidad de puntos acumulados.
+
+- calcularPuntosAcumulados($total, $id_usuario): Similar a la función anterior, calcula la cantidad de puntos de fidelidad que un usuario ganará por una compra específica.
+
+
+
 
 ## QR
 ### Código
