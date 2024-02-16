@@ -422,24 +422,14 @@ class productoController
 
         $productos = usuarioDAO::getProductoByPedido($pedidos);
 
-        // Obtener solo el primer elemento del array
         $primerPedido = reset($productos);
 
-        // Verificar si hay algún pedido
         if ($primerPedido) {
             $primerPedidoID = $primerPedido->getID();
             $primerPedidoFecha = $primerPedido->getHora();
             $nombreUsuario = $primerPedido->getnombreUsuario();
 
-            // Ahora puedes utilizar $primerPedidoID y $primerPedidoFecha en tu código PHP
         }
-
-        // if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
-
-        //     include_once 'view/cabeceraadmin.php';
-        // } else {
-        //     include_once 'view/cabecera.php';
-        // }
         include_once 'view/qrPedido.php';
         include_once 'view/footer.php';
     }
