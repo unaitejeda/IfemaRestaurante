@@ -1,7 +1,10 @@
+Unai Tejeda Montañes  |  DAW2B  |  JavaScript  |  16/02/2023
 # Página Web de IFEMA RESTAURANTE
+
 
 ## Resumen del Proyecto
 Este portal web se enfoca a una web basada en IFEMA MADRID pero hecha en restaurante, utilizando tecnologías de vanguardia como JavaScript, PHP, CSS y HTML. Con esto aplicamos todo lo que sabemos para generar la web realizar las maximas funciones posbiles que se nos piden.
+
 
 ## Funcionalidades Principales
 - **Reseñas del restaurante:** Apartado de reseñas donde cada usuario podra realizar una reseña de cada uno de sus propios pedidos, estas reseñas se veran reflejadas en un apartado en la web, y cada pedido unicmamente podra tener una única reseña. 
@@ -10,11 +13,13 @@ Este portal web se enfoca a una web basada en IFEMA MADRID pero hecha en restaur
 - **Propinas:** Los usaurios podran dejar un propina en cada uno de sus pedidos para que asi apoyen aun mas a la empresa.
 - **Filtro de productos:** Este filtro se aplciara en el apartado de la carta, donde los usuarios pdoran filtrar por una o mas categorias en concreto, a aprte de que este filtro en caso de salirse de la web se mantendra hasta que el usuario lo quite.
 
+
 ## Lenguajes 
 - **HTML:** Para la estructura y contenido de la página.
 - **CSS:** Para la estética y estilo del portal.
 - **PHP:** Para el desarrollo del lado del servidor.
 - **JavaScript:** Para la funcionalidad interactiva del lado del cliente.
+
 
 ## Reseñas del restaurante
 ### Código
@@ -39,8 +44,6 @@ Este portal web se enfoca a una web basada en IFEMA MADRID pero hecha en restaur
 #### Funciones del DAO de reseñas
 ![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/1449e041-2585-4f0a-afeb-9969f094ed1d)
 ![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/9d9dc262-f507-4595-9487-c0f95469a9c6)
-
-
 
 ### Explicación
 #### Página donde se muestran los pedidos con el botón 
@@ -83,6 +86,7 @@ Este bloque de código PHP define la clase ComentariosDAO, que maneja la interac
 - Método selecPedidos(): Obtiene un pedido específico junto con su reseña asociada, si la tiene, y lo devuelve en un array.
 - Método tieneResenya(): Verifica si un pedido tiene asociada al menos una reseña en la base de datos y devuelve true o false en consecuencia.
 
+
 ## Programa de fidelidad
 ### Código
 #### Puntos de fidelidad
@@ -122,9 +126,41 @@ Este PHP define la clase UsuarioDAO, que proporciona funcionalidades relacionada
 #### Función para confirmar
 Este método confirma un pedido de usuario. Inicia sesión, obtiene detalles del pedido y calcula el precio total. Si se usan puntos de fidelidad, aplica descuentos y actualiza los puntos del usuario. Luego, calcula el precio total con descuento y agrega la propina. Crea el pedido en la base de datos y acumula puntos por la compra. Finalmente, redirige al usuario y limpia los datos del pedido.
 
+
 ## QR
 ### Código
+#### Código QR
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/82c5f0e5-4ef5-437d-8d14-d268da55478a)
+#### Funciones del DAO para el QR y el pedido
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/9b9ade36-09da-43a3-978c-84c5bc56da06)
+#### Controlador QR
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/54e10345-9191-4739-b2ad-8ab5382b4439)
+#### Generar QR
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/7f36a3f1-d898-4f3f-a540-071705da94cb)
+#### Detalle del pedido
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/a0683475-abef-4b3c-874f-a2f1c0befdac)
+
 ### Explicación
+#### Código QR
+En el formulario de compra, hay un input oculto con el id "id_usuario" que almacena el ID del usuario. Esta información es esencial para asociar el pedido con el usuario correspondiente. El formulario también incluye otros campos relevantes para el proceso de compra, como el precio total y la cantidad final.
+Una vez que se completa el formulario y se envía, la información se utiliza para generar el código QR correspondiente al pedido realizado. Este código QR puede ser utilizado para diversos fines, como rastrear el pedido o acceder a detalles adicionales sobre la compra.
+
+#### Funciones del DAO para el QR y el pedido
+La función getUltimoPedidoByUser($id) se encarga de obtener el ID del último pedido realizado por un usuario específico. Realiza una consulta a la base de datos para seleccionar el ID del pedido más reciente asociado al usuario proporcionado. Retorna el ID del último pedido.
+
+Por otro lado, la función getProductoByPedido($id_pedido) recupera los detalles de un pedido específico, incluyendo los productos asociados a ese pedido. Realiza una consulta a la base de datos para seleccionar los detalles del pedido y los productos correspondientes. Retorna un array de objetos Pedido que contiene información detallada sobre los productos incluidos en el pedido especificado. Cada objeto Pedido incluye detalles como el producto, la cantidad, el nombre del usuario, la hora del pedido, el precio total, la propina y los puntos acumulados.
+
+#### Controlador QR
+La función PaginaDetallesPedidoQR() se encarga de mostrar los detalles de un pedido junto con su código QR asociado. Primero, inicia la sesión y obtiene el ID de usuario de la URL. Luego, utiliza el método getUltimoPedidoByUser($id_user) para obtener información sobre el último pedido realizado por el usuario. Posteriormente, emplea el método getProductoByPedido($pedidos) para obtener los productos asociados al último pedido.
+
+Una vez que se obtiene la información del pedido y los productos, la función verifica si se encontraron productos en el pedido. Si se encuentra al menos un producto, se extrae la información del primer pedido, como su ID, fecha y nombre de usuario.
+
+#### Generar QR
+Este script JavaScript crea un código QR para los detalles del pedido cuando se hace clic en el botón de confirmación. El código obtiene el ID de usuario, construye una URL con ese ID para obtener los detalles del pedido y luego genera un código QR basado en esa URL. Finalmente, muestra el código QR en una ventana emergente con un mensaje informativo.
+
+#### Detalle del pedido
+Este es un archivo HTML que muestra los detalles del pedido, incluyendo el ID del pedido, la fecha, el nombre del usuario y la lista de productos. Utiliza PHP para iterar sobre los productos y mostrar su información. También incluye un script JavaScript para generar y mostrar el código QR del pedido.
+
 
 ## Propinas
 ### Código
@@ -134,7 +170,6 @@ Este método confirma un pedido de usuario. Inicia sesión, obtiene detalles del
 ![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/3081635b-9831-4a8b-aec4-b5472d909005)
 #### Función para confirmar
 ![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/e4256457-679c-4384-8289-1240223d7a0b)
-
 
 ### Explicación
 #### Propina en formulario
@@ -146,8 +181,6 @@ El evento input del input de propina se activa cuando se ingresa un valor. Calcu
 
 #### Función para confirmar
 Este método confirma un pedido de usuario. Inicia sesión, obtiene detalles del pedido y calcula el precio total. Si se usan puntos de fidelidad, aplica descuentos y actualiza los puntos del usuario. Luego, calcula el precio total con descuento y agrega la propina. Crea el pedido en la base de datos y acumula puntos por la compra. Finalmente, redirige al usuario y limpia los datos del pedido.
-
-
 
 
 ## Filtro de productos
