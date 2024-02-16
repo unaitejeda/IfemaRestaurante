@@ -86,6 +86,10 @@ Este bloque de código PHP define la clase ComentariosDAO, que maneja la interac
 - Método selecPedidos(): Obtiene un pedido específico junto con su reseña asociada, si la tiene, y lo devuelve en un array.
 - Método tieneResenya(): Verifica si un pedido tiene asociada al menos una reseña en la base de datos y devuelve true o false en consecuencia.
 
+### Problemas
+
+Por ultimo en cuanto a problemas que me he podido encontrar ha sido que el chequear si una reseña estaba ya hecha o no en un pedido y diferencia el boton requeria codigo muy específico.
+
 
 ## Programa de fidelidad
 ### Código
@@ -126,6 +130,10 @@ Este PHP define la clase UsuarioDAO, que proporciona funcionalidades relacionada
 #### Función para confirmar
 Este método confirma un pedido de usuario. Inicia sesión, obtiene detalles del pedido y calcula el precio total. Si se usan puntos de fidelidad, aplica descuentos y actualiza los puntos del usuario. Luego, calcula el precio total con descuento y agrega la propina. Crea el pedido en la base de datos y acumula puntos por la compra. Finalmente, redirige al usuario y limpia los datos del pedido.
 
+### Problemas
+
+Por ultimo en cuanto a problemas que me he podido encontrar ha sido el mostrar los puntos que ganaria el usuario con esa comproa ya que no podia mostrarlo sin que ya se hiciera el pedido, tambien el relacionar este apartado con el de propinas.
+
 
 ## QR
 ### Código
@@ -161,6 +169,10 @@ Este script JavaScript crea un código QR para los detalles del pedido cuando se
 #### Detalle del pedido
 Este es un archivo HTML que muestra los detalles del pedido, incluyendo el ID del pedido, la fecha, el nombre del usuario y la lista de productos. Utiliza PHP para iterar sobre los productos y mostrar su información. También incluye un script JavaScript para generar y mostrar el código QR del pedido.
 
+### Problemas
+
+Por ultimo en cuanto a problemas que me he podido encontrar ha sido a la hora de recoger la id del usuario ya que no se podia recoger por session ya que si no al escanearlo no se mostraba correactemente la infroamción del pedido, a demas de a la hora de generar la gran consulta y relacionar todas las tablas para recoger todos los diferentes datos.
+
 
 ## Propinas
 ### Código
@@ -182,6 +194,10 @@ El evento input del input de propina se activa cuando se ingresa un valor. Calcu
 #### Función para confirmar
 Este método confirma un pedido de usuario. Inicia sesión, obtiene detalles del pedido y calcula el precio total. Si se usan puntos de fidelidad, aplica descuentos y actualiza los puntos del usuario. Luego, calcula el precio total con descuento y agrega la propina. Crea el pedido en la base de datos y acumula puntos por la compra. Finalmente, redirige al usuario y limpia los datos del pedido.
 
+### Problemas
+
+Por ultimo en cuanto a problemas que me he podido encontrar ha sido el establecer la propina para que el precio se actualice sin refrescar la página y que ese porcentaje este relacionado correctamente  a la hora de actualizar con el apartado de fidelidad.
+
 
 ## Filtro de productos
 ### Código
@@ -196,3 +212,7 @@ Este fragmento de código HTML representa una sección de filtros para productos
 
 #### Filtro de productos
 Este JavaScript administra la funcionalidad de filtrado de productos basada en categorías mediante checkboxes. Primero, selecciona todos los checkboxes de categoría y les añade un evento de clic para actualizar los productos mostrados. Luego, al cargar la página, verifica si hay selecciones de categorías almacenadas en el localStorage y, si las hay, marca los checkboxes correspondientes y actualiza los productos mostrados según esas categorías. La función updateProducts() se encarga de mostrar u ocultar los productos según las categorías seleccionadas. Si no se selecciona ninguna categoría, se muestran todos los productos. Si se selecciona al menos una categoría, solo se muestran los productos que pertenecen a esas categorías. La función resetFilters() desmarca todos los checkboxes y restablece los productos mostrados a su estado original, además de eliminar las categorías seleccionadas almacenadas en localStorage.
+
+### Problemas
+
+Por ultimo en cuanto a problemas que me he podido encontrar ha sido a la hora de crear el local Storage, ya que no se alacenaba que selección de categoria marcaba el usuario.
