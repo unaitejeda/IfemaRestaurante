@@ -31,7 +31,7 @@
                     <?php foreach ($allProducts as $product) { ?>
                         <article class="col-12 col-md-6 col-lg-3">
                             <div class="mx-16 mb-12 mb-lg-0 mx-6 mx-lg-0 producto" style="overflow: hidden;">
-                                <img class="imgProductos" src=<?= $product->getFoto() ?> alt="productos">
+                                <img class="imgProductos" src=<?= $product->getFoto() ?>>
                                 <div class="contenidoProductos">
                                     <p class="nombreProducto"><?= $product->getName() ?></p>
                                     <p class="precioProducto"><?= $product->getPrecio() ?> €</p>

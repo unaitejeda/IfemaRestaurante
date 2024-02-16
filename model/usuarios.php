@@ -12,10 +12,8 @@ abstract class Usuarios
     protected $telefono;
     protected $rol = "User";
 
-    protected $puntos; 
-
     // Constructor que inicializa los atributos del usuario
-    public function __construct($id, $nombre, $apellido, $username, $mail, $password, $telefono, $rol, $puntos)
+    public function __construct($id, $nombre, $apellido, $username, $mail, $password, $telefono, $rol)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -25,7 +23,6 @@ abstract class Usuarios
         $this->password = $password;
         $this->telefono = $telefono;
         $this->rol = $rol;
-        $this->puntos = $puntos;
     }
     // Métodos para obtener y establecer valores de los atributos
 
@@ -185,26 +182,6 @@ abstract class Usuarios
     public function setRol($rol)
     {
         $this->rol = $rol;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of puntos
-     */ 
-    public function getPuntos()
-    {
-        return $this->puntos;
-    }
-
-    /**
-     * Set the value of puntos
-     *
-     * @return  self
-     */ 
-    public function setPuntos($puntos)
-    {
-        $this->puntos = $puntos;
 
         return $this;
     }

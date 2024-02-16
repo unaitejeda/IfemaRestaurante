@@ -157,13 +157,11 @@
         <section class="section4">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-xxl-6" style="padding: 0px; ">
+                    <div class="col-12 col-xxl-6"  style="padding: 0px; ">
                         <div class="divContenidoSeccion4">
                             <h2 class="h2Seccion4">Descubre quienes somos en IFEMA RESTAURANTE</h2>
                             <p class="pSeccion4">En IFEMA Restaurante, nuestra pasión es ofrecer experiencias culinarias excepcionales a nuestros clientes. Nuestra cocina es una mexcla de creatividad y tradición, donde los ingredientes frescos y locales son la base de cada plato que servimos! Gracias por confiar en nosotros y esmepremos ofreceles la mejro experiencia.</p>
-                            <a href="<?= url . '?controller=reseñas&action=reseñas' ?>">
-                                <button class="botonDescubrenos" style="background-image: linear-gradient( rgba(230, 65, 0, 1),rgba(255, 255, 255, 0));">Descubre más de nosotros</button>
-                            </a>
+                            <button class="botonDescubrenos" style="background-image: linear-gradient( rgba(230, 65, 0, 1),rgba(255, 255, 255, 0));">Descubre más de nosotros</button>
                         </div>
                     </div>
                     <div class="col-12 col-xxl-6" style="padding: 0px; ">
