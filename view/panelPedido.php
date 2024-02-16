@@ -49,14 +49,32 @@
             </a>
         </div>
     </section>
+
+    <section class="seccionFiltros">
+        <div class="container container4">
+            <section class="category-filter">
+                <label><input type="checkbox" class="category-checkbox" value="Menus"> Menus</label>
+                <label><input type="checkbox" class="category-checkbox" value="Platos"> Platos</label>
+                <label><input type="checkbox" class="category-checkbox" value="Bebidas"> Bebidas</label>
+                <label><input type="checkbox" class="category-checkbox" value="Postres"> Postres</label>
+                <button class="buttonReset" onclick="resetFilters()">Resetear Filtros</button>
+            </section>
+        </div>
+    </section>
+
+
+
+
     <!-- PRODUCTOS -->
     <div class="seccionCarta">
         <div class="container container3">
             <div class="row ">
-                <?php foreach ($allProducts as $product) { ?>
-                    <article class="col-12 col-md-6 col-lg-3">
+                <?php foreach ($allProducts as $product) {
+                    $clase = $product->getCategoria();
+                ?>
+                    <article class="col-12 col-md-6 col-lg-3 <?php echo $clase ?>" selCategoria="<?= $product->getCategoria() ?>">
                         <div class="mx-16 mb-12 mb-lg-0 mx-6 mx-lg-0">
-                            <img class="imgProductos" src=<?= $product->getFoto() ?>>
+                            <img class="imgProductos" src=<?= $product->getFoto() ?> alt="Producto">
                             <div class="contenidoProductos">
                                 <p class="nombreProducto"><?= $product->getName() ?></p>
                                 <p class="precioProducto"><?= $product->getPrecio() ?> €</p>
@@ -72,7 +90,7 @@
                                 <?php endif; ?>
                                 </p>
 
-                                <form action=<?= url . '?controller=producto&action=selecciones&pagina=carta' ?> method='post'>
+                                <form action="<?= url . '?controller=producto&action=selecciones&pagina=carta' ?>" method='post'>
                                     <input type="hidden" name="id" value=<?= $product->getId() ?>>
                                     <input type="hidden" name="categoria" value=<?= $product->getCategoria() ?>>
                                     <button class="botonAñadir" type="sumbit" name="add">Añadir al carrito</button>
@@ -84,6 +102,8 @@
             </div>
         </div>
     </div>
+
+    <script src="javascript/filtroProductos.js"></script>
 </body>
 
 </html>

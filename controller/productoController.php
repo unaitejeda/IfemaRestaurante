@@ -7,6 +7,7 @@ include_once 'model/bebidas.php';
 include_once 'model/producto.php';
 include_once 'model/productoDAO.php';
 include_once 'model/pedido.php';
+include_once 'model/usuarioDAO.php';
 include_once 'utils/CalculadoraPrecios.php';
 
 // Definimos el controlador del producto
@@ -60,33 +61,39 @@ class productoController
     public function compra()
     {
         session_start();
+        
+        $id_usuario = $_SESSION['id'];
         // Actualizamos la cantidad de productos en la selección
         // Calculamos el precio total de la selección
         // Incluimos la cabecera según el tipo de usuario
         // Incluimos la vista del panel de compra y el footer
-        if (isset($_POST['Add'])) {
-            $pedido = $_SESSION['selecciones'][$_POST['Add']];
-            $pedido->setCantidad($pedido->getCantidad() + 1);
-        } else if (isset($_POST['Del'])) {
-            $pedido = $_SESSION['selecciones'][$_POST['Del']];
-            if ($pedido->getCantidad() == 1) {
-                unset($_SESSION['selecciones'][$_POST['Del']]);
+        if (isset($_SESSION['username'])) {
+            if (isset($_POST['Add'])) {
+                $pedido = $_SESSION['selecciones'][$_POST['Add']];
+                $pedido->setCantidad($pedido->getCantidad() + 1);
+            } else if (isset($_POST['Del'])) {
+                $pedido = $_SESSION['selecciones'][$_POST['Del']];
+                if ($pedido->getCantidad() == 1) {
+                    unset($_SESSION['selecciones'][$_POST['Del']]);
 
-                $_SESSION['selecciones'] = array_values($_SESSION['selecciones']);
-            } else {
-                $pedido->setCantidad($pedido->getCantidad() - 1);
+                    $_SESSION['selecciones'] = array_values($_SESSION['selecciones']);
+                } else {
+                    $pedido->setCantidad($pedido->getCantidad() - 1);
+                }
             }
-        }
-        $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+            $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
 
-        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+            if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
 
-            include_once 'view/cabeceraadmin.php';
+                include_once 'view/cabeceraadmin.php';
+            } else {
+                include_once 'view/cabecera.php';
+            }
+            include_once 'view/panelCompra.php';
+            include_once 'view/footer.php';
         } else {
-            include_once 'view/cabecera.php';
+            header("Location:" . url . '?controller=producto');
         }
-        include_once 'view/panelCompra.php';
-        include_once 'view/footer.php';
     }
 
     // Función para mostrar la carta de productos
@@ -97,29 +104,32 @@ class productoController
         // Ponemos la cabecera según el tipo de usuario
         // Ponemos la vista del panel de pedido y el footer
         session_start();
-
-        if (!isset($_GET['categoria'])) {
-            $allProducts = ProductoDAO::getAllProduct();
-            $categoria = 'Todos los Productos';
-        } else {
-            if (isset($_GET['categoria'])) {
-                $categoria = $_GET['categoria'];
-                if ($categoria == 'TodosProductos') {
-                    $allProducts = ProductoDAO::getAllProduct();
-                } else {
-                    $allProducts = ProductoDAO::getAllByTipe($categoria);
+        if (isset($_SESSION['username'])) {
+            if (!isset($_GET['categoria'])) {
+                $allProducts = ProductoDAO::getAllProduct();
+                $categoria = 'Todos los Productos';
+            } else {
+                if (isset($_GET['categoria'])) {
+                    $categoria = $_GET['categoria'];
+                    if ($categoria == 'TodosProductos') {
+                        $allProducts = ProductoDAO::getAllProduct();
+                    } else {
+                        $allProducts = ProductoDAO::getAllByTipe($categoria);
+                    }
                 }
             }
-        }
 
-        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
+            if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
 
-            include_once 'view/cabeceraadmin.php';
+                include_once 'view/cabeceraadmin.php';
+            } else {
+                include_once 'view/cabecera.php';
+            }
+            include_once 'view/panelPedido.php';
+            include_once 'view/footer.php';
         } else {
-            include_once 'view/cabecera.php';
+            header("Location:" . url . '?controller=producto');
         }
-        include_once 'view/panelPedido.php';
-        include_once 'view/footer.php';
     }
 
     // Función para agregar productos a la selección
@@ -248,17 +258,56 @@ class productoController
         include_once 'view/footer.php';
     }
 
+
+
     // Función para confirmar y finalizar la compra
     public function confirmar()
     {
-        // Limpia la selección de productos y guarda el último pedido en una cookie
-        // Redireccionamos a la página principal
         session_start();
+        $id_usuario = $_SESSION['id'];
+        $fechaBD = date('Y-m-d');
+        $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+        $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
+
+        // Obtener el valor de la propina del formulario
+        $propina = isset($_POST['cantidadPropina']) ? $_POST['cantidadPropina'] : 0;
+
+        // Calcular descuento por puntos si se van a utilizar
+        if ($usarPuntos) {
+            $puntosDisponibles = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
+            $descuento = $puntosDisponibles * 0.1; // Suponiendo que cada punto equivale a 0.1€ de descuento
+            $precioTotal -= $descuento;
+            UsuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - ($descuento * 10)); // Restar puntos equivalentes al descuento aplicado
+        }
+
+        // Calcular el precio total con el descuento aplicado antes de sumar la propina
+        $precioTotalConDescuento = $precioTotal;
+
+        // Aplicar propina al precio total con descuento
+        $precioTotalConPropina = $precioTotalConDescuento + ($precioTotalConDescuento * $propina / 100);
+
+        // Crear el pedido con el precio total considerando la propina
+        $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotalConPropina, $_SESSION['selecciones'], $propina);
+
+        $puntosAcumulados = UsuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
+
+        $_SESSION['ultimoPedidoId'] = $pedido;
+
+
+        if (isset($_POST['cantidadFinal'])) {
+            setcookie('UltimoPedido', $precioTotalConPropina, time() + 3600, "/");
+        }
+
         unset($_SESSION['selecciones']);
-        // guardo la cookie
-        setcookie('UltimoPedido', $_POST['cantidadFinal'], time() + 3600, "/");
+
         header("Location:" . url . '?controller=producto');
     }
+
+
+
+
+
+
 
     // Función para manejar el inicio de sesión
     public function login()
@@ -280,6 +329,9 @@ class productoController
             if ($result->num_rows > 0) {
                 header("Location:" . url . '?controller=producto');
                 $_SESSION["username"] = $username;
+                $row =  $result->fetch_assoc();
+                $id = $row['id'];
+                $_SESSION["id"] = $id;
                 return true;
             } else {
                 header("Location:" . url . '?controller=producto&action=login');
@@ -306,10 +358,10 @@ class productoController
             $apellido = $_POST["apellido"];
             $username = $_POST["username"];
             $mail = $_POST["mail"];
-            $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+            $password = $_POST["password"];
             $telefono = $_POST["telefono"];
             $con = DataBase::connect();
-        // Registra un nuevo usuario y redirecciona al inicio de sesión
+            // Registra un nuevo usuario y redirecciona al inicio de sesión
             if (!empty($_POST["nombre"]) && !empty($_POST["apellido"]) && !empty($_POST["username"]) && !empty($_POST["mail"]) && !empty($_POST["password"]) && !empty($_POST["telefono"])) {
                 $con->query("INSERT INTO usuarios ( nombre, apellido, username, mail, password, telefono) VALUES ('$nombre', '$apellido', '$username', '$mail', '$password', '$telefono')");
                 header("Location:" . url . '?controller=producto&action=login');
@@ -330,5 +382,29 @@ class productoController
             session_destroy();
             header("Location:" . url . '?controller=producto');
         }
+    }
+
+    public function PaginaDetallesPedidoQR()
+    {
+        
+        session_start();
+
+        $nombre = "Informacion del Pedido";
+        $id_user = $_GET['ID'];
+
+        $pedidos = usuarioDAO::getUltimoPedidoByUser($id_user);
+
+        $productos = usuarioDAO::getProductoByPedido($pedidos);
+
+        $primerPedido = reset($productos);
+
+        if ($primerPedido) {
+            $primerPedidoID = $primerPedido->getID();
+            $primerPedidoFecha = $primerPedido->getHora();
+            $nombreUsuario = $primerPedido->getnombreUsuario();
+
+        }
+        include_once 'view/qrPedido.php';
+        include_once 'view/footer.php';
     }
 }

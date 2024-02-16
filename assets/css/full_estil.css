@@ -64,6 +64,10 @@ nav{
     background-color: var(--bg-col1);
 }
 
+.seccionFiltros{
+    background-color: var(--bg-col2);
+}
+
 .SubMenu{
     background-color: var(--bg-col2);
 }
@@ -78,6 +82,10 @@ nav{
     background-color: var(--bg-col2);
 }
 
+.secReseñas{
+    background-color: var(--bg-col2);
+    min-height: 500px;
+}
 /*CONTENEDORES*/
 .container{
     max-width: 1190px;
@@ -195,8 +203,6 @@ nav{
     font-weight:600;
     color: var(--cl-Negra);
     font-size: 17px;
-    /* margin-left: 10px;
-    padding-top: 10px; */
 }
 
 .precioProducto{
@@ -204,8 +210,6 @@ nav{
     font-weight:400;
     color: var(--cl-Negra);
     font-size: 15px;
-    /* margin-left: 10px;
-    margin-top: 8px; */
 }
 
 .categoriaProducto{
@@ -391,6 +395,12 @@ h2{
     width: 32px;
 }
 
+.imgPedidos{
+    background-image: url('../images/ICONOS/HEADER/ordenar-comida1.png');
+    height: 32px;
+    width: 32px;
+}
+
 .imagenesSeccionesProductos1{
     background-image:url('../../assets/images/ICONOS/SECCION1/prueba.png');
     width: 44px;
@@ -443,6 +453,7 @@ h2{
     /* width: 100%; */
     background-position: center;
     background-size: 102% auto;
+    background-repeat: no-repeat;
 }
 
 
@@ -828,6 +839,201 @@ footer{
     font-size: 31px;
 
 }
+
+
+/*RESEÑAS*/
+.contenidoResenyas{
+    background-color: var(--bg-col1);
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    margin-top: 30px;
+    border-radius: 4px;
+    min-height: 300px;
+    text-align: center;
+}
+
+
+.estrellas{
+    font-size: 50px;
+}
+
+.comentario{
+    font-family: 'Barlow';
+    font-weight:400;
+    color: var(--cl-Negra);
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.nombre{
+    font-family: 'Barlow';
+    font-weight:600;
+    color: var(--cl-Negra);
+    font-size: 17px;
+    margin-bottom: 0px;
+}
+
+
+.containerPedido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  
+  .h1Pedido {
+    font-family: 'Barlow';
+    font-weight: 600;
+    color: var(--cl-Negra);
+    font-size: 36px;
+    margin-top: 10px; /* Reducir el margen superior */
+    margin-bottom: 20px; /* Reducir el margen inferior */
+    text-align: center; /* Centrar el texto */
+  }
+  
+  .pedido {
+    background-color: var(--bg-col2);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    text-align: center; /* Centrar el contenido */
+  }
+  
+  .pedido p {
+    font-family: 'Barlow';
+    font-size: 16px;
+    color: var(--cl-Negra);
+    margin: 10px 0;
+  }
+  
+  .h2SeccionQR{
+    font-family:'Work Sans';
+    font-weight: 600;
+    color: var(--bg-col1);
+    font-size: 36px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 25px;
+    padding-bottom: 25px;  
+    text-align: center; 
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos específicos para la página de pedidos */
+#pedidos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.pedido-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px 9px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.pedido-container h3 {
+    color:  var(--bg-col3);
+}
+
+.pedido-container p {
+    margin-bottom: 0.5rem;
+}
+
+.pedido-container .boton-resenya {
+    background-color:  var(--bb-MasMenos);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+/* Estilo para el botón desactivado */
+.pedido-container .boton-resenya[disabled] {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Estilo para el botón desactivado al hacer hover (sin efecto) */
+.pedido-container .boton-resenya[disabled]:hover {
+    background-color: #6c757d;
+}
+
+
+
+
+
+
+/*BOTON ASCENDENTE/DESCENDENTE */
+
+/* Estilo para el contenedor select */
+#orden {
+    width: AUTO;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  /* Estilo para las opciones */
+  #orden option {
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  /* Estilo para la opción seleccionada */
+  #orden option:checked {
+    background-color: #0074d9;
+    color: #fff;
+  }
+  
+
+
+  /*BOTON RESETEAR*/
+
+  .buttonReset {
+    padding: 5px 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--bb-MasMenos);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Estilo para cuando el cursor está encima del botón */
+  .buttonReset:hover {
+    background-color:   var(--bg-col4);
+  }
+
 
 /*Media query*/
 @media only screen and (max-width: 600px) {
