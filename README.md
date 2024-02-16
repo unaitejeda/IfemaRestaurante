@@ -1,15 +1,20 @@
 # Página Web de IFEMA RESTAURANTE
 
-## Descripción del Proyecto
-Esta es una página web de restauración basada en Norauto, desarrollada con tecnologías web como JavaScript, PHP, CSS y HTML. La aplicación tiene como objetivo proporcionar información sobre restauración de vehículos y servicios ofrecidos por Norauto.
+## Resumen del Proyecto
+Este portal web se enfoca a una web basada en IFEMA MADRID pero hecha en restaurante, utilizando tecnologías de vanguardia como JavaScript, PHP, CSS y HTML. Con esto aplicamos todo lo que sabemos para generar la web realizar las maximas funciones posbiles que se nos piden.
 
 ## Funcionalidades Principales
-- **Catálogo de Servicios:** Muestra una lista de servicios de restauración ofrecidos por Norauto.
-- **Galería de Antes y Después:** Presenta imágenes de vehículos antes y después de la restauración.
-- **Formulario de Contacto:** Permite a los usuarios ponerse en contacto con Norauto para solicitar más información o servicios.
+- **ResseÑes del restaurant:** Apartado de reseñas donde cada usuario podra realizar 
+- **Programa de fidelidad:**
+- **QR:**
+- **Propinas:**
+- **Filtro de Productos:**
 
-## Tecnologías Utilizadas
-- **JavaScript:** Para la funcionalidad interactiva del lado del cliente.
-- **PHP:** Para el desarrollo del lado del servidor.
-- **CSS:** Para la estética y estilo del portal.
+## Lenguajes 
 - **HTML:** Para la estructura y contenido de la página.
+- **CSS:** Para la estética y estilo del portal.
+- **PHP:** Para el desarrollo del lado del servidor.
+- **JavaScript:** Para la funcionalidad interactiva del lado del cliente.
+
+
+
