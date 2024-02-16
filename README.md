@@ -95,7 +95,8 @@ Este bloque de código PHP define la clase ComentariosDAO, que maneja la interac
 #### Funciones del DAO para la fidelidad
 ![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/8475d51b-d1e3-4e2d-9274-515086dde698)
 ![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/8dc7fe71-0f0f-4dfa-8638-4bd84f9c078f)
-
+#### Función para confirmar
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/e4256457-679c-4384-8289-1240223d7a0b)
 
 ### Explicación
 #### Puntos de fidelidad
@@ -118,8 +119,8 @@ Este PHP define la clase UsuarioDAO, que proporciona funcionalidades relacionada
 
 - calcularPuntosAcumulados($total, $id_usuario): Similar a la función anterior, calcula la cantidad de puntos de fidelidad que un usuario ganará por una compra específica.
 
-
-
+#### Función para confirmar
+Este método confirma un pedido de usuario. Inicia sesión, obtiene detalles del pedido y calcula el precio total. Si se usan puntos de fidelidad, aplica descuentos y actualiza los puntos del usuario. Luego, calcula el precio total con descuento y agrega la propina. Crea el pedido en la base de datos y acumula puntos por la compra. Finalmente, redirige al usuario y limpia los datos del pedido.
 
 ## QR
 ### Código
@@ -127,7 +128,27 @@ Este PHP define la clase UsuarioDAO, que proporciona funcionalidades relacionada
 
 ## Propinas
 ### Código
+#### Propina en formulario
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/e2432543-a734-45fa-8376-a6f5ff4f3908)
+#### Mostrar y calcular la propina aplicada
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/3081635b-9831-4a8b-aec4-b5472d909005)
+#### Función para confirmar
+![image](https://github.com/unaitejeda/IfemaRestaurante/assets/145151359/e4256457-679c-4384-8289-1240223d7a0b)
+
+
 ### Explicación
+#### Propina en formulario
+En el formulario de compra, el campo "Porcentaje de propina" permite al usuario ingresar el valor de la propina como un porcentaje del precio total. Este valor se ingresa en el input con el id "cantidadPropina". El valor mínimo es 0 y el máximo es 100. Este campo permite al usuario definir la cantidad de propina que desea agregar al precio total de la compra.
+
+#### Mostrar y calcular la propina aplicada
+El evento change del checkbox se activa cuando se marca o desmarca. Si está marcado, calcula y muestra el precio con descuento. Si no está marcado, restaura el precio original y aplica la propina si está definida.
+El evento input del input de propina se activa cuando se ingresa un valor. Calcula el precio con la propina si el valor es válido y actualiza el precio mostrado. Si se deja vacío, restaura el precio inicial. Si el valor no es válido, muestra un mensaje de error.
+
+#### Función para confirmar
+Este método confirma un pedido de usuario. Inicia sesión, obtiene detalles del pedido y calcula el precio total. Si se usan puntos de fidelidad, aplica descuentos y actualiza los puntos del usuario. Luego, calcula el precio total con descuento y agrega la propina. Crea el pedido en la base de datos y acumula puntos por la compra. Finalmente, redirige al usuario y limpia los datos del pedido.
+
+
+
 
 ## Filtro de productos
 ### Código
