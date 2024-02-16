@@ -358,7 +358,7 @@ class productoController
             $apellido = $_POST["apellido"];
             $username = $_POST["username"];
             $mail = $_POST["mail"];
-            $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+            $password = $_POST["password"];
             $telefono = $_POST["telefono"];
             $con = DataBase::connect();
             // Registra un nuevo usuario y redirecciona al inicio de sesión
@@ -383,32 +383,6 @@ class productoController
             header("Location:" . url . '?controller=producto');
         }
     }
-
-
-
-
-    public function qr()
-    {
-        session_start();
-
-        $resultado = array(); // Inicializa $resultado como un array vacío
-
-        if (isset($_SESSION['ultimoPedidoId'])) {
-            $resultado = usuarioDAO::qrLastPedido($_SESSION['ultimoPedidoId']);
-        }
-
-        if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
-
-            include_once 'view/cabeceraadmin.php';
-        } else {
-            include_once 'view/cabecera.php';
-        }
-        include_once 'view/qrPedido.php';
-        include_once 'view/footer.php';
-    }
-
-
-
 
     public function PaginaDetallesPedidoQR()
     {
