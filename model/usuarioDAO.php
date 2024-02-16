@@ -131,47 +131,6 @@ class UsuarioDAO
     }
 
 
-
-
-    // public static function getPedidoById($id_pedido){
-    //     $con = DataBase::connect();
-
-    //     $stmt = $con->prepare("SELECT * FROM pedidos WHERE id = ?");
-    //     $stmt->bind_param("i", $id_pedido);
-    //     $stmt->execute();
-    //     $resultado = $stmt->get_result();
-
-    //     $pedidoActual = $resultado->fetch_object('Pedidos');
-
-    //     $con->close();
-    //     return $pedidoActual;
-
-    // }
-
-
-
-
-    // public static function obtenerIdUltimoPedido(){
-    //     $con = DataBase::connect();
-
-    //     $select_ultPedido = ("SELECT id FROM pedidos WHERE id_usuario = ? ORDER BY id DESC LIMIT 1");
-
-    //     $stmt = $con->prepare($select_ultPedido);
-    //     $stmt->bind_param("i", $_SESSION['id_usuario']);
-    //     $stmt->execute();
-
-    //     $resultado = $stmt->get_result();
-
-
-    //     if ($resultado->num_rows > 0){
-    //         $row = $resultado->fetch_object();
-    //         $idUltimoPedido = $row->id;
-
-    //         return $idUltimoPedido;
-    //     }else{
-    //         return null;
-    //     }
-    // }
     public static function getUltimoPedidoByUser($id)
     {
         $con = DataBase::connect();
@@ -241,6 +200,7 @@ class UsuarioDAO
             //Agregamos el objeto Pedido al array de detalles
             $detalles_pedido[] = $pedido;
         }
+
         return $detalles_pedido;
     }
 }

@@ -198,7 +198,6 @@ class ProductoDAO
         if ($tipo == 'Bebidas') {
             $row = $result->fetch_assoc();
             $producto = new Bebidas($row['id'], $row['nombre'], $row['precio'], $row['descripcion'], $tipo, $row['foto']);
-            var_dump($producto);
         } else {
             $producto = $result->fetch_object($tipo);
         }

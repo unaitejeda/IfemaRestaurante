@@ -29,7 +29,7 @@
 
           ID Plato: <?= $resultado->getProducto()->getId() ?><br>
           Nombre Plato: <?= $resultado->getProducto()->getName() ?><br>
-          Precio Plato: <?= $resultado->getProducto()->getPrecio() ?><br>
+          Precio Plato: <?= $resultado->getProducto()->getPrecio() ?>€<br>
         </p>
 
       <?php } ?>

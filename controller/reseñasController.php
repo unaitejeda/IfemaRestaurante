@@ -3,6 +3,7 @@
 include_once 'model/productoDAO.php';
 include_once 'model/pedido.php';
 include_once 'utils/CalculadoraPrecios.php';
+
 // Definimos el controlador del producto
 class reseñasController
 {
@@ -10,7 +11,7 @@ class reseñasController
     public function reseñas()
     {
         session_start();
-        //  //cabecera
+        //cabecera
         if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
 
             include_once 'view/cabeceraadmin.php';
@@ -31,7 +32,7 @@ class reseñasController
         if (isset($_POST['pedido_id'])) {
 
             $id_pedido = $_POST['pedido_id'];
-            //  //cabecera
+            //cabecera
             if (isset($_SESSION['username']) && $_SESSION['username'] == 'Admin') {
 
                 include_once 'view/cabeceraadmin.php';

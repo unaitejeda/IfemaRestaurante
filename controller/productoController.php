@@ -384,27 +384,37 @@ class productoController
         }
     }
 
-    public function PaginaDetallesPedidoQR()
-    {
-        
-        session_start();
 
-        $nombre = "Informacion del Pedido";
-        $id_user = $_GET['ID'];
 
-        $pedidos = usuarioDAO::getUltimoPedidoByUser($id_user);
+public function PaginaDetallesPedidoQR()
+{
+    session_start(); // Inicia la sesión
 
-        $productos = usuarioDAO::getProductoByPedido($pedidos);
+    $nombre = "Informacion del Pedido";
+    $id_user = $_GET['ID']; // Obtiene el ID de usuario de la URL
 
-        $primerPedido = reset($productos);
+    // Obtiene información del último pedido realizado por el usuario
+    $pedidos = usuarioDAO::getUltimoPedidoByUser($id_user);
 
-        if ($primerPedido) {
-            $primerPedidoID = $primerPedido->getID();
-            $primerPedidoFecha = $primerPedido->getHora();
-            $nombreUsuario = $primerPedido->getnombreUsuario();
+    // Obtiene los productos asociados al último pedido
+    $productos = usuarioDAO::getProductoByPedido($pedidos);
 
-        }
-        include_once 'view/qrPedido.php';
-        include_once 'view/footer.php';
+    // Obtener el primer elemento del array de productos
+    $primerPedido = reset($productos);
+
+    // Verifica si se encontraron productos en el pedido
+    if ($primerPedido) {
+        // Obtiene información del primer pedido encontrado
+        $primerPedidoID = $primerPedido->getID();
+        $primerPedidoFecha = $primerPedido->getHora();
+        $nombreUsuario = $primerPedido->getnombreUsuario();
     }
+
+    // Incluye la vista para mostrar el código QR del pedido
+    include_once 'view/qrPedido.php';
+
+    // Incluye el pie de página
+    include_once 'view/footer.php';
+}
+
 }

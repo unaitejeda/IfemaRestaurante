@@ -47,7 +47,6 @@ categoryCheckboxes.forEach(checkbox => {
 });
 
 // Funció per actualitzar les ressenyes mostrades
-// Funció per actualitzar les ressenyes mostrades
 function updateReviews() {
     const selectedValoraciones = Array.from(categoryCheckboxes)
         .filter(checkbox => checkbox.checked)

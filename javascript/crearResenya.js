@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Redirigir al usuario a otra página después de 3 segundos
                 setTimeout(function () {
-                    window.location.href = 'http://localhost/?controller=reseñas&action=reseñas'; // Reemplaza 'ruta/a/la/pagina.html' con la ruta de la página a la que deseas redirigir al usuario
+                    window.location.href = 'http://localhost/?controller=reseñas&action=reseñas'; 
                 }, 3000); // 3000 milisegundos = 3 segundos
 
 

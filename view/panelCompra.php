@@ -78,13 +78,13 @@
 
                             <div id="descuentoSection">
                                 <label for="cantidadPropina">Porcentaje de propina:</label>
-                                <input type="number" id="cantidadPropina" name="cantidadPropina" min="0" max="100" value="0">
+                                <input type="number" id="cantidadPropina" name="cantidadPropina" min="0" max="100" value="3">
                             </div>
 
                             <label for="usarPuntos">Utilizar puntos</label>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos"><br>
 
-                            <input id="botonConfirmar" type="submit" value="Confirmar">
+                            <input class="botonFinalizaCompra" id="botonConfirmar" type="submit" value="Confirmar">
 
                             <div>
                                 <?php

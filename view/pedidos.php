@@ -17,7 +17,6 @@
     </section>
     <div id="pedidos-container">
         <?php
-        // Supongo que $resultado contiene los pedidos obtenidos
         if (is_array($resultado) && count($resultado) > 0) {
             foreach ($resultado as $pedido) {
                 $reseña_hecha = isset($pedido['reseña_hecha']) ? $pedido['reseña_hecha'] : false;
@@ -31,13 +30,11 @@
                     <form action="?controller=reseñas&action=crearReseña" method="post">
                         <input type="hidden" name="pedido_id" value="<?php echo $pedido['id']; ?>">
                         <?php
-                            // Agregar atributo 'disabled' si ya se dejó una reseña
                             $disabled = ($reseña_hecha) ? 'disabled' : '';
                         ?>
                         <button type="submit" class="boton-resenya" data-pedido-id="<?php echo $pedido['id']; ?>" <?php echo $disabled; ?>>Dejar Reseña</button>
                     </form>
 
-                    <!-- Otros detalles del pedido que desees mostrar -->
                 </div>
         <?php
             }
