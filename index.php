@@ -4,6 +4,8 @@ include_once('config/parameters.php');
 include_once('controller/productoController.php');
 include_once('controller/reseñasController.php');
 include_once('controller/apiController.php');
+include_once('controller/repartidorController.php');
+
 
 if(!isset($_GET['controller'])){
     //Si no se pasa nada, se mostrara pagina principal de pedidos

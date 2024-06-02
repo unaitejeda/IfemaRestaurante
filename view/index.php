@@ -172,6 +172,16 @@
                 </div>
             </div>
         </section>
+
+
+        <section class="registro-repartidores">
+        <div class="container">
+            <button onclick="window.location.href='?controller=repartidor&action=mostrarFormularioRegistro'" class="btn btn-primary">
+                Registrar Repartidor
+            </button>
+        </div>
+        <a href="?controller=repartidor&action=mostrarFormularioLogin">Iniciar sesión como repartidor</a>
+    </section>
     </main>
 </body>
 <script src="assets/js/bootstrap.bundle.min.js"></script>

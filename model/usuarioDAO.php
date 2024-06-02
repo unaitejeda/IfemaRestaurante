@@ -7,7 +7,7 @@ include_once 'postres.php';
 include_once 'bebidas.php';
 include_once 'producto.php';
 include_once 'pedido.php';
-include_once 'pedidos.php';
+// include_once 'pedidos.php';
 
 class UsuarioDAO
 {
