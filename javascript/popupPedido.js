@@ -2,10 +2,6 @@ function mostrarPopupDetallePedido(idPedido) {
     // Verificar si se recibe correctamente el ID del pedido
     console.log("ID del Pedido:", idPedido);
 
-    // Obtener el elemento del popup y el contenedor de contenido del pedido
-    var popup = document.getElementById("popupDetallePedido");
-    var detallePedidoContent = document.getElementById("detallePedidoContent");
-
     // Verificar nuevamente el ID del pedido antes de realizar la solicitud al servidor
     if (idPedido) {
         console.log("Realizando solicitud para obtener detalles del pedido...");
@@ -19,37 +15,48 @@ function mostrarPopupDetallePedido(idPedido) {
                 return response.json();
             })
             .then(data => {
-                // Llenar el contenido del popup con la información del pedido
-                detallePedidoContent.innerHTML = `
-                    <h2>Detalles del Pedido</h2>
-                    <p>ID del Pedido: ${data.id}</p>
-                    <p>Nombre del Usuario: ${data.nombre_usuario}</p>
-                    <p>Fecha del Pedido: ${data.hora}</p>
-                    <p>Total: ${data.total} €</p>
-                    <p>Propina Aplicada: ${data.propina} %</p>
-                    <h3>Productos:</h3>
-                    <ul>
+                // Formatear los datos del pedido para mostrarlos en una lista ordenada
+                var pedidoInfo = `
+                    <b>ID del Pedido:</b> ${data.id}\n
+                    <b>Nombre del Usuario:</b> ${data.nombre_usuario}\n
+                    <b>Fecha del Pedido:</b> ${data.hora}\n
+                    <b>Total:</b> ${data.total} €\n
+                    <b>Propina Aplicada:</b> ${data.propina} %\n
+                    <b>Productos:</b>\n
+                    <ol>
                         ${data.productos.map(producto => `
-                            <li>${producto.nombre_producto} - ${producto.precio} € - Cantidad: ${producto.cantidad}</li>
+                            <li>${producto.nombre_producto} - Precio: ${producto.precio} € - Cantidad: ${producto.cantidad}</li>
                         `).join('')}
-                    </ul>
+                    </ol>
                 `;
 
-                // Mostrar el popup
-                popup.style.display = "block";
+                // Mostrar una alerta estilo "notie" con la información del pedido durante 10 segundos
+                notie.force({
+                    type: 'info',
+                    text: pedidoInfo,
+                    time: 10, // Duración de 10 segundos
+                    position: 'top'
+                });
             })
             .catch(error => {
                 console.error('Error al obtener detalles del pedido:', error);
                 // Mostrar un mensaje de error al usuario
-                alert('Error al obtener detalles del pedido. Por favor, inténtalo de nuevo más tarde.');
+                notie.alert({
+                    type: 'error',
+                    text: 'Error al obtener detalles del pedido. Por favor, inténtalo de nuevo más tarde.',
+                    position: 'top'
+                });
             });
     } else {
         console.error('ID del pedido no válido:', idPedido);
         // Mostrar un mensaje de error al usuario
-        alert('ID del pedido no válido. Por favor, selecciona un pedido válido.');
+        notie.alert({
+            type: 'warning',
+            text: 'ID del pedido no válido. Por favor, selecciona un pedido válido.',
+            position: 'top'
+        });
     }
 }
-
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -62,16 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
         boton.addEventListener("click", function() {
             // Obtener el ID del pedido desde el atributo "data-idPedido"
             var idPedido = boton.dataset.idpedido; // Cambiado a minúsculas para mayor consistencia
-            // Llamar a la función para mostrar el popup con los detalles del pedido
+            // Llamar a la función para mostrar los detalles del pedido como una alerta
             mostrarPopupDetallePedido(idPedido);
         });
     });
-});
-
-// Event listener para el botón de cerrar el popup
-var closeBtn = document.querySelector(".popup-close");
-closeBtn.addEventListener("click", function() {
-    // Ocultar el popup al hacer clic en "Cerrar"
-    var popup = document.getElementById("popupDetallePedido");
-    popup.style.display = "none";
 });

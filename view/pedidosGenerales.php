@@ -13,19 +13,6 @@
 
     <h1>Pedidos Generales</h1>
 
-
-
-    <!-- Popup para mostrar los detalles del pedido -->
-    <div id="popupDetallePedido" class="popup">
-        <button class="popup-close">Cerrar</button>
-        <!-- <h2>Detalles del Pedido</h2> -->
-        <div id="detallePedidoContent">
-            <!-- Aquí se mostrarán los detalles del pedido -->
-        </div>
-    </div>
-
-
-    
     <?php if (!empty($pedidos)) : ?>
     <?php foreach ($pedidos as $pedido) : ?>
         <?php if (empty($pedido['estado'])): ?>
@@ -34,7 +21,6 @@
             <p>Hora del pedido: <?php echo $pedido['hora']; ?></p>
             <!-- Botones para ver detalles del pedido y para aceptar o rechazar -->
             <button class="ver-detalle" data-idPedido="<?php echo $pedido['id']; ?>">Ver Detalles</button>
-
 
             <form action="?controller=repartidor&action=aceptarPedido&id=<?php echo $pedido['id']; ?>" method="post">
                 <button type="submit">Aceptar</button>
@@ -45,9 +31,9 @@
             <hr>
         <?php endif; ?>
     <?php endforeach; ?>
-<?php else : ?>
-    <p>No hay pedidos disponibles.</p>
-<?php endif; ?>
+    <?php else : ?>
+        <p>No hay pedidos disponibles.</p>
+    <?php endif; ?>
 
 
     
@@ -69,6 +55,9 @@
         <?php endif; ?>
     <?php endforeach; ?>
 
+
+
+    <script src="https://unpkg.com/notie/dist/notie.min.js"></script>
     <script src="javascript/popupPedido.js"></script>
 
 </body>
