@@ -7,9 +7,6 @@ class RepartidorDAO {
     // Consultas SQL como constantes
     const QUERY_INSERT_REPARTIDOR = "INSERT INTO repartidores (nombre, metodo_transporte, usuario, contraseña) VALUES (?, ?, ?, ?)";
     const QUERY_SELECT_REPARTIDOR = "SELECT * FROM repartidores WHERE usuario = ? AND contraseña = ?";
-    const QUERY_SELECT_PEDIDOS_REPARTIDOR = "SELECT * FROM pedidos WHERE repartidor = ?";
-    const QUERY_SELECT_ALL_PEDIDOS = "SELECT * FROM pedidos";
-    const QUERY_UPDATE_PEDIDO_ACEPTADO = "UPDATE pedidos SET estado = 'aceptado' WHERE id = ?";
     const QUERY_SELECT_PEDIDOS_ASIGNADOS = "SELECT * FROM pedidos WHERE repartidor = ? AND estado = 'aceptado'";
 
     public static function registrarRepartidor($nombre, $metodo_transporte, $usuario, $contraseña) {
@@ -34,59 +31,41 @@ class RepartidorDAO {
         }
     }
 
-    public static function obtenerPedidos($usuario) {
-        $con = DataBase::connect();
-        $stmt = $con->prepare(self::QUERY_SELECT_PEDIDOS_REPARTIDOR);
-        $stmt->bind_param("s", $usuario);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $pedidos = array();
-        while ($row = $result->fetch_assoc()) {
-            $pedidos[] = $row;
-        }
-        return $pedidos;
-    }
-    
-
     public static function obtenerPedidosGenerales() {
         $con = DataBase::connect();
-        $result = $con->query(self::QUERY_SELECT_ALL_PEDIDOS);
+        $result = $con->query("SELECT * FROM pedidos");
         $pedidos = array();
         while ($row = $result->fetch_assoc()) {
             $pedidos[] = $row;
         }
         return $pedidos;
     }
-    
-    
 
-    public static function aceptarPedido($pedido_id) {
+    public static function aceptarPedido($pedido_id, $repartidor_id) {
         $con = DataBase::connect();
-        $stmt = $con->prepare("UPDATE pedidos SET estado = 'aceptado' WHERE id = ?");
-        $stmt->bind_param("i", $pedido_id);
+        $stmt = $con->prepare("UPDATE pedidos SET estado = 'aceptado', repartidor = ? WHERE id = ?");
+        $stmt->bind_param("ii", $repartidor_id, $pedido_id);
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
 
     public static function rechazarPedido($pedido_id) {
         $con = DataBase::connect();
-        $stmt = $con->prepare("UPDATE pedidos SET estado = 'rechazado' WHERE id = ?");
+        $stmt = $con->prepare("UPDATE pedidos SET estado = 'rechazado', repartidor = 0 WHERE id = ?");
         $stmt->bind_param("i", $pedido_id);
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
-    
 
-    public static function obtenerPedidosAsignados($usuario) {
+    public static function obtenerPedidosAsignados($repartidor_id) {
         $con = DataBase::connect();
         $stmt = $con->prepare(self::QUERY_SELECT_PEDIDOS_ASIGNADOS);
-        $stmt->bind_param("s", $usuario);
+        $stmt->bind_param("i", $repartidor_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $pedidos = array();
         while ($row = $result->fetch_assoc()) {
-            $pedido = new Pedido($row['id'], $row['cliente'], $row['descripcion'], $row['estado']);
-            $pedidos[] = $pedido;
+            $pedidos[] = $row;
         }
         return $pedidos;
     }
@@ -103,8 +82,6 @@ class RepartidorDAO {
             return null;
         }
     }
-    
-    
 
     public static function actualizarDisponibilidad($usuario, $disponibilidad) {
         $con = DataBase::connect();
@@ -113,7 +90,6 @@ class RepartidorDAO {
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
-    
 
     public static function actualizarPerfil($usuario, $nombre, $metodo_transporte, $disponibilidad) {
         $con = DataBase::connect();

@@ -28,22 +28,22 @@ class RepartidorController {
     public function mostrarFormularioLogin() {
         include_once 'view/loginRepartidor.php';
     }
-    
+
     public function login() {
         session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = $_POST['usuario'];
             $contraseña = $_POST['contraseña'];
-    
+
             // Verificar las credenciales en la base de datos
             $repartidor = RepartidorDAO::buscarRepartidor($usuario, $contraseña);
-    
+
             if ($repartidor) {
                 // Iniciar sesión
-                session_start();
                 $_SESSION['usuario'] = $repartidor['usuario']; // Guardar el usuario en la sesión
-    
+                $_SESSION['repartidor_id'] = $repartidor['id']; // Guardar el ID del repartidor en la sesión
+
                 // Redireccionar a la página de pedidos
                 header('Location: ?controller=repartidor&action=pedidos');
             } else {
@@ -63,61 +63,90 @@ class RepartidorController {
     }
 
     public function verPedidosGenerales() {
-        // Aquí deberías obtener todos los pedidos disponibles en la base de datos
-        $pedidos = RepartidorDAO::obtenerPedidosGenerales();
+        session_start();
+        if (!isset($_SESSION['repartidor_id'])) {
+            header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
+            exit();
+        }
 
-        // Incluir la vista de los pedidos generales
-        include_once 'view/pedidosGenerales.php';
+        $pedidos = RepartidorDAO::obtenerPedidosGenerales();
+        require_once __DIR__ . '/../view/pedidosGenerales.php';
     }
 
-    public function aceptarPedido($pedido_id) {
-        // Implementa la lógica para aceptar el pedido específico
-        $resultado = RepartidorDAO::aceptarPedido($pedido_id);
+    public function aceptarPedido() {
+        session_start();
+        if (!isset($_SESSION['repartidor_id'])) {
+            header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
+            exit();
+        }
+
+        $pedido_id = $_GET['id'];
+        $repartidor_id = $_SESSION['repartidor_id'];
+
+        $resultado = RepartidorDAO::aceptarPedido($pedido_id, $repartidor_id);
         if ($resultado) {
-            // Redirige nuevamente a la página de pedidos generales
+            // Recargar la misma página
             header('Location: ?controller=repartidor&action=verPedidosGenerales');
             exit();
         } else {
             echo "Error al aceptar el pedido.";
         }
     }
-    
-    public function rechazarPedido($pedido_id) {
-        // Implementa la lógica para rechazar el pedido específico
+
+    public function rechazarPedido() {
+        session_start();
+        if (!isset($_SESSION['repartidor_id'])) {
+            header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
+            exit();
+        }
+
+        $pedido_id = $_GET['id'];
+
         $resultado = RepartidorDAO::rechazarPedido($pedido_id);
         if ($resultado) {
-            // Redirige nuevamente a la página de pedidos generales
+            // Recargar la misma página
             header('Location: ?controller=repartidor&action=verPedidosGenerales');
             exit();
         } else {
             echo "Error al rechazar el pedido.";
         }
     }
-    
 
-    public function verPedidosAsignados() {
-        // Aquí deberías obtener los pedidos asignados al repartidor desde la base de datos
-        $pedidos_asignados = RepartidorDAO::obtenerPedidosAsignados($_SESSION['usuario']);
+    public function verMisPedidos() {
+        session_start();
+        if (!isset($_SESSION['repartidor_id'])) {
+            header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
+            exit();
+        }
 
-        // Incluir la vista de los pedidos asignados al repartidor
-        include_once 'view/pedidosAsignados.php';
+        $repartidor_id = $_SESSION['repartidor_id'];
+        $pedidos = RepartidorDAO::obtenerPedidosAsignados($repartidor_id);
+        require_once __DIR__ . '/../view/misPedidos.php';
     }
 
     public function perfil() {
         session_start();
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
+            exit();
+        }
         // Obtener la información del repartidor desde la base de datos
         $repartidor = RepartidorDAO::buscarRepartidorPorUsuario($_SESSION['usuario']);
         // Incluir la vista del perfil del repartidor
         include_once 'view/perfilRepartidor.php';
     }
-    
 
     public function actualizarPerfil() {
         session_start();
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
+            exit();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $_POST['nombre'];
             $metodo_transporte = $_POST['metodo_transporte'];
-            $usuario = $_POST['usuario']; // No necesitamos actualizar el usuario
+            $usuario = $_SESSION['usuario']; // No necesitamos actualizar el usuario
             
             // Verificar si el checkbox está marcado
             $disponibilidad = isset($_POST['disponibilidad']) ? 1 : 0;
@@ -134,10 +163,14 @@ class RepartidorController {
             }
         }
     }
-    
 
     public function actualizarDisponibilidad() {
         session_start();
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
+            exit();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Verificar si el checkbox está marcado
             $disponibilidad = isset($_POST['disponibilidad']) ? 1 : 0;
@@ -145,15 +178,13 @@ class RepartidorController {
             // Actualizar la disponibilidad en la base de datos
             $resultado = RepartidorDAO::actualizarDisponibilidad($usuario, $disponibilidad);
             if ($resultado) {
-                // Redireccionar a la página de pedidosGenerales.php
+                // Recargar la misma página
                 header('Location: ?controller=repartidor&action=verPedidosGenerales');
                 exit(); // Asegurémonos de que se detenga la ejecución después de la redirección
             } else {
-                header('Location: ?controller=repartidor&action=verPedidosGenerales');
-                exit(); // Asegurémonos de que se detenga la ejecución después de la redirecci
+                echo "Error al actualizar la disponibilidad.";
             }
         }
     }
-    
 }
 ?>
