@@ -422,12 +422,8 @@ public function obtenerDetallesPedido()
 {
     if (isset($_GET['id'])) {
         $id_pedido = $_GET['id'];
-        // Aquí debes implementar la lógica para obtener los detalles del pedido con el ID proporcionado
-        // Por ejemplo, puedes llamar a una función en tu modelo que obtenga los detalles del pedido
-        // y luego devolver los detalles como un array asociativo en formato JSON
-
-        // Suponiendo que tienes una función en tu modelo llamada obtenerDetallesPedido() que devuelve los detalles del pedido
-        $detallesPedido = UsuarioDAO::getProductoByPedido($id_pedido);
+        // Aquí debes llamar a la función en tu DAO que obtiene los detalles del pedido por su ID
+        $detallesPedido = UsuarioDAO::getDetallesPedidoById($id_pedido);
 
         // Devuelve los detalles del pedido como JSON
         echo json_encode($detallesPedido);
@@ -436,6 +432,8 @@ public function obtenerDetallesPedido()
         echo json_encode(array("error" => "ID de pedido no proporcionado"));
     }
 }
+
+
 
 
 }

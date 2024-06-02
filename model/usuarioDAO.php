@@ -203,4 +203,68 @@ class UsuarioDAO
 
         return $detalles_pedido;
     }
+
+
+public static function getDetallesPedidoById($id_pedido)
+{
+    $con = DataBase::connect();
+    $query = "SELECT 
+        pedidos.id,
+        pedidos.id_usuario,
+        pedidos.hora,
+        pedidos.total,
+        pedidos.propina,
+        usuarios.puntos,
+        usuarios.nombre AS nombre_usuario,
+        productos_pedido.id_producto,
+        productos.nombre AS nombre_producto,
+        productos.precio,
+        productos_pedido.cantidad
+        FROM pedidos
+        JOIN usuarios ON pedidos.id_usuario = usuarios.id
+        JOIN productos_pedido ON pedidos.id = productos_pedido.id_pedido
+        JOIN productos ON productos_pedido.id_producto = productos.id
+        WHERE pedidos.id = ?";
+
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("i", $id_pedido);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $detalles_pedido = array();
+
+    while ($row = $result->fetch_assoc()) {
+        // Por cada fila, creamos un array asociativo con los detalles del pedido
+        $detalles_pedido = array(
+            'id' => $row['id'],
+            'id_usuario' => $row['id_usuario'],
+            'hora' => $row['hora'],
+            'total' => $row['total'],
+            'propina' => $row['propina'],
+            'puntos' => $row['puntos'],
+            'nombre_usuario' => $row['nombre_usuario']
+        );
+
+        // Creamos un array para almacenar los productos asociados al pedido
+        $productos_pedido = array();
+
+        // Por cada fila, creamos un array asociativo con los detalles del producto
+        $producto = array(
+            'id_producto' => $row['id_producto'],
+            'nombre_producto' => $row['nombre_producto'],
+            'precio' => $row['precio'],
+            'cantidad' => $row['cantidad'] // Agregar la cantidad
+        );
+
+        // Agregamos el producto al array de productos del pedido
+        $productos_pedido[] = $producto;
+
+        // Agregamos el array de productos al array de detalles del pedido
+        $detalles_pedido['productos'] = $productos_pedido;
+    }
+
+    return $detalles_pedido;
+}
+
+
+
 }

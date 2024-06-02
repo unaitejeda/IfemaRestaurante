@@ -1,4 +1,3 @@
-// Función para mostrar el popup con la información detallada del pedido
 function mostrarPopupDetallePedido(idPedido) {
     // Verificar si se recibe correctamente el ID del pedido
     console.log("ID del Pedido:", idPedido);
@@ -24,11 +23,16 @@ function mostrarPopupDetallePedido(idPedido) {
                 detallePedidoContent.innerHTML = `
                     <h2>Detalles del Pedido</h2>
                     <p>ID del Pedido: ${data.id}</p>
-                    <p>Nombre del Usuario: ${data.nombreUsuario}</p>
-                    <p>Fecha del Pedido: ${data.fecha}</p>
+                    <p>Nombre del Usuario: ${data.nombre_usuario}</p>
+                    <p>Fecha del Pedido: ${data.hora}</p>
                     <p>Total: ${data.total} €</p>
                     <p>Propina Aplicada: ${data.propina} %</p>
-                    <!-- Puedes agregar más detalles del pedido según tu estructura de datos -->
+                    <h3>Productos:</h3>
+                    <ul>
+                        ${data.productos.map(producto => `
+                            <li>${producto.nombre_producto} - ${producto.precio} € - Cantidad: ${producto.cantidad}</li>
+                        `).join('')}
+                    </ul>
                 `;
 
                 // Mostrar el popup
@@ -45,6 +49,8 @@ function mostrarPopupDetallePedido(idPedido) {
         alert('ID del pedido no válido. Por favor, selecciona un pedido válido.');
     }
 }
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     // Obtener todos los elementos con la clase "ver-detalle"
