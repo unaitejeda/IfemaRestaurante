@@ -262,46 +262,49 @@ class productoController
 
     // Función para confirmar y finalizar la compra
     public function confirmar()
-    {
-        session_start();
-        $id_usuario = $_SESSION['id'];
-        $fechaBD = date('Y-m-d');
-        $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
-        $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
+{
+    session_start();
+    $id_usuario = $_SESSION['id'];
+    $fechaBD = date('Y-m-d');
+    $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
+    $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
 
-        // Obtener el valor de la propina del formulario
-        $propina = isset($_POST['cantidadPropina']) ? $_POST['cantidadPropina'] : 0;
+    // Obtener el valor de la propina del formulario
+    $propina = isset($_POST['cantidadPropina']) ? $_POST['cantidadPropina'] : 0;
 
-        // Calcular descuento por puntos si se van a utilizar
-        if ($usarPuntos) {
-            $puntosDisponibles = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
-            $descuento = $puntosDisponibles * 0.1; // Suponiendo que cada punto equivale a 0.1€ de descuento
-            $precioTotal -= $descuento;
-            UsuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - ($descuento * 10)); // Restar puntos equivalentes al descuento aplicado
-        }
+    // Obtener el valor del checkbox esPedido
+    $esPedido = isset($_POST['esPedido']) ? 1 : 0;
 
-        // Calcular el precio total con el descuento aplicado antes de sumar la propina
-        $precioTotalConDescuento = $precioTotal;
-
-        // Aplicar propina al precio total con descuento
-        $precioTotalConPropina = $precioTotalConDescuento + ($precioTotalConDescuento * $propina / 100);
-
-        // Crear el pedido con el precio total considerando la propina
-        $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotalConPropina, $_SESSION['selecciones'], $propina);
-
-        $puntosAcumulados = UsuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
-
-        $_SESSION['ultimoPedidoId'] = $pedido;
-
-
-        if (isset($_POST['cantidadFinal'])) {
-            setcookie('UltimoPedido', $precioTotalConPropina, time() + 3600, "/");
-        }
-
-        unset($_SESSION['selecciones']);
-
-        header("Location:" . url . '?controller=producto');
+    // Calcular descuento por puntos si se van a utilizar
+    if ($usarPuntos) {
+        $puntosDisponibles = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
+        $descuento = $puntosDisponibles * 0.1; // Suponiendo que cada punto equivale a 0.1€ de descuento
+        $precioTotal -= $descuento;
+        UsuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - ($descuento * 10)); // Restar puntos equivalentes al descuento aplicado
     }
+
+    // Calcular el precio total con el descuento aplicado antes de sumar la propina
+    $precioTotalConDescuento = $precioTotal;
+
+    // Aplicar propina al precio total con descuento
+    $precioTotalConPropina = $precioTotalConDescuento + ($precioTotalConDescuento * $propina / 100);
+
+    // Crear el pedido con el precio total considerando la propina y el campo esPedido
+    $pedido = ProductoDAO::crearPedido($id_usuario, $fechaBD, $precioTotalConPropina, $_SESSION['selecciones'], $propina, $esPedido);
+
+    $puntosAcumulados = UsuarioDAO::acumularPuntosPorCompra($id_usuario, $precioTotal);
+
+    $_SESSION['ultimoPedidoId'] = $pedido;
+
+    if (isset($_POST['cantidadFinal'])) {
+        setcookie('UltimoPedido', $precioTotalConPropina, time() + 3600, "/");
+    }
+
+    unset($_SESSION['selecciones']);
+
+    header("Location:" . url . '?controller=producto');
+}
+
 
 
 

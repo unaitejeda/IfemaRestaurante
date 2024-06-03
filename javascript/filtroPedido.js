@@ -54,8 +54,8 @@ function updateOrder() {
     const orderFechaValue = selectedOrderFecha ? selectedOrderFecha.value : null;
     const orderPrecioValue = selectedOrderPrecio ? selectedOrderPrecio.value : null;
 
-    const pedidosContainer = document.getElementById('pedidosContainer');
-    const pedidos = pedidosContainer.querySelectorAll('.pedido');
+    const pendientesContainer = document.querySelector('.column.pendiente'); // Selecciona la columna de pedidos pendientes
+    const pedidos = pendientesContainer.querySelectorAll('.pedido'); // Selecciona solo los pedidos en la columna de pedidos pendientes
     const pedidosArray = Array.from(pedidos);
 
     // Filtrar por precio
@@ -102,11 +102,11 @@ function updateOrder() {
         }
     }
 
-    // Limpiar el contenedor de pedidos
-    pedidosContainer.innerHTML = '';
+    // Limpiar el contenedor de pedidos pendientes
+    pendientesContainer.innerHTML = '';
 
     // Volver a agregar los pedidos en el nuevo orden
-    pedidosArray.forEach(pedido => pedidosContainer.appendChild(pedido));
+    pedidosArray.forEach(pedido => pendientesContainer.appendChild(pedido));
 }
 
 

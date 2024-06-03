@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto IfemaRestaurante</title>
 </head>
-
 <body>
     <section class="seccionUbicación">
         <div class="container container4">
@@ -69,9 +67,6 @@
                         } ?>
                         <p class="pCarrito p4Carrito" id="precioSinActualizar">SUBTOTAL: <?= $precioTotal ?> €</p>
 
-
-
-
                         <form id="qr" action="<?= url . '?controller=producto&action=confirmar' ?>" method="post">
                             <input type="hidden" id="id_usuario" name="id_usuario" value="<?= $id_usuario ?>"><br>
                             <input type="hidden" name="cantidadFinal" value=<?= $precioTotal ?>>
@@ -83,6 +78,13 @@
 
                             <label for="usarPuntos">Utilizar puntos</label>
                             <input type="checkbox" id="usarPuntos" name="usarPuntos"><br>
+
+                            <label for="esPedido">Es un pedido</label>
+                            <input type="checkbox" id="esPedido" name="esPedido" onclick="mostrarGananciaRepartidor()"><br>
+
+                            <div id="gananciaRepartidor" style="display:none;">
+                                <p>Ganancia del repartidor: <?= $precioTotal * 0.1 ?> €</p> <!-- Suponiendo que la ganancia del repartidor es el 10% del total -->
+                            </div>
 
                             <input class="botonFinalizaCompra" id="botonConfirmar" type="submit" value="Confirmar">
 
@@ -103,6 +105,17 @@
     <script src="javascript/pedido.js"></script>
     <script src="javascript/qr.js"></script>
     <script src="javascript/qrcode.min.js"></script>
-</body>
 
+    <script>
+        function mostrarGananciaRepartidor() {
+            var checkbox = document.getElementById('esPedido');
+            var gananciaRepartidor = document.getElementById('gananciaRepartidor');
+            if (checkbox.checked) {
+                gananciaRepartidor.style.display = 'block';
+            } else {
+                gananciaRepartidor.style.display = 'none';
+            }
+        }
+    </script>
+</body>
 </html>
