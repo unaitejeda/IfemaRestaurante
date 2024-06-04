@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Pedidos Generales</title>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         .column {
             float: left;
@@ -22,8 +23,14 @@
 <body>
     <!-- Botón para ir al perfil del repartidor -->
     <a href="?controller=repartidor&action=perfil">Perfil</a>
+    <div class="weather-container">
+        <i id="weather-icon" class="fas fa-sun"></i>
+        <div id="weather-info"></div>
+    </div>
 
     <h1>Pedidos Generales</h1>
+
+    
 
     <section class="seccionFiltros">
         <div class="container container4">
@@ -42,7 +49,7 @@
             <?php foreach ($pedidos as $pedido) : ?>
                 <?php if ($pedido['estado'] == 'pendiente') : ?>
                     <?php
-                        $gananciaRepartidor = $pedido['total'] * 0.20; // Supongamos que el repartidor gana un 20%
+                    $gananciaRepartidor = $pedido['total'] * 0.20; // Supongamos que el repartidor gana un 20%
                     ?>
                     <div class="pedido" data-fecha="<?php echo $pedido['hora']; ?>" data-precio="<?php echo $pedido['total']; ?>">
                         <h3>Id del pedido: <?php echo $pedido['id']; ?></h3>
@@ -54,9 +61,7 @@
                         <form action="?controller=repartidor&action=aceptarPedido&id=<?php echo $pedido['id']; ?>" method="post">
                             <button type="submit">Aceptar</button>
                         </form>
-                        <form action="?controller=repartidor&action=rechazarPedido&id=<?php echo $pedido['id']; ?>" method="post">
-                            <button type="submit">Rechazar</button>
-                        </form>
+                        
                         <hr>
                     </div>
                 <?php endif; ?>
@@ -75,6 +80,9 @@
                     <p>Dia del pedido: <?php echo $pedido['hora']; ?></p>
                     <p>Ganancia del repartidor: <?php echo number_format($gananciaRepartidor, 2); ?></p>
                     <button class="ver-detalle" data-idPedido="<?php echo $pedido['id']; ?>">Ver Detalles</button>
+                    <form action="?controller=repartidor&action=rechazarPedido&id=<?php echo $pedido['id']; ?>" method="post">
+                            <button type="submit">Rechazar</button>
+                        </form>
                     <hr>
                 </div>
             <?php endif; ?>
@@ -91,6 +99,10 @@
                         <p>Dia del pedido: <?php echo $pedido['hora']; ?></p>
                         <p>Total del pedido: <?php echo $pedido['total']; ?></p>
                         <p>Ganancia del repartidor: <?php echo number_format($gananciaRepartidor, 2); ?></p>
+
+                        <form action="?controller=repartidor&action=aceptarPedido&id=<?php echo $pedido['id']; ?>" method="post">
+                            <button type="submit">Aceptar</button>
+                        </form>
                         <button class="ver-detalle" data-idPedido="<?php echo $pedido['id']; ?>">Ver Detalles</button>
                     </div>
                     <hr>
@@ -101,11 +113,12 @@
         <?php endif; ?>
     </div>
 
-    
+
 
     <script src="https://unpkg.com/notie/dist/notie.min.js"></script>
     <script src="javascript/popupPedido.js"></script>
     <script src="javascript/filtroPedido.js"></script>
+    <script src="javascript/apiTiempo.js"></script>
 </body>
 
 </html>

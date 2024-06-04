@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Perfil del Repartidor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <h1>Perfil del Repartidor</h1>
+
+    <div class="weather-container">
+        <i id="weather-icon" class="fas fa-sun"></i>
+        <div id="weather-info"></div>
+    </div>
+
     <form action="?controller=repartidor&action=actualizarPerfil" method="post">
         <p>Nombre: <input type="text" name="nombre" value="<?php echo $repartidor['nombre']; ?>"></p>
         <p>Método de transporte: <input type="text" name="metodo_transporte" value="<?php echo $repartidor['metodo_transporte']; ?>"></p>
@@ -16,5 +23,8 @@
         <input type="checkbox" id="disponibilidad" name="disponibilidad" <?php echo $repartidor['disponibilidad'] ? 'checked' : ''; ?>>
         <button type="submit">Guardar</button>
     </form>
+
+    
+    <script src="javascript/apiTiempo.js"></script>
 </body>
 </html>
