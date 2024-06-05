@@ -17,20 +17,33 @@
         .clear {
             clear: both;
         }
+
+        .weather-container {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Botón para ir al perfil del repartidor -->
     <a href="?controller=repartidor&action=perfil">Perfil</a>
+
     <div class="weather-container">
         <i id="weather-icon" class="fas fa-sun"></i>
         <div id="weather-info"></div>
     </div>
 
-    <h1>Pedidos Generales</h1>
 
-    
+    <?php if ($repartidor['disponibilidad'] == 1) : ?>
+    <h1>Pedidos Generales</h1>
 
     <section class="seccionFiltros">
         <div class="container container4">
@@ -43,18 +56,16 @@
             </section>
         </div>
     </section>
+    
+    <div class="column pendiente" id="pedidosContainer">
     <h2>Pedidos Pendientes</h2>
-    <div class="column pendiente">
         <?php if (!empty($pedidos)) : ?>
             <?php foreach ($pedidos as $pedido) : ?>
                 <?php if ($pedido['estado'] == 'pendiente') : ?>
-                    <?php
-                    $gananciaRepartidor = $pedido['total'] * 0.20; // Supongamos que el repartidor gana un 20%
-                    ?>
                     <div class="pedido" data-fecha="<?php echo $pedido['hora']; ?>" data-precio="<?php echo $pedido['total']; ?>">
                         <h3>Id del pedido: <?php echo $pedido['id']; ?></h3>
                         <p>Dia del pedido: <?php echo $pedido['hora']; ?></p>
-                        <p>Ganancia del repartidor: <?php echo number_format($gananciaRepartidor, 2); ?></p>
+                        <p>Ganancia del repartidor: <span class="ganancia-repartidor" data-precio="<?php echo $pedido['total']; ?>"></span></p>
                         <!-- Botones para ver detalles del pedido y para aceptar o rechazar -->
                         <button class="ver-detalle" data-idPedido="<?php echo $pedido['id']; ?>">Ver Detalles</button>
 
@@ -71,14 +82,14 @@
         <?php endif; ?>
     </div>
 
-    <div class="column">
+    <div class="column" id="pedidosContainer">
         <h2>Mis Pedidos Aceptados</h2>
         <?php foreach ($pedidos as $pedido) : ?>
             <?php if ($pedido['estado'] == 'aceptado' && $pedido['repartidor'] == $_SESSION['repartidor_id']) : ?>
                 <div class="pedido" data-fecha="<?php echo $pedido['hora']; ?>" data-precio="<?php echo $pedido['total']; ?>">
                     <h3>Id del pedido: <?php echo $pedido['id']; ?></h3>
                     <p>Dia del pedido: <?php echo $pedido['hora']; ?></p>
-                    <p>Ganancia del repartidor: <?php echo number_format($gananciaRepartidor, 2); ?></p>
+                    <p>Ganancia del repartidor: <span class="ganancia-repartidor" data-precio="<?php echo $pedido['total']; ?>"></span></p>
                     <button class="ver-detalle" data-idPedido="<?php echo $pedido['id']; ?>">Ver Detalles</button>
                     <form action="?controller=repartidor&action=rechazarPedido&id=<?php echo $pedido['id']; ?>" method="post">
                             <button type="submit">Rechazar</button>
@@ -89,7 +100,7 @@
         <?php endforeach; ?>
     </div>
 
-    <div class="column">
+    <div class="column"  id="pedidosContainer">
         <h2>Pedidos Rechazados por Repartidores</h2>
         <?php if (!empty($pedidos)) : ?>
             <?php foreach ($pedidos as $pedido) : ?>
@@ -98,7 +109,7 @@
                         <h3>Id del pedido: <?php echo $pedido['id']; ?></h3>
                         <p>Dia del pedido: <?php echo $pedido['hora']; ?></p>
                         <p>Total del pedido: <?php echo $pedido['total']; ?></p>
-                        <p>Ganancia del repartidor: <?php echo number_format($gananciaRepartidor, 2); ?></p>
+                        <p>Ganancia del repartidor: <span class="ganancia-repartidor" data-precio="<?php echo $pedido['total']; ?>"></span></p>
 
                         <form action="?controller=repartidor&action=aceptarPedido&id=<?php echo $pedido['id']; ?>" method="post">
                             <button type="submit">Aceptar</button>
@@ -113,7 +124,9 @@
         <?php endif; ?>
     </div>
 
-
+    <?php else : ?>
+        <p>No estás disponible. Ve a tu perfil para cambiar tu estado.</p>
+    <?php endif; ?>
 
     <script src="https://unpkg.com/notie/dist/notie.min.js"></script>
     <script src="javascript/popupPedido.js"></script>

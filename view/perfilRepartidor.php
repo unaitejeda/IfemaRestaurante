@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <title>Perfil del Repartidor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .weather-container {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Perfil del Repartidor</h1>

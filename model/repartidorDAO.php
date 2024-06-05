@@ -8,6 +8,7 @@ class RepartidorDAO {
     const QUERY_INSERT_REPARTIDOR = "INSERT INTO repartidores (nombre, metodo_transporte, usuario, contraseña) VALUES (?, ?, ?, ?)";
     const QUERY_SELECT_REPARTIDOR = "SELECT * FROM repartidores WHERE usuario = ? AND contraseña = ?";
     const QUERY_SELECT_PEDIDOS_ASIGNADOS = "SELECT * FROM pedidos WHERE repartidor = ? AND estado = 'aceptado'";
+    const QUERY_SELECT_DISPONIBILIDAD = "SELECT disponibilidad FROM repartidores WHERE id = ?";
 
     public static function registrarRepartidor($nombre, $metodo_transporte, $usuario, $contraseña) {
         $con = DataBase::connect();
@@ -30,6 +31,20 @@ class RepartidorDAO {
             return null;
         }
     }
+
+    public static function buscarRepartidorPorId($repartidor_id) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM repartidores WHERE id = ?");
+        $stmt->bind_param("i", $repartidor_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows == 1) {
+            return $result->fetch_assoc();
+        } else {
+            return null;
+        }
+    }
+    
 
     public static function obtenerPedidosGenerales() {
         $con = DataBase::connect();
@@ -89,6 +104,20 @@ class RepartidorDAO {
         $stmt->bind_param("is", $disponibilidad, $usuario);
         $stmt->execute();
         return $stmt->affected_rows > 0;
+    }
+
+    public static function obtenerDisponibilidad($repartidor_id) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare(self::QUERY_SELECT_DISPONIBILIDAD);
+        $stmt->bind_param("i", $repartidor_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return $row['disponibilidad'];
+        } else {
+            return null;
+        }
     }
 
     public static function actualizarPerfil($usuario, $nombre, $metodo_transporte, $disponibilidad) {
