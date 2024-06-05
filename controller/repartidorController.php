@@ -71,16 +71,10 @@ class RepartidorController {
     
         $repartidor_id = $_SESSION['repartidor_id'];
         $repartidor = RepartidorDAO::buscarRepartidorPorId($repartidor_id);
-    
-        if ($repartidor['disponibilidad'] == 0) {
-            header('Location: ?controller=repartidor&action=perfil');
-            exit();
-        }
-    
         $pedidos = RepartidorDAO::obtenerPedidosGenerales();
+    
         require_once __DIR__ . '/../view/pedidosGenerales.php';
     }
-    
     
 
     public function aceptarPedido() {

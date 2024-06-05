@@ -42,7 +42,7 @@
     </div>
 
 
-    <?php if ($repartidor['disponibilidad'] == 1) : ?>
+    <?php if ($repartidor['disponibilidad'] == 1): ?>
     <h1>Pedidos Generales</h1>
 
     <section class="seccionFiltros">
@@ -124,8 +124,8 @@
         <?php endif; ?>
     </div>
 
-    <?php else : ?>
-        <p>No estás disponible. Ve a tu perfil para cambiar tu estado.</p>
+    <?php else: ?>
+        <p>No estás disponible para ver los pedidos.</p>
     <?php endif; ?>
 
     <script src="https://unpkg.com/notie/dist/notie.min.js"></script>
