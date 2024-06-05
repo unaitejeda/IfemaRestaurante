@@ -105,17 +105,8 @@
     <script src="javascript/pedido.js"></script>
     <script src="javascript/qr.js"></script>
     <script src="javascript/qrcode.min.js"></script>
+    <script src="javascript/gananciasRepartidor.js"></script>
 
-    <script>
-        function mostrarGananciaRepartidor() {
-            var checkbox = document.getElementById('esPedido');
-            var gananciaRepartidor = document.getElementById('gananciaRepartidor');
-            if (checkbox.checked) {
-                gananciaRepartidor.style.display = 'block';
-            } else {
-                gananciaRepartidor.style.display = 'none';
-            }
-        }
-    </script>
+
 </body>
 </html>
