@@ -3,8 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const weatherIcon = document.getElementById('weather-icon');
     const weatherInfo = document.getElementById('weather-info');
     const pedidosContainer = document.getElementById('pedidosContainer');
-    
-    fetch('https://api.meteomatics.com/2024-06-04T15:25:00.000+02:00/t_2m:C/41.3828939,2.1774322/json?model=mix', {
+
+    // Obtener la fecha actual
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Agregar 1 porque los meses comienzan desde 0
+    const day = ('0' + currentDate.getDate()).slice(-2);
+
+    const formattedDate = `${year}-${month}-${day}T15:25:00.000+02:00`; // Formato: YYYY-MM-DDTHH:MM:SS.000+02:00
+
+    fetch(`https://api.meteomatics.com/${formattedDate}/t_2m:C/41.3828939,2.1774322/json?model=mix`, {
         headers: {
             'Authorization': 'Basic ' + btoa('ifemamadrid_tejeda_unai:477ZcMkAd1')
         }
