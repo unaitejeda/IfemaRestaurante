@@ -146,18 +146,21 @@ class RepartidorController {
             header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
             exit();
         }
-
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $_POST['nombre'];
             $metodo_transporte = $_POST['metodo_transporte'];
             $usuario = $_SESSION['usuario']; // No necesitamos actualizar el usuario
-            
+    
             // Verificar si el checkbox está marcado
             $disponibilidad = isset($_POST['disponibilidad']) ? 1 : 0;
-            
+    
+            // Verificar si se ha proporcionado una nueva contraseña
+            $contraseña = !empty($_POST['contraseña']) ? $_POST['contraseña'] : null;
+    
             // Actualizar la información del repartidor en la base de datos
-            $resultado = RepartidorDAO::actualizarPerfil($usuario, $nombre, $metodo_transporte, $disponibilidad);
-            
+            $resultado = RepartidorDAO::actualizarPerfil($usuario, $nombre, $metodo_transporte, $disponibilidad, $contraseña);
+    
             if ($resultado) {
                 // Redireccionar a la página de pedidosGenerales.php
                 header('Location: ?controller=repartidor&action=verPedidosGenerales');
@@ -167,6 +170,7 @@ class RepartidorController {
             }
         }
     }
+    
 
     public function actualizarDisponibilidad() {
         session_start();

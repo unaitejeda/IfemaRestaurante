@@ -28,17 +28,17 @@
     </div>
 
     <form action="?controller=repartidor&action=actualizarPerfil" method="post">
-        <p>Nombre: <input type="text" name="nombre" value="<?php echo $repartidor['nombre']; ?>"></p>
-        <p>Método de transporte: <input type="text" name="metodo_transporte" value="<?php echo $repartidor['metodo_transporte']; ?>"></p>
-        <p>Usuario: <input type="text" name="usuario" value="<?php echo $repartidor['usuario']; ?>" readonly></p>
+        <p>Nombre: <input type="text" name="nombre" value="<?php echo htmlspecialchars($repartidor['nombre']); ?>"></p>
+        <p>Método de transporte: <input type="text" name="metodo_transporte" value="<?php echo htmlspecialchars($repartidor['metodo_transporte']); ?>"></p>
+        <p>Usuario: <?php echo htmlspecialchars($repartidor['usuario']); ?></p>
+        <p>Contraseña: <input type="password" name="contraseña" placeholder="Nueva contraseña"></p>
+        
         <p>Disponibilidad: <?php echo isset($repartidor['disponibilidad']) ? ($repartidor['disponibilidad'] ? 'Disponible' : 'No Disponible') : 'No Disponible'; ?></p>
-        <!-- Formulario para actualizar la disponibilidad -->
         <label for="disponibilidad">Marcar como disponible</label>
         <input type="checkbox" id="disponibilidad" name="disponibilidad" <?php echo $repartidor['disponibilidad'] ? 'checked' : ''; ?>>
         <button type="submit">Guardar</button>
     </form>
 
-    
     <script src="javascript/apiTiempo.js"></script>
 </body>
 </html>

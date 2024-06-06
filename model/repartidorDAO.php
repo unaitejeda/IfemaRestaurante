@@ -12,8 +12,7 @@ class RepartidorDAO {
     public static function registrarRepartidor($nombre, $metodo_transporte, $usuario, $contraseña) {
         $con = DataBase::connect();
         $stmt = $con->prepare(self::QUERY_INSERT_REPARTIDOR);
-        $hashed_password = password_hash($contraseña, PASSWORD_DEFAULT);
-        $stmt->bind_param('ssss', $nombre, $metodo_transporte, $usuario, $hashed_password);
+        $stmt->bind_param('ssss', $nombre, $metodo_transporte, $usuario, $contraseña);
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
@@ -104,12 +103,20 @@ class RepartidorDAO {
         return $stmt->affected_rows > 0;
     }
 
-    public static function actualizarPerfil($usuario, $nombre, $metodo_transporte, $disponibilidad) {
+    public static function actualizarPerfil($usuario, $nombre, $metodo_transporte, $disponibilidad, $contraseña = null) {
         $con = DataBase::connect();
-        $stmt = $con->prepare("UPDATE repartidores SET nombre = ?, metodo_transporte = ?, disponibilidad = ? WHERE usuario = ?");
-        $stmt->bind_param("ssis", $nombre, $metodo_transporte, $disponibilidad, $usuario);
+        if ($contraseña) {
+            // Actualizar todos los campos, incluida la contraseña
+            $stmt = $con->prepare("UPDATE repartidores SET nombre = ?, metodo_transporte = ?, disponibilidad = ?, contraseña = ? WHERE usuario = ?");
+            $stmt->bind_param("ssiss", $nombre, $metodo_transporte, $disponibilidad, $contraseña, $usuario);
+        } else {
+            // Actualizar todos los campos excepto la contraseña
+            $stmt = $con->prepare("UPDATE repartidores SET nombre = ?, metodo_transporte = ?, disponibilidad = ? WHERE usuario = ?");
+            $stmt->bind_param("ssis", $nombre, $metodo_transporte, $disponibilidad, $usuario);
+        }
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
+    
 }
 ?>
