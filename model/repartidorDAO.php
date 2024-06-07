@@ -4,22 +4,17 @@ include_once 'repartidor.php';
 include_once 'pedido.php'; 
 
 class RepartidorDAO {
-    // Consultas SQL como constantes
-    const QUERY_INSERT_REPARTIDOR = "INSERT INTO repartidores (nombre, metodo_transporte, usuario, contraseña) VALUES (?, ?, ?, ?)";
-    const QUERY_SELECT_REPARTIDOR = "SELECT * FROM repartidores WHERE usuario = ? AND contraseña = ?";
-    const QUERY_SELECT_PEDIDOS_ASIGNADOS = "SELECT * FROM pedidos WHERE repartidor = ? AND estado = 'aceptado'";
-
     public static function registrarRepartidor($nombre, $metodo_transporte, $usuario, $contraseña) {
         $con = DataBase::connect();
-        $stmt = $con->prepare(self::QUERY_INSERT_REPARTIDOR);
+        $stmt = $con->prepare("INSERT INTO repartidores (nombre, metodo_transporte, usuario, contraseña) VALUES (?, ?, ?, ?)");
         $stmt->bind_param('ssss', $nombre, $metodo_transporte, $usuario, $contraseña);
         $stmt->execute();
         return $stmt->affected_rows > 0;
-    }
+    }    
 
     public static function buscarRepartidor($usuario, $contraseña) {
         $con = DataBase::connect();
-        $stmt = $con->prepare(self::QUERY_SELECT_REPARTIDOR);
+        $stmt = $con->prepare("SELECT * FROM repartidores WHERE usuario = ? AND contraseña = ?");
         $stmt->bind_param("ss", $usuario, $contraseña);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -28,7 +23,7 @@ class RepartidorDAO {
         } else {
             return null;
         }
-    }
+    }    
 
     public static function obtenerPedidosGenerales() {
         $con = DataBase::connect();
@@ -38,7 +33,7 @@ class RepartidorDAO {
             $pedidos[] = $row;
         }
         return $pedidos;
-    }
+    }    
 
     public static function aceptarPedido($pedido_id, $repartidor_id) {
         $con = DataBase::connect();
@@ -58,7 +53,7 @@ class RepartidorDAO {
 
     public static function obtenerPedidosAsignados($repartidor_id) {
         $con = DataBase::connect();
-        $stmt = $con->prepare(self::QUERY_SELECT_PEDIDOS_ASIGNADOS);
+        $stmt = $con->prepare("SELECT * FROM pedidos WHERE repartidor = ? AND estado = 'aceptado'");
         $stmt->bind_param("i", $repartidor_id);
         $stmt->execute();
         $result = $stmt->get_result();

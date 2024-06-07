@@ -17,7 +17,6 @@ class RepartidorController {
             $resultado = RepartidorDAO::registrarRepartidor($nombre, $metodo_transporte, $usuario, $contraseña);
 
             if ($resultado) {
-                // Redireccionar a la página de registro exitoso
                 header('Location: ?controller=producto&action=inicio');
             } else {
                 echo "Error en el registro.";
@@ -36,15 +35,13 @@ class RepartidorController {
             $usuario = $_POST['usuario'];
             $contraseña = $_POST['contraseña'];
 
-            // Verificar las credenciales en la base de datos
             $repartidor = RepartidorDAO::buscarRepartidor($usuario, $contraseña);
 
             if ($repartidor) {
                 // Iniciar sesión
-                $_SESSION['usuario'] = $repartidor['usuario']; // Guardar el usuario en la sesión
-                $_SESSION['repartidor_id'] = $repartidor['id']; // Guardar el ID del repartidor en la sesión
+                $_SESSION['usuario'] = $repartidor['usuario'];
+                $_SESSION['repartidor_id'] = $repartidor['id']; 
 
-                // Redireccionar a la página de pedidos
                 header('Location: ?controller=repartidor&action=pedidos');
             } else {
                 echo "Credenciales incorrectas.";
@@ -55,10 +52,8 @@ class RepartidorController {
     public function pedidos() {
         session_start();
 
-        // Aquí podrías obtener los pedidos relacionados con el repartidor desde la base de datos
         $pedidos = RepartidorDAO::obtenerPedidosGenerales();
 
-        // Luego, incluir la vista de los pedidos
         include_once 'view/pedidosGenerales.php';
     }
 
@@ -134,9 +129,7 @@ class RepartidorController {
             header('Location: ?controller=repartidor&action=mostrarFormularioLogin');
             exit();
         }
-        // Obtener la información del repartidor desde la base de datos
         $repartidor = RepartidorDAO::buscarRepartidorPorUsuario($_SESSION['usuario']);
-        // Incluir la vista del perfil del repartidor
         include_once 'view/perfilRepartidor.php';
     }
 
@@ -150,21 +143,17 @@ class RepartidorController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $_POST['nombre'];
             $metodo_transporte = $_POST['metodo_transporte'];
-            $usuario = $_SESSION['usuario']; // No necesitamos actualizar el usuario
+            $usuario = $_SESSION['usuario']; 
     
-            // Verificar si el checkbox está marcado
             $disponibilidad = isset($_POST['disponibilidad']) ? 1 : 0;
     
-            // Verificar si se ha proporcionado una nueva contraseña
             $contraseña = !empty($_POST['contraseña']) ? $_POST['contraseña'] : null;
     
-            // Actualizar la información del repartidor en la base de datos
             $resultado = RepartidorDAO::actualizarPerfil($usuario, $nombre, $metodo_transporte, $disponibilidad, $contraseña);
     
             if ($resultado) {
-                // Redireccionar a la página de pedidosGenerales.php
                 header('Location: ?controller=repartidor&action=verPedidosGenerales');
-                exit(); // Asegurémonos de que se detenga la ejecución después de la redirección
+                exit();
             } else {
                 echo "Error al actualizar el perfil.";
             }
@@ -180,15 +169,12 @@ class RepartidorController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Verificar si el checkbox está marcado
             $disponibilidad = isset($_POST['disponibilidad']) ? 1 : 0;
             $usuario = $_SESSION['usuario'];
-            // Actualizar la disponibilidad en la base de datos
             $resultado = RepartidorDAO::actualizarDisponibilidad($usuario, $disponibilidad);
             if ($resultado) {
-                // Recargar la misma página
                 header('Location: ?controller=repartidor&action=verPedidosGenerales');
-                exit(); // Asegurémonos de que se detenga la ejecución después de la redirección
+                exit();
             } else {
                 echo "Error al actualizar la disponibilidad.";
             }

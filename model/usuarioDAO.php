@@ -243,25 +243,18 @@ public static function getDetallesPedidoById($id_pedido)
             'puntos' => $row['puntos'],
             'nombre_usuario' => $row['nombre_usuario']
         );
-
         // Creamos un array para almacenar los productos asociados al pedido
         $productos_pedido = array();
 
-        // Por cada fila, creamos un array asociativo con los detalles del producto
         $producto = array(
             'id_producto' => $row['id_producto'],
             'nombre_producto' => $row['nombre_producto'],
             'precio' => $row['precio'],
-            'cantidad' => $row['cantidad'] // Agregar la cantidad
+            'cantidad' => $row['cantidad']
         );
-
-        // Agregamos el producto al array de productos del pedido
         $productos_pedido[] = $producto;
-
-        // Agregamos el array de productos al array de detalles del pedido
         $detalles_pedido['productos'] = $productos_pedido;
     }
-
     return $detalles_pedido;
 }
 

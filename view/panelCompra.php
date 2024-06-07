@@ -83,7 +83,7 @@
                             <input type="checkbox" id="esPedido" name="esPedido" onclick="mostrarGananciaRepartidor()"><br>
 
                             <div id="gananciaRepartidor" style="display:none;">
-                                <p>Ganancia del repartidor un 10% de la compra</p> <!-- Suponiendo que la ganancia del repartidor es el 10% del total -->
+                                <p>Ganancia del repartidor un 10% de la compra</p>
                             </div>
 
                             <input class="botonFinalizaCompra" id="botonConfirmar" type="submit" value="Confirmar">

@@ -1,7 +1,4 @@
-// Seleccionar todos los radio buttons de orden
-// Seleccionar todos los radio buttons de orden de fecha
 const orderFechaRadioButtons = document.querySelectorAll('input[name="orderFecha"]');
-// Seleccionar todos los radio buttons de orden de precio
 const orderPrecioRadioButtons = document.querySelectorAll('input[name="orderPrecio"]');
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -21,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
             selectedOrderPrecio.checked = true;
         }
     }
-
-    // Actualiza los pedidos basándose en el orden seleccionado almacenado
     updateOrder();
 });
 
@@ -54,8 +49,8 @@ function updateOrder() {
     const orderFechaValue = selectedOrderFecha ? selectedOrderFecha.value : null;
     const orderPrecioValue = selectedOrderPrecio ? selectedOrderPrecio.value : null;
 
-    const pendientesContainer = document.querySelector('.column.pendiente'); // Selecciona la columna de pedidos pendientes
-    const pedidos = pendientesContainer.querySelectorAll('.pedido'); // Selecciona solo los pedidos en la columna de pedidos pendientes
+    const pendientesContainer = document.querySelector('.column.pendiente');
+    const pedidos = pendientesContainer.querySelectorAll('.pedido');
     const pedidosArray = Array.from(pedidos);
 
     // Filtrar por precio
@@ -102,10 +97,8 @@ function updateOrder() {
         }
     }
 
-    // Limpiar el contenedor de pedidos pendientes
     pendientesContainer.innerHTML = '';
 
-    // Volver a agregar los pedidos en el nuevo orden
     pedidosArray.forEach(pedido => pendientesContainer.appendChild(pedido));
 }
 
@@ -115,7 +108,6 @@ function resetOrder() {
     orderPrecioRadioButtons.forEach(radioButton => radioButton.checked = false);
     updateOrder();
 
-    // Elimina los ordenes seleccionados almacenados en localStorage al restablecer el filtro
     localStorage.removeItem('orderFecha');
     localStorage.removeItem('orderPrecio');
 }

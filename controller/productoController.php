@@ -269,21 +269,21 @@ class productoController
     $precioTotal = CalculadoraPrecios::calculadorPrecioPedido($_SESSION['selecciones']);
     $usarPuntos = isset($_POST['usarPuntos']) ? true : false;
 
-    // Obtener el valor de la propina del formulario
+    // Valor de la propina del formulario
     $propina = isset($_POST['cantidadPropina']) ? $_POST['cantidadPropina'] : 0;
 
-    // Obtener el valor del checkbox esPedido
+    // Valor del checkbox esPedido
     $esPedido = isset($_POST['esPedido']) ? 1 : 0;
 
     // Calcular descuento por puntos si se van a utilizar
     if ($usarPuntos) {
         $puntosDisponibles = UsuarioDAO::mostrarPuntosFidelidad($id_usuario);
-        $descuento = $puntosDisponibles * 0.1; // Suponiendo que cada punto equivale a 0.1€ de descuento
+        $descuento = $puntosDisponibles * 0.1; 
         $precioTotal -= $descuento;
-        UsuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - ($descuento * 10)); // Restar puntos equivalentes al descuento aplicado
+        UsuarioDAO::actualizarPuntosFidelidad($id_usuario, $puntosDisponibles - ($descuento * 10)); 
     }
 
-    // Calcular el precio total con el descuento aplicado antes de sumar la propina
+
     $precioTotalConDescuento = $precioTotal;
 
     // Aplicar propina al precio total con descuento
@@ -425,13 +425,10 @@ public function obtenerDetallesPedido()
 {
     if (isset($_GET['id'])) {
         $id_pedido = $_GET['id'];
-        // Aquí debes llamar a la función en tu DAO que obtiene los detalles del pedido por su ID
         $detallesPedido = UsuarioDAO::getDetallesPedidoById($id_pedido);
 
-        // Devuelve los detalles del pedido como JSON
         echo json_encode($detallesPedido);
     } else {
-        // Manejo de errores si no se proporciona el ID del pedido
         echo json_encode(array("error" => "ID de pedido no proporcionado"));
     }
 }

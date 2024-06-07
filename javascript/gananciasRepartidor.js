@@ -1,5 +1,3 @@
-// gananciaRepartidor.js
-
 function mostrarGananciaRepartidor() {
     var checkbox = document.getElementById('esPedido');
     var gananciaRepartidor = document.getElementById('gananciaRepartidor');
