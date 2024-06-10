@@ -88,7 +88,7 @@
                     <div class="pedido" data-fecha="<?php echo $pedido['hora']; ?>" data-precio="<?php echo $pedido['total']; ?>">
                         <h3>Id del pedido: <?php echo $pedido['id']; ?></h3>
                         <p>Dia del pedido: <?php echo $pedido['hora']; ?></p>
-                        <p>Ganancia del repartidor: <span class="ganancia-repartidor" data-precio="<?php echo $pedido['total']; ?>"></span></p>
+                        <p>Ganancia del repartidor: <span class="ganancia-repartidor" data-precio="<?php echo $pedido['total']; ?>"></span>€</p>
                         <button class="ver-detalle" data-idPedido="<?php echo $pedido['id']; ?>">Ver Detalles</button>
                         <form action="?controller=repartidor&action=rechazarPedido&id=<?php echo $pedido['id']; ?>" method="post">
                                 <button type="submit">Rechazar</button>
@@ -107,7 +107,7 @@
                         <div class="pedido" data-fecha="<?php echo $pedido['hora']; ?>" data-precio="<?php echo $pedido['total']; ?>">
                             <h3>Id del pedido: <?php echo $pedido['id']; ?></h3>
                             <p>Dia del pedido: <?php echo $pedido['hora']; ?></p>
-                            <p>Total del pedido: <?php echo $pedido['total']; ?></p>
+                            <p>Total del pedido: <?php echo $pedido['total']; ?>€</p>
                             <p>Ganancia del repartidor: <span class="ganancia-repartidor" data-precio="<?php echo $pedido['total']; ?>"></span></p>
 
                             <form action="?controller=repartidor&action=aceptarPedido&id=<?php echo $pedido['id']; ?>" method="post">
